@@ -14,10 +14,10 @@ export const profile = {
     "Builder",
   ],
   tagline:
-    "Computer Science @ Arizona State University. I build AI-powered products and ship production systems — from multi-agent LLM apps and real-time voice agents to full-stack cloud deployments on AWS.",
+    "Computer Science @ Arizona State University (4+1 Accelerated B.S. + M.S.). I lead engineering teams, build AI-powered products, and ship production systems — from multi-agent LLM apps and real-time voice agents to full-stack cloud deployments on AWS.",
   location: "Tempe, Arizona",
   email: "garganiket27@gmail.com",
-  phone: "+91 99997 77250",
+  phone: "+1 480 875 7204",
   resumeUrl: "/resume.pdf",
   socials: {
     github: "https://github.com/aniketgarg1",
@@ -29,16 +29,16 @@ export const navLinks = [
   { href: "#home", label: "Home" },
   { href: "#about", label: "About" },
   { href: "#skills", label: "Skills" },
-  { href: "#projects", label: "Projects" },
   { href: "#experience", label: "Experience" },
+  { href: "#projects", label: "Projects" },
   { href: "#contact", label: "Contact" },
 ];
 
 export const about = {
   paragraphs: [
-    "I'm a senior Computer Science student at Arizona State University (4.0 major GPA, 10.0/10.0 CGPA) graduating in May 2026. I love building at the intersection of AI, full-stack engineering, and cloud infrastructure — taking ideas from a hackathon whiteboard all the way to production deployments.",
-    "Most recently I've been working as a Cloud & DevOps Engineer at DIGICLIPS Inc. (remote), where I migrated production to a Git-controlled CI/CD pipeline on AWS. Before that, I was a Software Engineer Intern at L&T Technology Services in Bangalore, working on Linux migrations for a Fortune 500 client.",
-    "I'm fascinated by agentic AI, multimodal models, and building tools that actually ship. When I'm not coding, you'll find me at hackathons (CalHacks, UCLA Build with Gemini, ASU Prompt Engineering) or in the Arizona desert.",
+    "I'm a senior Computer Science student at Arizona State University, currently enrolled in the 4+1 Accelerated B.S. + M.S. program (B.S. May 2026, M.S. May 2027). I love building at the intersection of AI, full-stack engineering, and cloud infrastructure — taking ideas from a hackathon whiteboard all the way to production deployments.",
+    "Most recently I've been Team Lead & Cloud/DevOps Engineer at DigiClips Inc., coordinating the AWS engineering team and shipping CI/CD pipelines end-to-end. Before that I was a Software Engineer Intern at L&T Technology Services in Bangalore, working on Linux migrations for a Fortune 500 client.",
+    "Outside the IDE, I'm a hackathon regular (CalHacks, UCLA Build with Gemini, ASU Prompt Engineering), a long-time volunteer with the Isha Foundation, and self-taught on the guitar and harmonium. I'm bilingual in English and Hindi.",
   ],
   stats: [
     { label: "Major GPA", value: "4.0" },
@@ -63,8 +63,8 @@ export type Experience = {
 
 export const experiences: Experience[] = [
   {
-    role: "Cloud & DevOps Engineer (AWS)",
-    company: "DIGICLIPS Inc.",
+    role: "Team Lead & Cloud/DevOps Engineer (AWS)",
+    company: "DigiClips Inc.",
     domain: "digiclips.com",
     employmentType: "Internship",
     workMode: "Remote",
@@ -72,11 +72,12 @@ export const experiences: Experience[] = [
     period: "Aug 2025 — Present",
     fallbackColor: "linear-gradient(135deg, #0ea5e9, #6366f1)",
     bullets: [
-      "Migrated production from a manual ZIP-based workflow to a Git-controlled CI/CD pipeline (Bash), automating code sync, build, service restart, and health checks end-to-end.",
+      "Lead the AWS engineering team — assign roles, set delivery timelines, and coordinate across multiple internal teams to ensure milestones are met on schedule.",
+      "Migrated production from a manual ZIP workflow to a Git-controlled CI/CD pipeline (Bash), automating code sync, build, service restart, and health checks end-to-end.",
       "Deployed and managed a full-stack Angular + Node.js/Express app on AWS Lightsail; configured Apache reverse proxy and HTTPS routing for secure frontend-backend communication.",
-      "Debugged critical SSL misconfiguration, API routing failures, and VPN-based database connectivity issues; managed backend services with PM2 ensuring production stability.",
+      "Debugged critical SSL misconfiguration, API routing failures, and VPN-based DB connectivity issues; managed backend services with PM2 ensuring production stability.",
     ],
-    skills: ["AWS Lightsail", "Bash", "CI/CD", "Apache", "PM2", "Node.js", "Express", "Linux"],
+    skills: ["AWS Lightsail", "Bash", "CI/CD", "Apache", "PM2", "Node.js", "Linux", "Team Leadership"],
   },
   {
     role: "Software Engineer Intern",
@@ -90,9 +91,25 @@ export const experiences: Experience[] = [
     bullets: [
       "Migrated a Fortune 500 client's codebase from Windows to Linux, converting executables into .rpm packages for one-click deployment across Linux servers.",
       "Resolved critical dependency and environment-specific bugs enabling seamless server startup and full remote power state management (on/off) through the parent application.",
-      "Developed and deployed production-level features including remote server power control and Linux-based chip flashing support, improving platform stability and scalability.",
+      "Developed and deployed production features including remote server power control and Linux-based chip flashing support, improving platform stability and scalability.",
     ],
     skills: ["Linux", "RPM Packaging", "C/C++", "Bash", "Windows", "System Administration"],
+  },
+  {
+    role: "Food Security Coordinator",
+    company: "Changemaker Central @ ASU",
+    domain: "asu.edu",
+    employmentType: "Part-time",
+    workMode: "On-site",
+    location: "Tempe, AZ",
+    period: "Sep 2022 — May 2023",
+    fallbackColor: "linear-gradient(135deg, #8c1d40, #ffc627)",
+    bullets: [
+      "Developed creative content promoting sustainable habits and tree-plantation initiatives, reaching the broader ASU student community through targeted campaigns.",
+      "Organized and facilitated volunteer events raising awareness about sustainability and corporate responsibility among students and organizations.",
+      "Secured funding for sustainability-focused events and coordinated full logistics: scheduling, materials, volunteer assignments, and post-event reporting.",
+    ],
+    skills: ["Event Coordination", "Community Outreach", "Sustainability", "Content Strategy"],
   },
   {
     role: "Undergraduate Teaching Assistant",
@@ -104,11 +121,61 @@ export const experiences: Experience[] = [
     period: "Aug 2023 — Jan 2024",
     fallbackColor: "linear-gradient(135deg, #8c1d40, #ffc627)",
     bullets: [
-      "Guided 120+ students on HTML, CSS, JavaScript, and GitHub to build accessible web solutions for individuals with reduced mobility; led technical lectures and problem-solving sessions.",
-      "Mentored project teams on collaborative development using GitHub, fostering user-centric engineering practices and real-world application building.",
-      "Evaluated student submissions, provided constructive feedback on code quality, and held office hours to support students in debugging and improving their projects.",
+      "Mentored 120+ students through 1:1 office hours and group lectures on HTML, CSS, JavaScript, and GitHub; guided teams in collaborative problem-solving and accessible design practices.",
+      "Provided individualized feedback on student work, tracking progress and tailoring guidance across a large and diverse cohort.",
+      "Facilitated student-centered sessions that built confidence and real-world application skills, fostering inclusive and user-centric engineering practices.",
     ],
     skills: ["HTML", "CSS", "JavaScript", "Git", "GitHub", "Teaching", "Mentorship"],
+  },
+];
+
+export type Volunteer = {
+  role: string;
+  org: string;
+  domain?: string;
+  location: string;
+  period: string;
+  fallbackColor: string;
+  bullets: string[];
+};
+
+export const volunteering: Volunteer[] = [
+  {
+    role: "Zoom Coordinator — Inner Engineering Online",
+    org: "Isha Foundation",
+    domain: "ishafoundation.org",
+    location: "Remote",
+    period: "April 2026",
+    fallbackColor: "linear-gradient(135deg, #f97316, #facc15)",
+    bullets: [
+      "Designed and led onboarding sessions to train volunteers on digital facilitation, communicating program flow and online best practices to ensure team readiness.",
+      "Managed live session logistics in real time — supporting participant access, troubleshooting tech issues, and ensuring a smooth experience for all attendees.",
+    ],
+  },
+  {
+    role: "Program Coordinator — Inner Engineering",
+    org: "Isha Foundation",
+    domain: "ishafoundation.org",
+    location: "Phoenix Metro Area, AZ",
+    period: "March 2026",
+    fallbackColor: "linear-gradient(135deg, #f97316, #facc15)",
+    bullets: [
+      "Coordinated all event logistics for 44 participants and ~35 volunteers — overseeing kitchen, security, hall setup, registration, materials, ushering, and welcoming teams across a 16-hour day.",
+      "Trained volunteers in their respective roles and resolved real-time operational challenges to maintain seamless program execution throughout the event.",
+      "Drove community outreach at booths in Tumbleweed Park (Chandler) and Snap Shivjayanti (Scottsdale), engaging hundreds of people 1:1 and in crowd settings.",
+    ],
+  },
+  {
+    role: "University Outreach Volunteer",
+    org: "Save Soil / Conscious Planet",
+    domain: "consciousplanet.org",
+    location: "India",
+    period: "Jan 2022 — Aug 2022",
+    fallbackColor: "linear-gradient(135deg, #65a30d, #92400e)",
+    bullets: [
+      "Conducted awareness sessions at universities across India on the global soil crisis — part of a movement reaching 3.91 billion+ people, recognized by the UN, IUCN, and World Economic Forum.",
+      "Engaged students and faculty in small and large group settings, facilitating impactful discussions on environmental advocacy and policy solutions.",
+    ],
   },
 ];
 
@@ -126,10 +193,19 @@ export const education: Education[] = [
   {
     school: "Arizona State University",
     domain: "asu.edu",
+    degree: "M.S. Computer Science — 4+1 Accelerated Program",
+    period: "Aug 2026 — Expected May 2027",
+    location: "Tempe, AZ",
+    details: ["Accelerated B.S. + M.S. track"],
+    fallbackColor: "linear-gradient(135deg, #8c1d40, #ffc627)",
+  },
+  {
+    school: "Arizona State University",
+    domain: "asu.edu",
     degree: "B.S. Computer Science",
     period: "Aug 2022 — Expected May 2026",
     location: "Tempe, AZ",
-    details: ["Major GPA: 4.0 / 4.0", "CGPA: 10.0 / 10.0"],
+    details: ["Major GPA: 4.0 / 4.0"],
     fallbackColor: "linear-gradient(135deg, #8c1d40, #ffc627)",
   },
 ];

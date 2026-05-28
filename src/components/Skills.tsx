@@ -121,7 +121,7 @@ export default function Skills() {
     <section id="skills" className="relative py-24 sm:py-32">
       <div className="container-section">
         <SectionHeading
-          eyebrow="02 — Tech Stack"
+          eyebrow="Tech Stack"
           title="Tools I work with."
           description="The languages, frameworks, and platforms I reach for to build, train, and deploy AI-powered software."
         />

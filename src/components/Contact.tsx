@@ -16,7 +16,9 @@ export default function Contact() {
             transition={{ duration: 0.5 }}
             className="section-eyebrow justify-center"
           >
-            05 — Get in Touch
+            <span className="section-eyebrow-line" />
+            Get in Touch
+            <span className="section-eyebrow-line" />
           </motion.div>
           <motion.h2
             initial={{ opacity: 0, y: 12 }}
@@ -32,7 +34,7 @@ export default function Contact() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.55, delay: 0.1 }}
-            className="mt-5 text-foreground/60 text-base sm:text-lg leading-relaxed"
+            className="mt-5 text-foreground/65 text-base sm:text-lg leading-relaxed"
           >
             Whether you have an opportunity, an idea you want to explore, or
             just want to chat about AI and software — my inbox is open and I
@@ -61,17 +63,32 @@ export default function Contact() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.55, delay: 0.25 }}
-            className="mt-8 flex items-center justify-center gap-3"
+            className="mt-8 inline-flex items-center justify-center gap-2 rounded-full border border-foreground/[0.08] bg-foreground/[0.02] px-4 py-2"
           >
-            <SocialIcon href={profile.socials.github} label="GitHub">
+            <SocialPill
+              href={profile.socials.github}
+              label="GitHub"
+              brand="#ffffff"
+              useForeground
+            >
               <Github className="h-4 w-4" />
-            </SocialIcon>
-            <SocialIcon href={profile.socials.linkedin} label="LinkedIn">
+            </SocialPill>
+            <span className="h-3 w-px bg-foreground/10" />
+            <SocialPill
+              href={profile.socials.linkedin}
+              label="LinkedIn"
+              brand="#0A66C2"
+            >
               <Linkedin className="h-4 w-4" />
-            </SocialIcon>
-            <SocialIcon href={`mailto:${profile.email}`} label="Email">
+            </SocialPill>
+            <span className="h-3 w-px bg-foreground/10" />
+            <SocialPill
+              href={`mailto:${profile.email}`}
+              label="Email"
+              brand="#0d9488"
+            >
               <Mail className="h-4 w-4" />
-            </SocialIcon>
+            </SocialPill>
           </motion.div>
         </div>
       </div>
@@ -79,22 +96,33 @@ export default function Contact() {
   );
 }
 
-function SocialIcon({
+function SocialPill({
   href,
   label,
+  brand,
+  useForeground,
   children,
 }: {
   href: string;
   label: string;
+  brand: string;
+  useForeground?: boolean;
   children: React.ReactNode;
 }) {
+  const cssVars = { "--brand": brand } as React.CSSProperties;
   return (
     <a
       href={href}
       target={href.startsWith("http") ? "_blank" : undefined}
       rel="noreferrer noopener"
       aria-label={label}
-      className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-foreground/10 text-foreground/65 hover:text-accent hover:border-accent/40 transition-colors"
+      style={cssVars}
+      className={[
+        "inline-flex h-9 w-9 items-center justify-center rounded-full transition-all hover:-translate-y-0.5",
+        useForeground
+          ? "text-foreground hover:bg-foreground hover:text-background"
+          : "text-[var(--brand)] hover:bg-[var(--brand)] hover:text-white",
+      ].join(" ")}
     >
       {children}
     </a>

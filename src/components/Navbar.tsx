@@ -61,7 +61,7 @@ export default function Navbar() {
           </a>
 
           <ul className="hidden md:flex items-center gap-1">
-            {navLinks.map((link, i) => {
+            {navLinks.map((link) => {
               const isActive = active === link.href;
               return (
                 <li key={link.href}>
@@ -74,9 +74,13 @@ export default function Navbar() {
                         : "text-foreground/55 hover:text-foreground"
                     )}
                   >
-                    <span className="font-mono text-[10px] text-accent/70 mr-1.5">
-                      0{i + 1}.
-                    </span>
+                    {isActive && (
+                      <motion.span
+                        layoutId="nav-active"
+                        className="absolute inset-x-2 -bottom-0.5 h-px bg-accent"
+                        transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                      />
+                    )}
                     {link.label}
                   </a>
                 </li>
@@ -112,7 +116,7 @@ export default function Navbar() {
               transition={{ duration: 0.18 }}
               className="md:hidden mt-3 rounded-xl border border-foreground/[0.08] bg-background/85 backdrop-blur-xl p-2"
             >
-              {navLinks.map((link, i) => (
+              {navLinks.map((link) => (
                 <a
                   key={link.href}
                   href={link.href}
@@ -124,9 +128,6 @@ export default function Navbar() {
                       : "text-foreground/65 hover:text-foreground hover:bg-foreground/[0.04]"
                   )}
                 >
-                  <span className="font-mono text-[10px] text-accent/70 mr-2">
-                    0{i + 1}.
-                  </span>
                   {link.label}
                 </a>
               ))}

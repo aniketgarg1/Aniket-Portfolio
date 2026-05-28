@@ -13,7 +13,7 @@ export default function Projects() {
     <section id="projects" className="relative py-24 sm:py-32">
       <div className="container-section">
         <SectionHeading
-          eyebrow="03 — Selected Work"
+          eyebrow="Selected Work"
           title="Things I've built."
           description="Hackathon wins, side projects, and full-stack systems — most built end-to-end from idea to deployment."
         />
@@ -87,7 +87,7 @@ function FeaturedProject({
             />
           </div>
           <div className="absolute top-4 left-4 font-mono text-[11px] uppercase tracking-[0.18em] text-foreground/45">
-            Featured · 0{index + 1}
+            Featured
           </div>
           {project.period && (
             <div className="absolute top-4 right-4 inline-flex items-center gap-1.5 rounded-md border border-foreground/10 bg-background/40 backdrop-blur px-2 py-0.5 font-mono text-[10.5px] text-foreground/65">

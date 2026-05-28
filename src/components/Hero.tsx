@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
-import { ArrowRight, Github, Linkedin, Mail, MapPin } from "lucide-react";
+import { ArrowRight, MapPin, Github, Linkedin, Mail } from "lucide-react";
 import { profile } from "@/data/content";
 
 export default function Hero() {
@@ -81,11 +81,12 @@ export default function Hero() {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.28 }}
-          className="mt-8 max-w-2xl text-base sm:text-lg text-foreground/60 leading-relaxed"
+          className="mt-8 max-w-2xl text-base sm:text-lg text-foreground/65 leading-relaxed"
         >
           {profile.tagline}
         </motion.p>
 
+        {/* Primary CTAs */}
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
@@ -96,31 +97,59 @@ export default function Hero() {
             View My Work
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
           </a>
-          <a href="#contact" className="button-ghost">
-            Get in Touch
+          <a
+            href={profile.resumeUrl}
+            target="_blank"
+            rel="noreferrer noopener"
+            className="button-ghost"
+          >
+            Resume
           </a>
         </motion.div>
 
+        {/* Prominent brand-colored socials */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.46 }}
+          className="mt-7 flex flex-wrap items-center gap-2.5"
+        >
+          <BrandLink
+            href={profile.socials.github}
+            label="GitHub"
+            handle="@aniketgarg1"
+            brand="#ffffff"
+            useForeground
+          >
+            <Github className="h-[18px] w-[18px]" />
+          </BrandLink>
+          <BrandLink
+            href={profile.socials.linkedin}
+            label="LinkedIn"
+            handle="aniketgarg1"
+            brand="#0A66C2"
+          >
+            <Linkedin className="h-[18px] w-[18px]" />
+          </BrandLink>
+          <BrandLink
+            href={`mailto:${profile.email}`}
+            label="Email"
+            handle={profile.email}
+            brand="#0d9488"
+          >
+            <Mail className="h-[18px] w-[18px]" />
+          </BrandLink>
+        </motion.div>
+
+        {/* Location */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.5 }}
-          className="mt-12 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm text-foreground/45 font-mono"
+          transition={{ duration: 0.6, delay: 0.6 }}
+          className="mt-7 inline-flex items-center gap-2 text-sm text-foreground/45 font-mono"
         >
-          <span className="inline-flex items-center gap-2">
-            <MapPin className="h-3.5 w-3.5" />
-            {profile.location}
-          </span>
-          <span className="hidden sm:block h-3 w-px bg-foreground/15" />
-          <SocialLink href={profile.socials.github} label="GitHub">
-            <Github className="h-3.5 w-3.5" /> GitHub
-          </SocialLink>
-          <SocialLink href={profile.socials.linkedin} label="LinkedIn">
-            <Linkedin className="h-3.5 w-3.5" /> LinkedIn
-          </SocialLink>
-          <SocialLink href={`mailto:${profile.email}`} label="Email">
-            <Mail className="h-3.5 w-3.5" /> Email
-          </SocialLink>
+          <MapPin className="h-3.5 w-3.5" />
+          <span>{profile.location}</span>
         </motion.div>
       </div>
 
@@ -137,24 +166,95 @@ export default function Hero() {
   );
 }
 
-function SocialLink({
+/**
+ * A bold, brand-colored social button:
+ *  - At rest: subtle card with the brand-colored icon
+ *  - On hover: fills with the brand color, contents go white, lifts slightly
+ */
+function BrandLink({
   href,
   label,
+  handle,
+  brand,
+  useForeground,
   children,
 }: {
   href: string;
   label: string;
+  handle: string;
+  brand: string;
+  useForeground?: boolean;
   children: React.ReactNode;
 }) {
+  const cssVars = { "--brand": brand } as React.CSSProperties;
+
   return (
     <a
       href={href}
-      aria-label={label}
       target={href.startsWith("http") ? "_blank" : undefined}
       rel="noreferrer noopener"
-      className="inline-flex items-center gap-1.5 text-foreground/55 hover:text-accent transition-colors"
+      aria-label={`${label} — ${handle}`}
+      style={cssVars}
+      className={[
+        "group relative inline-flex items-center gap-2.5 rounded-xl border px-3.5 py-2.5",
+        "text-sm font-medium overflow-hidden transition-all duration-200",
+        "hover:-translate-y-0.5 hover:shadow-lg",
+        "border-foreground/10 bg-foreground/[0.02]",
+        useForeground
+          ? "hover:border-foreground/40"
+          : "hover:border-[var(--brand)]",
+      ].join(" ")}
     >
-      {children}
+      {/* Hover fill */}
+      <span
+        aria-hidden
+        className={[
+          "absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200",
+          useForeground ? "bg-foreground" : "bg-[var(--brand)]",
+        ].join(" ")}
+      />
+      {/* Icon */}
+      <span
+        className={[
+          "relative inline-flex transition-colors",
+          useForeground
+            ? "text-foreground group-hover:text-background"
+            : "text-[var(--brand)] group-hover:text-white",
+        ].join(" ")}
+      >
+        {children}
+      </span>
+      {/* Label + handle */}
+      <span
+        className={[
+          "relative hidden sm:inline transition-colors",
+          useForeground
+            ? "text-foreground/85 group-hover:text-background"
+            : "text-foreground/85 group-hover:text-white",
+        ].join(" ")}
+      >
+        {label}
+        <span
+          className={[
+            "ml-1.5 text-[11px] font-mono",
+            useForeground
+              ? "text-foreground/40 group-hover:text-background/60"
+              : "text-foreground/40 group-hover:text-white/70",
+          ].join(" ")}
+        >
+          {handle}
+        </span>
+      </span>
+      <span
+        className={[
+          "relative sm:hidden text-[12px] font-medium",
+          useForeground
+            ? "text-foreground/85 group-hover:text-background"
+            : "text-foreground/85 group-hover:text-white",
+        ].join(" ")}
+      >
+        {label}
+      </span>
     </a>
   );
 }
