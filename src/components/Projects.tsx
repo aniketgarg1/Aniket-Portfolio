@@ -13,9 +13,9 @@ export default function Projects() {
     <section id="projects" className="relative py-24 sm:py-32">
       <div className="container-section">
         <SectionHeading
-          eyebrow="Selected Work"
-          title="Things I've built."
-          description="Hackathon wins, side projects, and full-stack systems — most built end-to-end from idea to deployment."
+          eyebrow="The Spellbook"
+          title="Things I've conjured."
+          description="Hackathon wins, side quests, and full-stack systems — each one brewed from idea to deployment, often well past midnight."
         />
 
         {/* Featured */}
@@ -28,8 +28,8 @@ export default function Projects() {
         {/* Grid of others */}
         {rest.length > 0 && (
           <div className="mt-20">
-            <h3 className="font-display text-xl font-semibold text-foreground/90">
-              Other notable projects
+            <h3 className="font-display text-xl font-semibold text-foreground">
+              From the lesser-known chapters
             </h3>
             <div className="mt-6 grid sm:grid-cols-2 gap-4">
               {rest.map((p, i) => (
@@ -47,7 +47,7 @@ export default function Projects() {
             className="button-ghost"
           >
             <Github className="h-4 w-4" />
-            See more on GitHub
+            More spells on GitHub
             <ArrowUpRight className="h-3.5 w-3.5" />
           </a>
         </div>
@@ -86,8 +86,8 @@ function FeaturedProject({
               strokeWidth={1.2}
             />
           </div>
-          <div className="absolute top-4 left-4 font-mono text-[11px] uppercase tracking-[0.18em] text-foreground/60">
-            Featured
+          <div className="absolute top-4 left-4 font-mono text-[11px] uppercase tracking-[0.22em] text-accent">
+            ✦ Featured Spell
           </div>
           {project.period && (
             <div className="absolute top-4 right-4 inline-flex items-center gap-1.5 rounded-md border border-foreground/10 bg-background/40 backdrop-blur px-2 py-0.5 font-mono text-[10.5px] text-foreground/80">
@@ -100,8 +100,8 @@ function FeaturedProject({
 
       {/* Copy */}
       <div className="lg:col-span-5">
-        <div className="font-mono text-[11px] uppercase tracking-[0.22em] text-accent">
-          Featured Project
+        <div className="font-mono text-[11px] uppercase tracking-[0.32em] text-accent">
+          ✦ Featured Spell
         </div>
         <h3 className="mt-3 font-display text-2xl sm:text-3xl font-semibold text-foreground text-balance">
           {project.title}

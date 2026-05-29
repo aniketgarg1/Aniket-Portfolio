@@ -21,7 +21,7 @@ export default function SectionHeading({
         className="section-eyebrow"
       >
         <span className="section-eyebrow-line" />
-        {eyebrow}
+        ✦ {eyebrow} ✦
       </motion.div>
       <motion.h2
         initial={{ opacity: 0, y: 12 }}
@@ -38,7 +38,7 @@ export default function SectionHeading({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.55, delay: 0.1 }}
-          className="mt-4 text-foreground/70 text-base leading-relaxed max-w-2xl"
+          className="mt-4 text-foreground/80 text-base leading-relaxed max-w-2xl"
         >
           {description}
         </motion.p>

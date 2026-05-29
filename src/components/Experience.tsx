@@ -21,15 +21,15 @@ export default function Experience() {
     <section id="experience" className="relative py-24 sm:py-32">
       <div className="container-section">
         <SectionHeading
-          eyebrow="Experience"
-          title="Where I've worked, taught & served."
-          description="Professional roles, leadership positions, and the academic foundation behind the work."
+          eyebrow="Magical Chronicles"
+          title="My journey so far."
+          description="Quests undertaken, mentors served, and the academic foundation behind the work — each chapter as told in the great Hogwarts ledger."
         />
 
         {/* Work */}
         <Subsection
           icon={<Briefcase className="h-4 w-4" />}
-          title="Experience"
+          title="Professional Quests"
           count={experiences.length}
         >
           <Timeline>
@@ -57,7 +57,7 @@ export default function Experience() {
         {/* Volunteering */}
         <Subsection
           icon={<HeartHandshake className="h-4 w-4" />}
-          title="Leadership & Volunteering"
+          title="Order of the Phoenix"
           count={volunteering.length}
         >
           <Timeline>
@@ -85,7 +85,7 @@ export default function Experience() {
         {/* Education */}
         <Subsection
           icon={<GraduationCap className="h-4 w-4" />}
-          title="Education"
+          title="Wizarding Education"
           count={education.length}
         >
           <Timeline>

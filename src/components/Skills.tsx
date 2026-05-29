@@ -134,9 +134,9 @@ export default function Skills() {
     <section id="skills" className="relative py-24 sm:py-32">
       <div className="container-section">
         <SectionHeading
-          eyebrow="Tech Stack"
-          title="Tools I work with."
-          description="The languages, frameworks, and platforms I reach for to build, train, and deploy AI-powered software."
+          eyebrow="Spells & Enchantments"
+          title="My magical arsenal."
+          description="The languages, frameworks, and incantations I reach for to build, train, and deploy AI-powered software. (Yes, they also have boring corporate names.)"
         />
 
         <div className="mt-14 space-y-10">
@@ -173,15 +173,17 @@ export default function Skills() {
               className="group inline-flex items-center gap-2 rounded-full border border-foreground/15 bg-foreground/[0.02] px-5 py-2.5 text-sm font-medium text-foreground/85 hover:text-foreground hover:border-foreground/30 hover:bg-foreground/[0.04] transition-all"
               aria-expanded={expanded}
             >
-              {expanded ? "Show less" : `Show ${hiddenSkillCount}+ more skills`}
+              {expanded ? "Conceal grimoire" : `Reveal ${hiddenSkillCount}+ more spells`}
               <ChevronDown
                 className={`h-4 w-4 transition-transform duration-300 ${
                   expanded ? "rotate-180" : ""
                 }`}
               />
             </button>
-            <p className="text-[11px] font-mono uppercase tracking-[0.18em] text-foreground/55">
-              {expanded ? "All categories shown" : `${hiddenGroups.length} more categories`}
+            <p className="text-[11px] font-mono uppercase tracking-[0.18em] text-foreground/70">
+              {expanded
+                ? "The full grimoire is open"
+                : `${hiddenGroups.length} more chapters hidden`}
             </p>
           </div>
         )}

@@ -8,9 +8,10 @@ export default function Footer() {
     <footer className="relative border-t border-foreground/[0.06] mt-10">
       <div className="container-section py-10">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-foreground/55 font-mono">
-            © {new Date().getFullYear()} {profile.name}. Designed & built from
-            scratch.
+          <p className="text-xs text-foreground/75 font-mono">
+            © {new Date().getFullYear()} {profile.name}. Crafted with{" "}
+            <span className="text-accent">wand &amp; code</span>. Mischief
+            managed.
           </p>
 
           <div className="flex items-center gap-1.5">

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowUpRight, Github, Linkedin, Mail } from "lucide-react";
+import { ArrowUpRight, Github, Linkedin, Mail, Sparkles } from "lucide-react";
 import { profile } from "@/data/content";
 
 export default function Contact() {
@@ -17,7 +17,7 @@ export default function Contact() {
             className="section-eyebrow justify-center"
           >
             <span className="section-eyebrow-line" />
-            Get in Touch
+            ✦ Send an Owl ✦
             <span className="section-eyebrow-line" />
           </motion.div>
           <motion.h2
@@ -25,20 +25,21 @@ export default function Contact() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.55, delay: 0.05 }}
-            className="mt-4 font-display text-4xl sm:text-5xl font-semibold tracking-tight text-balance text-foreground"
+            className="section-title mt-4 text-balance gold-text glow-gold"
+            style={{ fontSize: "clamp(2rem, 5vw, 3.25rem)" }}
           >
-            Let&apos;s build something great.
+            Let&apos;s cast something together.
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.55, delay: 0.1 }}
-            className="mt-5 text-foreground/80 text-base sm:text-lg leading-relaxed"
+            className="mt-5 text-foreground/85 text-base sm:text-lg leading-relaxed"
           >
-            Whether you have an opportunity, an idea you want to explore, or
-            just want to chat about AI and software — my inbox is open and I
-            usually reply within a day.
+            Whether you have a quest, an opportunity, or just want to chat about
+            AI and software — my owls are well-rested and I usually reply within
+            a day.
           </motion.p>
 
           <motion.div
@@ -50,10 +51,10 @@ export default function Contact() {
           >
             <a
               href={`mailto:${profile.email}`}
-              className="group inline-flex items-center gap-3 rounded-md bg-foreground text-background px-6 py-3.5 text-sm font-medium hover:bg-foreground/90 transition-colors"
+              className="button-primary group !text-base !px-7 !py-4"
             >
-              <Mail className="h-4 w-4" />
-              Say Hello
+              <Sparkles className="h-4 w-4" />
+              Owl Me
               <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
             </a>
           </motion.div>
@@ -63,7 +64,7 @@ export default function Contact() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.55, delay: 0.25 }}
-            className="mt-8 inline-flex items-center justify-center gap-2 rounded-full border border-foreground/[0.08] bg-foreground/[0.02] px-4 py-2"
+            className="mt-8 inline-flex items-center justify-center gap-2 rounded-full border border-foreground/[0.10] bg-foreground/[0.04] px-4 py-2"
           >
             <SocialPill
               href={profile.socials.github}
@@ -73,7 +74,7 @@ export default function Contact() {
             >
               <Github className="h-4 w-4" />
             </SocialPill>
-            <span className="h-3 w-px bg-foreground/10" />
+            <span className="h-3 w-px bg-foreground/15" />
             <SocialPill
               href={profile.socials.linkedin}
               label="LinkedIn"
@@ -81,11 +82,11 @@ export default function Contact() {
             >
               <Linkedin className="h-4 w-4" />
             </SocialPill>
-            <span className="h-3 w-px bg-foreground/10" />
+            <span className="h-3 w-px bg-foreground/15" />
             <SocialPill
               href={`mailto:${profile.email}`}
               label="Email"
-              brand="#0d9488"
+              brand="#D4AF37"
             >
               <Mail className="h-4 w-4" />
             </SocialPill>

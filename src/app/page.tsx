@@ -1,4 +1,5 @@
 import AnimatedBackground from "@/components/AnimatedBackground";
+import MagicalCursor from "@/components/MagicalCursor";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
@@ -12,6 +13,7 @@ export default function Home() {
   return (
     <>
       <AnimatedBackground />
+      <MagicalCursor />
       <Navbar />
       <main className="relative">
         <Hero />

@@ -9,7 +9,10 @@ export default function About() {
   return (
     <section id="about" className="relative py-24 sm:py-32">
       <div className="container-section">
-        <SectionHeading eyebrow="About" title="About me." />
+        <SectionHeading
+          eyebrow="The Wizard"
+          title="A few words about me."
+        />
 
         <div className="mt-12 grid lg:grid-cols-12 gap-10 lg:gap-14">
           <motion.div
@@ -39,7 +42,7 @@ export default function About() {
               />
               <div className="relative flex items-center gap-2 text-[11px] font-mono uppercase tracking-[0.22em] text-accent">
                 <Sparkles className="h-3.5 w-3.5" />
-                Currently
+                Currently Brewing
               </div>
               <div className="relative mt-3 text-sm text-foreground/85 leading-relaxed">
                 Senior @{" "}

@@ -90,8 +90,13 @@ export default function Navbar() {
 
           <div className="hidden md:flex items-center gap-2">
             <ThemeToggle />
-            <a href={profile.resumeUrl} target="_blank" rel="noreferrer noopener" className="button-ghost">
-              Resume
+            <a
+              href={profile.resumeUrl}
+              target="_blank"
+              rel="noreferrer noopener"
+              className="button-ghost !px-4 !py-2 !text-xs"
+            >
+              Unfurl Scroll
             </a>
           </div>
 
@@ -136,9 +141,9 @@ export default function Navbar() {
                 target="_blank"
                 rel="noreferrer noopener"
                 onClick={() => setOpen(false)}
-                className="mt-1 block rounded-md px-4 py-3 text-sm font-medium text-center border border-foreground/15 text-foreground/85 hover:bg-foreground/[0.04]"
+                className="mt-1 block rounded-md px-4 py-3 text-sm font-medium text-center border border-accent/40 text-accent hover:bg-accent/[0.08]"
               >
-                Resume
+                Unfurl Scroll
               </a>
             </motion.div>
           )}

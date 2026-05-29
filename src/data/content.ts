@@ -9,12 +9,13 @@ export const profile = {
   role: "AI & Software Engineer",
   roles: [
     "AI Engineer",
-    "Full-Stack Developer",
-    "Cloud & DevOps Engineer",
-    "Builder",
+    "Full-Stack Wizard",
+    "Cloud Sorcerer",
+    "Code Conjurer",
+    "Spellsmith",
   ],
   tagline:
-    "Computer Science @ Arizona State University (4+1 Accelerated B.S. + M.S.). I lead engineering teams, build AI-powered products, and ship production systems — from multi-agent LLM apps and real-time voice agents to full-stack cloud deployments on AWS.",
+    "Computer Science apprentice at Arizona State University (4+1 Accelerated B.S. + M.S.). I lead engineering teams, conjure AI-powered products, and ship production systems — from multi-agent LLM apps and real-time voice agents to full-stack cloud deployments on AWS. No wand required.",
   location: "Tempe, Arizona",
   email: "garganiket27@gmail.com",
   phone: "+1 480 875 7204",
@@ -36,15 +37,15 @@ export const navLinks = [
 
 export const about = {
   paragraphs: [
-    "I'm a senior Computer Science student at Arizona State University, currently enrolled in the 4+1 Accelerated B.S. + M.S. program (B.S. May 2026, M.S. May 2027). I love building at the intersection of AI, full-stack engineering, and cloud infrastructure — taking ideas from a hackathon whiteboard all the way to production deployments.",
-    "Most recently I've been Team Lead & Cloud/DevOps Engineer at DigiClips Inc., coordinating the AWS engineering team and shipping CI/CD pipelines end-to-end. Before that I was a Software Engineer Intern at L&T Technology Services in Bangalore, working on Linux migrations for a Fortune 500 client.",
-    "Outside the IDE, I'm a hackathon regular (CalHacks, UCLA Build with Gemini, ASU Prompt Engineering), a long-time volunteer with the Isha Foundation, and self-taught on the guitar and harmonium. I'm bilingual in English and Hindi.",
+    "I'm a senior Computer Science apprentice at Arizona State University, enrolled in the 4+1 Accelerated B.S. + M.S. program (B.S. May 2026, M.S. May 2027). I love brewing things at the intersection of AI, full-stack engineering, and cloud infrastructure — taking ideas from a hackathon napkin all the way to production deployments.",
+    "Most recently I've been Team Lead & Cloud/DevOps Engineer at DigiClips Inc., coordinating the AWS engineering team and shipping CI/CD pipelines end-to-end. Before that I was a Software Engineer Intern at L&T Technology Services in Bangalore, casting Linux-migration spells for a Fortune 500 client.",
+    "Outside the IDE, I'm a hackathon regular (CalHacks, UCLA Build with Gemini, ASU Prompt Engineering), a long-time volunteer with the Isha Foundation, and self-taught on the guitar and harmonium. I'm bilingual in English and Hindi — and yes, the Sorting Hat would absolutely put me in Ravenclaw.",
   ],
   stats: [
     { label: "Major GPA", value: "4.0" },
     { label: "Hackathons", value: "5+" },
-    { label: "Students Mentored", value: "120+" },
-    { label: "Production Deploys", value: "10+" },
+    { label: "Apprentices Mentored", value: "120+" },
+    { label: "Spells in Production", value: "10+" },
   ],
 };
 

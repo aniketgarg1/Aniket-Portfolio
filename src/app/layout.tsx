@@ -1,18 +1,20 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Space_Grotesk, JetBrains_Mono } from "next/font/google";
+import { Cinzel, EB_Garamond, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { profile } from "@/data/content";
 import ThemeProvider from "@/components/ThemeProvider";
 
-const inter = Inter({
+const cinzel = Cinzel({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-cinzel",
+  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
-const space = Space_Grotesk({
+const garamond = EB_Garamond({
   subsets: ["latin"],
-  variable: "--font-space",
+  variable: "--font-garamond",
+  weight: ["400", "500", "600"],
   display: "swap",
 });
 
@@ -23,7 +25,7 @@ const jetbrains = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: `${profile.name} — ${profile.role}`,
+  title: `${profile.name} — The Wizard's Portfolio`,
   description: profile.tagline,
   keywords: [
     profile.name,
@@ -37,14 +39,14 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: profile.name }],
   openGraph: {
-    title: `${profile.name} — ${profile.role}`,
+    title: `${profile.name} — The Wizard's Portfolio`,
     description: profile.tagline,
     type: "website",
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: `${profile.name} — ${profile.role}`,
+    title: `${profile.name} — The Wizard's Portfolio`,
     description: profile.tagline,
   },
 };
@@ -62,7 +64,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${space.variable} ${jetbrains.variable}`}
+      className={`${cinzel.variable} ${garamond.variable} ${jetbrains.variable}`}
       suppressHydrationWarning
     >
       <body className="min-h-screen overflow-x-hidden">
