@@ -3,11 +3,13 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight, Github, Linkedin, Mail, Sparkles } from "lucide-react";
 import { profile } from "@/data/content";
+import OwlPost from "./OwlPost";
 
 export default function Contact() {
   return (
-    <section id="contact" className="relative py-24 sm:py-32">
-      <div className="container-section">
+    <section id="contact" className="relative py-24 sm:py-32 overflow-hidden">
+      <OwlPost />
+      <div className="container-section relative z-10">
         <div className="text-center max-w-2xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 8 }}

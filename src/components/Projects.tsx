@@ -3,7 +3,12 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight, Github, FolderGit2, Calendar } from "lucide-react";
 import SectionHeading from "./SectionHeading";
-import { projects, profile, type Project } from "@/data/content";
+import {
+  projects,
+  profile,
+  type Project,
+  SPELL_SCHOOL_META,
+} from "@/data/content";
 
 export default function Projects() {
   const featured = projects.filter((p) => p.highlight);
@@ -100,8 +105,11 @@ function FeaturedProject({
 
       {/* Copy */}
       <div className="lg:col-span-5">
-        <div className="font-mono text-[11px] uppercase tracking-[0.32em] text-accent">
+        <div className="font-mono text-[11px] uppercase tracking-[0.32em] text-accent flex items-center gap-3">
           ✦ Featured Spell
+          {project.spellSchool && (
+            <SpellSchoolBadge school={project.spellSchool} />
+          )}
         </div>
         <h3 className="mt-3 font-display text-2xl sm:text-3xl font-semibold text-foreground text-balance">
           {project.title}
@@ -109,6 +117,14 @@ function FeaturedProject({
         {project.subtitle && (
           <div className="mt-1 text-sm text-foreground/70">
             {project.subtitle}
+          </div>
+        )}
+        {project.incantation && (
+          <div
+            className="mt-3 inline-block font-display italic text-[13.5px] text-accent/90"
+            style={{ letterSpacing: "0.02em" }}
+          >
+            “{project.incantation}”
           </div>
         )}
         <div className="mt-5 card p-5 sm:p-6 text-[14.5px] text-foreground/85 leading-relaxed">
@@ -195,9 +211,14 @@ function CompactCard({
       </div>
 
       <div className="mt-5">
-        <h3 className="font-display text-lg font-semibold text-foreground group-hover:text-accent transition-colors">
-          {project.title}
-        </h3>
+        <div className="flex items-center gap-2">
+          <h3 className="font-display text-lg font-semibold text-foreground group-hover:text-accent transition-colors">
+            {project.title}
+          </h3>
+          {project.spellSchool && (
+            <SpellSchoolBadge school={project.spellSchool} compact />
+          )}
+        </div>
         {project.subtitle && (
           <div className="mt-0.5 text-xs text-foreground/65">
             {project.subtitle} · {project.period}
@@ -222,5 +243,36 @@ function CompactCard({
         ))}
       </div>
     </motion.article>
+  );
+}
+
+/* ---------- Spell School badge ---------- */
+function SpellSchoolBadge({
+  school,
+  compact,
+}: {
+  school: keyof typeof SPELL_SCHOOL_META;
+  compact?: boolean;
+}) {
+  const meta = SPELL_SCHOOL_META[school];
+  return (
+    <span
+      title={meta.hint}
+      className={[
+        "inline-flex items-center gap-1.5 rounded-full border font-mono uppercase tracking-[0.18em] transition-colors",
+        compact ? "px-1.5 py-[1px] text-[9.5px]" : "px-2.5 py-0.5 text-[10px]",
+      ].join(" ")}
+      style={{
+        borderColor: `${meta.color}55`,
+        background: `linear-gradient(135deg, ${meta.color}1a, transparent)`,
+        color: meta.color,
+        boxShadow: `inset 0 0 0 1px ${meta.color}10`,
+      }}
+    >
+      <span aria-hidden style={{ fontSize: "0.85em" }}>
+        {meta.icon}
+      </span>
+      {school}
+    </span>
   );
 }

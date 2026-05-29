@@ -14,6 +14,33 @@ import {
 import { profile } from "@/data/content";
 import FloatingCandles from "./FloatingCandles";
 
+/* SVG icon: a stag (Harry's Patronus) — used for the Patronus badge */
+function StagIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      className={className}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.4"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      {/* Antlers */}
+      <path d="M9 4l-2-2M9 4l-2 1M9 4v3" />
+      <path d="M15 4l2-2M15 4l2 1M15 4v3" />
+      {/* Head */}
+      <path d="M9 7c0 1.5 1 3 3 3s3-1.5 3-3" />
+      <circle cx="12" cy="9" r="0.5" fill="currentColor" />
+      {/* Body */}
+      <path d="M12 10v5" />
+      <path d="M9 14c-1 1-2 2-2 4M15 14c1 1 2 2 2 4" />
+      <path d="M9 18l-1 2M15 18l1 2M11 18v3M13 18v3" />
+    </svg>
+  );
+}
+
 export default function Hero() {
   const [roleIdx, setRoleIdx] = useState(0);
 
@@ -47,6 +74,7 @@ export default function Hero() {
             Available for Summer 2026 internships
           </span>
           <HouseBadge />
+          <PatronusBadge />
         </motion.div>
 
         {/* Greeting */}
@@ -60,16 +88,50 @@ export default function Hero() {
           Mischief managed — I&apos;m
         </motion.p>
 
-        {/* Name */}
-        <motion.h1
+        {/* Name + wand-trace underline */}
+        <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.14 }}
-          className="mt-3 font-display tracking-tight text-balance gold-text glow-gold"
-          style={{ fontSize: "clamp(2.75rem, 7vw, 5.5rem)", lineHeight: 1.05 }}
+          className="mt-3 relative inline-block"
         >
-          {profile.name}.
-        </motion.h1>
+          <h1
+            className="font-display tracking-tight text-balance gold-text glow-gold"
+            style={{
+              fontSize: "clamp(2.75rem, 7vw, 5.5rem)",
+              lineHeight: 1.05,
+            }}
+          >
+            {profile.name}.
+          </h1>
+          {/* Wand-trace underline that draws itself in */}
+          <motion.span
+            aria-hidden
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ duration: 1.1, delay: 0.7, ease: [0.2, 0.8, 0.2, 1] }}
+            className="absolute -bottom-1 left-0 right-6 h-[2px] origin-left rounded-full"
+            style={{
+              background:
+                "linear-gradient(90deg, rgba(244,213,108,0) 0%, rgba(244,213,108,0.4) 8%, #f4d56c 50%, rgba(244,213,108,0.4) 92%, rgba(244,213,108,0) 100%)",
+              boxShadow: "0 0 14px rgba(244,213,108,0.6)",
+            }}
+          />
+          {/* Sparkle on the wand tip */}
+          <motion.span
+            aria-hidden
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ opacity: [0, 1, 0], scale: [0.6, 1.4, 0.4] }}
+            transition={{ duration: 0.9, delay: 1.7 }}
+            className="absolute -bottom-[3px] left-[calc(100%-1.5rem)] h-2 w-2 -translate-x-1/2 rounded-full"
+            style={{
+              background:
+                "radial-gradient(circle, #fff5c2 0%, #ffd86b 50%, transparent 70%)",
+              boxShadow:
+                "0 0 12px rgba(255,213,108,0.9), 0 0 20px rgba(255,170,60,0.45)",
+            }}
+          />
+        </motion.div>
 
         {/* Rotating role */}
         <motion.h2
@@ -210,6 +272,33 @@ function HouseBadge() {
         <path d="M12 2C9 6 5 7 3 7c0 6 3.5 12 9 15 5.5-3 9-9 9-15-2 0-6-1-9-5zM12 8c-1 2-2.5 3-4 3 .3 2 1.5 5 4 7 2.5-2 3.7-5 4-7-1.5 0-3-1-4-3z" />
       </svg>
       <span>Sorted into Ravenclaw</span>
+    </span>
+  );
+}
+
+/* ----- Patronus badge — silver glow + stag ----- */
+function PatronusBadge() {
+  return (
+    <span
+      className="group inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-mono tracking-wider transition-all"
+      style={{
+        borderColor: "rgba(190, 210, 230, 0.35)",
+        background:
+          "linear-gradient(135deg, rgba(80, 110, 160, 0.18), rgba(20, 30, 60, 0.35))",
+        color: "#c8d8ee",
+        boxShadow: "0 0 18px rgba(170, 200, 240, 0.10)",
+      }}
+      title="Expecto Patronum"
+    >
+      <StagIcon className="h-3.5 w-3.5 transition-transform duration-500 group-hover:scale-110" />
+      <span>
+        Patronus <span className="text-foreground/70">·</span>{" "}
+        <span className="text-white/90">Stag</span>
+      </span>
+      <span
+        aria-hidden
+        className="ml-0.5 h-1.5 w-1.5 rounded-full bg-white/80 shadow-[0_0_8px_rgba(255,255,255,0.85)]"
+      />
     </span>
   );
 }

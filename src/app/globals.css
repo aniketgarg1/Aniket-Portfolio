@@ -98,7 +98,7 @@
   }
 
   .button-primary {
-    @apply relative inline-flex items-center gap-2 rounded-md
+    @apply relative inline-flex items-center gap-2 overflow-hidden rounded-md
            px-5 py-2.5 text-sm font-medium font-display tracking-wider
            transition-all duration-200;
     background: linear-gradient(135deg, rgb(var(--accent)), rgb(var(--accent) / 0.85));
@@ -106,18 +106,61 @@
     box-shadow: 0 0 0 1px rgb(var(--accent) / 0.4),
                 0 8px 24px -8px rgb(var(--accent) / 0.5);
   }
+  .button-primary > * {
+    position: relative;
+    z-index: 1;
+  }
+  .button-primary::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      120deg,
+      transparent 30%,
+      rgba(255, 255, 255, 0.55) 50%,
+      transparent 70%
+    );
+    transform: translateX(-110%);
+    transition: transform 0.7s ease;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .button-primary:hover::before {
+    transform: translateX(110%);
+  }
   .button-primary:hover {
     transform: translateY(-1px);
     box-shadow: 0 0 0 1px rgb(var(--accent) / 0.6),
                 0 12px 28px -8px rgb(var(--accent) / 0.7);
   }
+  .button-primary:active {
+    transform: translateY(0);
+    box-shadow: 0 0 0 1px rgb(var(--accent) / 0.7),
+                0 6px 14px -4px rgb(var(--accent) / 0.6);
+  }
 
   .button-ghost {
-    @apply inline-flex items-center gap-2 rounded-md border
+    @apply relative inline-flex items-center gap-2 overflow-hidden rounded-md border
            px-5 py-2.5 text-sm font-medium font-display tracking-wider
            transition-all duration-200;
     border-color: rgb(var(--accent) / 0.4);
     color: rgb(var(--foreground) / 0.9);
+  }
+  .button-ghost::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      120px 60px at var(--mx, 50%) var(--my, 50%),
+      rgb(var(--accent) / 0.18),
+      transparent 70%
+    );
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    pointer-events: none;
+  }
+  .button-ghost:hover::before {
+    opacity: 1;
   }
   .button-ghost:hover {
     border-color: rgb(var(--accent) / 0.8);

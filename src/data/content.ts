@@ -223,6 +223,18 @@ export const education: Education[] = [
   },
 ];
 
+/**
+ * Flavored Hogwarts-style category for the project.
+ * Maps to a small color-coded badge in the Projects section.
+ */
+export type SpellSchool =
+  | "Conjuration"
+  | "Divination"
+  | "Legilimency"
+  | "Charms"
+  | "Alchemy"
+  | "Transfiguration";
+
 export type Project = {
   title: string;
   subtitle?: string;
@@ -232,6 +244,9 @@ export type Project = {
   github?: string;
   demo?: string;
   highlight?: boolean;
+  spellSchool?: SpellSchool;
+  /** A short, fun "incantation" tagline shown under the title on featured cards */
+  incantation?: string;
 };
 
 export const projects: Project[] = [
@@ -244,6 +259,8 @@ export const projects: Project[] = [
     tags: ["Next.js", "React", "TypeScript", "Gemini", "Veo", "Lyria", "FFmpeg"],
     github: "https://github.com/aniketgarg1",
     highlight: true,
+    spellSchool: "Conjuration",
+    incantation: "Geminio — conjure a launch kit from a single brief.",
   },
   {
     title: "Productivity Copilot",
@@ -253,6 +270,8 @@ export const projects: Project[] = [
     tags: ["FastAPI", "Next.js", "Docker", "Google OAuth", "Twilio", "PostgreSQL", "SQLAlchemy", "APScheduler"],
     github: "https://github.com/aniketgarg1",
     highlight: true,
+    spellSchool: "Divination",
+    incantation: "Tempus Revelio — see your week before it happens.",
   },
   {
     title: "EmotionTalk",
@@ -263,6 +282,8 @@ export const projects: Project[] = [
     tags: ["Vapi", "Deepgram", "Claude", "OpenAI", "Python", "Real-time"],
     github: "https://github.com/aniketgarg1",
     highlight: true,
+    spellSchool: "Legilimency",
+    incantation: "Legilimens — read the room, in real time.",
   },
   {
     title: "SparkyAI",
@@ -272,6 +293,7 @@ export const projects: Project[] = [
       "Modular multi-agent Discord bot for ASU students. Used LangChain RAG with Qdrant for retrieval and a Selenium-based scraping pipeline that continuously updates the knowledge base with real-time campus data — achieving 75% higher response accuracy and 10s lower latency through document reranking.",
     tags: ["LangChain", "Qdrant", "Selenium", "Discord", "RAG", "Python"],
     github: "https://github.com/aniketgarg1",
+    spellSchool: "Divination",
   },
   {
     title: "AI Social Media Promoter",
@@ -280,5 +302,46 @@ export const projects: Project[] = [
     description:
       "GPT-powered tool enabling 189,000+ women entrepreneurs to create marketing content effortlessly. Recognized by ASU and OpenAI with ChatGPT Enterprise access for the project's social impact.",
     tags: ["GPT", "Python", "Prompt Engineering", "OpenAI"],
+    spellSchool: "Charms",
   },
 ];
+
+/**
+ * Visual mapping for each Spell School badge.
+ * Colors chosen to read well in both dark and parchment themes.
+ */
+export const SPELL_SCHOOL_META: Record<
+  SpellSchool,
+  { color: string; icon: string; hint: string }
+> = {
+  Conjuration: {
+    color: "#e0b65b",
+    icon: "✦",
+    hint: "Creates something from nothing — generation & multimodal output.",
+  },
+  Divination: {
+    color: "#9bb3ff",
+    icon: "◐",
+    hint: "Foresees patterns — retrieval, scheduling, prediction.",
+  },
+  Legilimency: {
+    color: "#c89bff",
+    icon: "◑",
+    hint: "Reads minds — emotion, intent, and tone in real time.",
+  },
+  Charms: {
+    color: "#ffb086",
+    icon: "✶",
+    hint: "Delights the user — polished interfaces and bespoke UX.",
+  },
+  Alchemy: {
+    color: "#8be0a8",
+    icon: "❀",
+    hint: "Transmutes raw ingredients into something more.",
+  },
+  Transfiguration: {
+    color: "#7adcd4",
+    icon: "✷",
+    hint: "Reshapes data and systems into new forms.",
+  },
+};
