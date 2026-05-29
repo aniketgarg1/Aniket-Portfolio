@@ -5,37 +5,40 @@ import { useState } from "react";
 /**
  * LinkedIn-style company logo.
  *
- * Tries to load the real company logo from the public Clearbit Logo API
- * (https://clearbit.com/logo). If that fails (404, blocked, etc.), it
- * gracefully falls back to a clean initial-letter avatar with a configurable
- * gradient background.
+ * Resolution order:
+ *   1. `logo` (a local path like "/logos/asu.ico" — most reliable)
+ *   2. DuckDuckGo's public icon endpoint via `domain`
+ *   3. A clean initial-letter avatar with a configurable gradient
  */
 export default function CompanyLogo({
+  logo,
   domain,
   name,
   fallbackColor,
   size = 56,
   className = "",
 }: {
+  logo?: string;
   domain?: string;
   name: string;
   fallbackColor: string;
   size?: number;
   className?: string;
 }) {
-  const [errored, setErrored] = useState(!domain);
+  const sources: string[] = [];
+  if (logo) sources.push(logo);
+  if (domain) sources.push(`https://icons.duckduckgo.com/ip3/${domain}.ico`);
+
+  const [sourceIdx, setSourceIdx] = useState(0);
+  const currentSrc = sources[sourceIdx];
 
   const letter = (name?.[0] ?? "?").toUpperCase();
 
-  if (errored || !domain) {
+  if (!currentSrc) {
     return (
       <div
         className={`shrink-0 inline-flex items-center justify-center rounded-xl border border-foreground/10 overflow-hidden ${className}`}
-        style={{
-          width: size,
-          height: size,
-          background: fallbackColor,
-        }}
+        style={{ width: size, height: size, background: fallbackColor }}
         aria-label={name}
       >
         <span
@@ -55,12 +58,13 @@ export default function CompanyLogo({
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src={`https://logo.clearbit.com/${domain}`}
+        key={currentSrc}
+        src={currentSrc}
         alt={`${name} logo`}
         width={size}
         height={size}
         loading="lazy"
-        onError={() => setErrored(true)}
+        onError={() => setSourceIdx((i) => i + 1)}
         className="h-full w-full object-contain p-1.5"
       />
     </div>

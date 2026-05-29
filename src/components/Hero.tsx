@@ -25,7 +25,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="inline-flex items-center gap-2 rounded-full border border-foreground/[0.08] bg-foreground/[0.02] px-3.5 py-1.5 text-xs text-foreground/70"
+          className="inline-flex items-center gap-2 rounded-full border border-foreground/[0.08] bg-foreground/[0.02] px-3.5 py-1.5 text-xs text-foreground/85"
         >
           <span className="relative flex h-1.5 w-1.5">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60" />
@@ -58,7 +58,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.18 }}
-          className="mt-3 font-display font-semibold tracking-tight text-4xl sm:text-5xl lg:text-6xl text-foreground/50 text-balance flex flex-wrap items-baseline gap-x-3"
+          className="mt-3 font-display font-semibold tracking-tight text-4xl sm:text-5xl lg:text-6xl text-foreground/65 text-balance flex flex-wrap items-baseline gap-x-3"
         >
           <span>I build</span>
           <span className="relative inline-block h-[1.05em] overflow-hidden align-baseline">
@@ -81,7 +81,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.28 }}
-          className="mt-8 max-w-2xl text-base sm:text-lg text-foreground/65 leading-relaxed"
+          className="mt-8 max-w-2xl text-base sm:text-lg text-foreground/80 leading-relaxed"
         >
           {profile.tagline}
         </motion.p>
@@ -146,7 +146,7 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.6 }}
-          className="mt-7 inline-flex items-center gap-2 text-sm text-foreground/45 font-mono"
+          className="mt-7 inline-flex items-center gap-2 text-sm text-foreground/60 font-mono"
         >
           <MapPin className="h-3.5 w-3.5" />
           <span>{profile.location}</span>
@@ -238,8 +238,8 @@ function BrandLink({
           className={[
             "ml-1.5 text-[11px] font-mono",
             useForeground
-              ? "text-foreground/40 group-hover:text-background/60"
-              : "text-foreground/40 group-hover:text-white/70",
+              ? "text-foreground/55 group-hover:text-background/60"
+              : "text-foreground/55 group-hover:text-white/70",
           ].join(" ")}
         >
           {handle}

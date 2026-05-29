@@ -71,7 +71,7 @@ export default function Navbar() {
                       "relative px-3 py-2 text-sm transition-colors",
                       isActive
                         ? "text-foreground"
-                        : "text-foreground/55 hover:text-foreground"
+                        : "text-foreground/70 hover:text-foreground"
                     )}
                   >
                     {isActive && (
@@ -125,7 +125,7 @@ export default function Navbar() {
                     "block rounded-md px-4 py-3 text-sm transition-colors",
                     active === link.href
                       ? "bg-foreground/[0.06] text-foreground"
-                      : "text-foreground/65 hover:text-foreground hover:bg-foreground/[0.04]"
+                      : "text-foreground/80 hover:text-foreground hover:bg-foreground/[0.04]"
                   )}
                 >
                   {link.label}

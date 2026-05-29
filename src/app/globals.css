@@ -83,7 +83,7 @@
 
   .section-eyebrow {
     @apply inline-flex items-center gap-3 text-[11px] font-mono uppercase
-           tracking-[0.24em] text-foreground/50;
+           tracking-[0.24em] text-foreground/65;
   }
 
   .section-eyebrow-line {

@@ -17,7 +17,7 @@ export default function About() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.55 }}
-            className="lg:col-span-8 space-y-5 text-[15.5px] sm:text-base text-foreground/75 leading-[1.8]"
+            className="lg:col-span-8 space-y-5 text-[15.5px] sm:text-base text-foreground/90 leading-[1.8]"
           >
             {about.paragraphs.map((p, i) => (
               <p key={i}>{p}</p>
@@ -60,7 +60,7 @@ export default function About() {
                   <div className="font-display text-2xl font-semibold text-foreground">
                     {s.value}
                   </div>
-                  <div className="mt-1 text-[10.5px] uppercase tracking-[0.18em] text-foreground/45">
+                  <div className="mt-1 text-[10.5px] uppercase tracking-[0.18em] text-foreground/60">
                     {s.label}
                   </div>
                 </div>

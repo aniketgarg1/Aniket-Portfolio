@@ -39,6 +39,7 @@ export default function Experience() {
                 index={i}
                 logo={
                   <CompanyLogo
+                    logo={exp.logo}
                     domain={exp.domain}
                     name={exp.company}
                     fallbackColor={exp.fallbackColor}
@@ -66,6 +67,7 @@ export default function Experience() {
                 index={i}
                 logo={
                   <CompanyLogo
+                    logo={v.logo}
                     domain={v.domain}
                     name={v.org}
                     fallbackColor={v.fallbackColor}
@@ -93,6 +95,7 @@ export default function Experience() {
                 index={i}
                 logo={
                   <CompanyLogo
+                    logo={edu.logo}
                     domain={edu.domain}
                     name={edu.school}
                     fallbackColor={edu.fallbackColor}
@@ -133,7 +136,7 @@ function Subsection({
         <h3 className="font-display text-lg font-semibold text-foreground">
           {title}
         </h3>
-        <span className="text-xs font-mono text-foreground/40 ml-1">
+        <span className="text-xs font-mono text-foreground/55 ml-1">
           ({count})
         </span>
       </div>
@@ -190,18 +193,18 @@ function ExperienceCard({ exp }: { exp: Exp }) {
           <h4 className="font-display text-base sm:text-lg font-semibold text-foreground leading-snug">
             {exp.role}
           </h4>
-          <div className="mt-0.5 text-[13.5px] text-foreground/75">
+          <div className="mt-0.5 text-[13.5px] text-foreground/90">
             <span className="font-medium">{exp.company}</span>
             <span className="text-foreground/30 mx-1.5">·</span>
-            <span className="text-foreground/55">{exp.employmentType}</span>
+            <span className="text-foreground/70">{exp.employmentType}</span>
           </div>
         </div>
-        <div className="text-xs font-mono text-foreground/45 whitespace-nowrap">
+        <div className="text-xs font-mono text-foreground/60 whitespace-nowrap">
           {exp.period}
         </div>
       </div>
 
-      <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-[12px] text-foreground/50">
+      <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-[12px] text-foreground/65">
         <span className="inline-flex items-center gap-1">
           <MapPin className="h-3 w-3" />
           {exp.location}
@@ -210,7 +213,7 @@ function ExperienceCard({ exp }: { exp: Exp }) {
         <WorkModeBadge mode={exp.workMode} />
       </div>
 
-      <ul className="mt-4 space-y-2 text-[13.5px] text-foreground/70 leading-relaxed">
+      <ul className="mt-4 space-y-2 text-[13.5px] text-foreground/85 leading-relaxed">
         {exp.bullets.map((b, i) => (
           <li key={i} className="flex gap-2.5">
             <span className="text-accent mt-[7px] leading-none text-[8px]">●</span>
@@ -221,14 +224,14 @@ function ExperienceCard({ exp }: { exp: Exp }) {
 
       {exp.skills?.length > 0 && (
         <div className="mt-4 pt-4 border-t border-foreground/[0.06]">
-          <div className="text-[10px] font-mono uppercase tracking-[0.18em] text-foreground/40 mb-2">
+          <div className="text-[10px] font-mono uppercase tracking-[0.18em] text-foreground/55 mb-2">
             Skills
           </div>
           <div className="flex flex-wrap gap-1.5">
             {exp.skills.map((s) => (
               <span
                 key={s}
-                className="rounded-md border border-foreground/[0.08] bg-foreground/[0.02] px-2 py-0.5 text-[11px] font-mono text-foreground/65"
+                className="rounded-md border border-foreground/[0.08] bg-foreground/[0.02] px-2 py-0.5 text-[11px] font-mono text-foreground/80"
               >
                 {s}
               </span>
@@ -248,19 +251,19 @@ function VolunteerCard({ v }: { v: Volunteer }) {
           <h4 className="font-display text-base sm:text-lg font-semibold text-foreground leading-snug">
             {v.role}
           </h4>
-          <div className="mt-0.5 text-[13.5px] text-foreground/75 font-medium">
+          <div className="mt-0.5 text-[13.5px] text-foreground/90 font-medium">
             {v.org}
           </div>
         </div>
-        <div className="text-xs font-mono text-foreground/45 whitespace-nowrap">
+        <div className="text-xs font-mono text-foreground/60 whitespace-nowrap">
           {v.period}
         </div>
       </div>
-      <div className="mt-2 inline-flex items-center gap-1 text-[12px] text-foreground/50">
+      <div className="mt-2 inline-flex items-center gap-1 text-[12px] text-foreground/65">
         <MapPin className="h-3 w-3" />
         {v.location}
       </div>
-      <ul className="mt-4 space-y-2 text-[13.5px] text-foreground/70 leading-relaxed">
+      <ul className="mt-4 space-y-2 text-[13.5px] text-foreground/85 leading-relaxed">
         {v.bullets.map((b, i) => (
           <li key={i} className="flex gap-2.5">
             <span className="text-accent mt-[7px] leading-none text-[8px]">●</span>
@@ -280,15 +283,15 @@ function EducationCard({ edu }: { edu: Edu }) {
           <h4 className="font-display text-base sm:text-lg font-semibold text-foreground leading-snug">
             {edu.school}
           </h4>
-          <div className="mt-0.5 text-[13.5px] text-foreground/75">
+          <div className="mt-0.5 text-[13.5px] text-foreground/90">
             {edu.degree}
           </div>
         </div>
-        <div className="text-xs font-mono text-foreground/45 whitespace-nowrap">
+        <div className="text-xs font-mono text-foreground/60 whitespace-nowrap">
           {edu.period}
         </div>
       </div>
-      <div className="mt-2 inline-flex items-center gap-1 text-[12px] text-foreground/50">
+      <div className="mt-2 inline-flex items-center gap-1 text-[12px] text-foreground/65">
         <MapPin className="h-3 w-3" />
         {edu.location}
       </div>

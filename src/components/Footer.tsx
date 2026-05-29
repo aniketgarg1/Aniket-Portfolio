@@ -8,7 +8,7 @@ export default function Footer() {
     <footer className="relative border-t border-foreground/[0.06] mt-10">
       <div className="container-section py-10">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-foreground/40 font-mono">
+          <p className="text-xs text-foreground/55 font-mono">
             © {new Date().getFullYear()} {profile.name}. Designed & built from
             scratch.
           </p>
@@ -66,8 +66,8 @@ function FooterIcon({
       className={[
         "inline-flex h-9 w-9 items-center justify-center rounded-md transition-colors",
         useForeground
-          ? "text-foreground/65 hover:text-foreground hover:bg-foreground/[0.06]"
-          : "text-foreground/65 hover:text-[var(--brand)] hover:bg-[var(--brand)]/10",
+          ? "text-foreground/80 hover:text-foreground hover:bg-foreground/[0.06]"
+          : "text-foreground/80 hover:text-[var(--brand)] hover:bg-[var(--brand)]/10",
       ].join(" ")}
     >
       {children}

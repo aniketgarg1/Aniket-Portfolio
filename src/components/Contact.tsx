@@ -34,7 +34,7 @@ export default function Contact() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.55, delay: 0.1 }}
-            className="mt-5 text-foreground/65 text-base sm:text-lg leading-relaxed"
+            className="mt-5 text-foreground/80 text-base sm:text-lg leading-relaxed"
           >
             Whether you have an opportunity, an idea you want to explore, or
             just want to chat about AI and software — my inbox is open and I

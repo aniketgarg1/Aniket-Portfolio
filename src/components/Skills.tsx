@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
 import type { IconType } from "react-icons";
 import {
   SiPython,
@@ -37,7 +38,7 @@ import {
   SiFfmpeg,
 } from "react-icons/si";
 import { FaAws, FaJava } from "react-icons/fa6";
-import { Database, Sparkles, MessageSquareCode } from "lucide-react";
+import { ChevronDown, Database, Sparkles, MessageSquareCode } from "lucide-react";
 import SectionHeading from "./SectionHeading";
 
 type Tech = { name: string; Icon: IconType; color: string };
@@ -116,7 +117,19 @@ const SKILL_GROUPS: { title: string; eyebrow: string; items: Tech[] }[] = [
   },
 ];
 
+// Number of categories to show before "See more"
+const VISIBLE_COUNT = 2;
+
 export default function Skills() {
+  const [expanded, setExpanded] = useState(false);
+
+  const visibleGroups = SKILL_GROUPS.slice(0, VISIBLE_COUNT);
+  const hiddenGroups = SKILL_GROUPS.slice(VISIBLE_COUNT);
+  const hiddenSkillCount = hiddenGroups.reduce(
+    (sum, g) => sum + g.items.length,
+    0
+  );
+
   return (
     <section id="skills" className="relative py-24 sm:py-32">
       <div className="container-section">
@@ -127,33 +140,85 @@ export default function Skills() {
         />
 
         <div className="mt-14 space-y-10">
-          {SKILL_GROUPS.map((group, gi) => (
-            <motion.div
-              key={group.title}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.5, delay: gi * 0.05 }}
-            >
-              <div className="flex items-baseline justify-between gap-4 mb-5">
-                <h3 className="font-display text-base font-semibold text-foreground/90">
-                  {group.title}
-                </h3>
-                <div className="text-[10.5px] font-mono uppercase tracking-[0.22em] text-foreground/35">
-                  {group.eyebrow}
-                </div>
-              </div>
-
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
-                {group.items.map((tech, ti) => (
-                  <TechCard key={tech.name} tech={tech} index={ti} />
-                ))}
-              </div>
-            </motion.div>
+          {visibleGroups.map((group, gi) => (
+            <SkillGroup key={group.title} group={group} index={gi} />
           ))}
+
+          <AnimatePresence initial={false}>
+            {expanded &&
+              hiddenGroups.map((group, gi) => (
+                <motion.div
+                  key={group.title}
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  exit={{ opacity: 0, height: 0 }}
+                  transition={{ duration: 0.4, ease: "easeOut" }}
+                  className="overflow-hidden"
+                >
+                  <SkillGroup
+                    group={group}
+                    index={gi + VISIBLE_COUNT}
+                    /* slight delay for the inner items so they cascade */
+                  />
+                </motion.div>
+              ))}
+          </AnimatePresence>
         </div>
+
+        {/* See more / less */}
+        {hiddenGroups.length > 0 && (
+          <div className="mt-10 flex flex-col items-center gap-2">
+            <button
+              onClick={() => setExpanded((v) => !v)}
+              className="group inline-flex items-center gap-2 rounded-full border border-foreground/15 bg-foreground/[0.02] px-5 py-2.5 text-sm font-medium text-foreground/85 hover:text-foreground hover:border-foreground/30 hover:bg-foreground/[0.04] transition-all"
+              aria-expanded={expanded}
+            >
+              {expanded ? "Show less" : `Show ${hiddenSkillCount}+ more skills`}
+              <ChevronDown
+                className={`h-4 w-4 transition-transform duration-300 ${
+                  expanded ? "rotate-180" : ""
+                }`}
+              />
+            </button>
+            <p className="text-[11px] font-mono uppercase tracking-[0.18em] text-foreground/55">
+              {expanded ? "All categories shown" : `${hiddenGroups.length} more categories`}
+            </p>
+          </div>
+        )}
       </div>
     </section>
+  );
+}
+
+function SkillGroup({
+  group,
+  index,
+}: {
+  group: { title: string; eyebrow: string; items: Tech[] };
+  index: number;
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration: 0.5, delay: index * 0.05 }}
+    >
+      <div className="flex items-baseline justify-between gap-4 mb-5">
+        <h3 className="font-display text-base font-semibold text-foreground">
+          {group.title}
+        </h3>
+        <div className="text-[10.5px] font-mono uppercase tracking-[0.22em] text-foreground/55">
+          {group.eyebrow}
+        </div>
+      </div>
+
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+        {group.items.map((tech, ti) => (
+          <TechCard key={tech.name} tech={tech} index={ti} />
+        ))}
+      </div>
+    </motion.div>
   );
 }
 
@@ -166,11 +231,11 @@ function TechCard({ tech, index }: { tech: Tech; index: number }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.35, delay: index * 0.025 }}
-      className="group relative flex items-center gap-3 rounded-xl border border-foreground/[0.07] bg-foreground/[0.02] px-3.5 py-3 hover:border-foreground/20 hover:bg-foreground/[0.04] transition-all duration-300"
+      className="group relative flex items-center gap-3 rounded-xl border border-foreground/[0.09] bg-foreground/[0.02] px-3.5 py-3 hover:border-foreground/25 hover:bg-foreground/[0.04] transition-all duration-300"
     >
       <div
-        className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-foreground/[0.06] bg-foreground/[0.02] transition-colors duration-300"
-        style={!isCurrent ? { borderColor: `${color}22` } : undefined}
+        className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-foreground/[0.08] bg-foreground/[0.02] transition-colors duration-300"
+        style={!isCurrent ? { borderColor: `${color}33` } : undefined}
       >
         <Icon
           className={`h-[18px] w-[18px] ${isCurrent ? "text-foreground" : ""}`}
@@ -179,7 +244,7 @@ function TechCard({ tech, index }: { tech: Tech; index: number }) {
         />
       </div>
       <div className="min-w-0">
-        <div className="text-sm font-medium text-foreground/90 truncate">
+        <div className="text-sm font-medium text-foreground truncate">
           {name}
         </div>
       </div>

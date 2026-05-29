@@ -86,11 +86,11 @@ function FeaturedProject({
               strokeWidth={1.2}
             />
           </div>
-          <div className="absolute top-4 left-4 font-mono text-[11px] uppercase tracking-[0.18em] text-foreground/45">
+          <div className="absolute top-4 left-4 font-mono text-[11px] uppercase tracking-[0.18em] text-foreground/60">
             Featured
           </div>
           {project.period && (
-            <div className="absolute top-4 right-4 inline-flex items-center gap-1.5 rounded-md border border-foreground/10 bg-background/40 backdrop-blur px-2 py-0.5 font-mono text-[10.5px] text-foreground/65">
+            <div className="absolute top-4 right-4 inline-flex items-center gap-1.5 rounded-md border border-foreground/10 bg-background/40 backdrop-blur px-2 py-0.5 font-mono text-[10.5px] text-foreground/80">
               <Calendar className="h-3 w-3" />
               {project.period}
             </div>
@@ -107,18 +107,18 @@ function FeaturedProject({
           {project.title}
         </h3>
         {project.subtitle && (
-          <div className="mt-1 text-sm text-foreground/55">
+          <div className="mt-1 text-sm text-foreground/70">
             {project.subtitle}
           </div>
         )}
-        <div className="mt-5 card p-5 sm:p-6 text-[14.5px] text-foreground/70 leading-relaxed">
+        <div className="mt-5 card p-5 sm:p-6 text-[14.5px] text-foreground/85 leading-relaxed">
           {project.description}
         </div>
         <div className="mt-5 flex flex-wrap gap-1.5">
           {project.tags.map((t) => (
             <span
               key={t}
-              className="rounded-md border border-foreground/10 bg-foreground/[0.02] px-2 py-0.5 text-[11px] font-mono text-foreground/65"
+              className="rounded-md border border-foreground/10 bg-foreground/[0.02] px-2 py-0.5 text-[11px] font-mono text-foreground/80"
             >
               {t}
             </span>
@@ -130,7 +130,7 @@ function FeaturedProject({
               href={project.github}
               target="_blank"
               rel="noreferrer noopener"
-              className="inline-flex items-center gap-1.5 text-foreground/65 hover:text-accent transition-colors"
+              className="inline-flex items-center gap-1.5 text-foreground/80 hover:text-accent transition-colors"
             >
               <Github className="h-4 w-4" /> Source
             </a>
@@ -140,7 +140,7 @@ function FeaturedProject({
               href={project.demo}
               target="_blank"
               rel="noreferrer noopener"
-              className="inline-flex items-center gap-1.5 text-foreground/65 hover:text-accent transition-colors"
+              className="inline-flex items-center gap-1.5 text-foreground/80 hover:text-accent transition-colors"
             >
               Live demo <ArrowUpRight className="h-3.5 w-3.5" />
             </a>
@@ -168,7 +168,7 @@ function CompactCard({
     >
       <div className="flex items-start justify-between">
         <FolderGit2 className="h-7 w-7 text-accent/80" strokeWidth={1.4} />
-        <div className="flex items-center gap-3 text-foreground/55">
+        <div className="flex items-center gap-3 text-foreground/70">
           {project.github && (
             <a
               href={project.github}
@@ -199,15 +199,15 @@ function CompactCard({
           {project.title}
         </h3>
         {project.subtitle && (
-          <div className="mt-0.5 text-xs text-foreground/50">
+          <div className="mt-0.5 text-xs text-foreground/65">
             {project.subtitle} · {project.period}
           </div>
         )}
         {!project.subtitle && project.period && (
-          <div className="mt-0.5 text-xs text-foreground/50">{project.period}</div>
+          <div className="mt-0.5 text-xs text-foreground/65">{project.period}</div>
         )}
       </div>
-      <p className="mt-2 text-sm text-foreground/60 leading-relaxed flex-1">
+      <p className="mt-2 text-sm text-foreground/75 leading-relaxed flex-1">
         {project.description}
       </p>
 
@@ -215,7 +215,7 @@ function CompactCard({
         {project.tags.map((t) => (
           <span
             key={t}
-            className="rounded-md bg-foreground/[0.03] px-2 py-0.5 text-[11px] font-mono text-foreground/55"
+            className="rounded-md bg-foreground/[0.03] px-2 py-0.5 text-[11px] font-mono text-foreground/70"
           >
             {t}
           </span>

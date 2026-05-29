@@ -51,6 +51,7 @@ export const about = {
 export type Experience = {
   role: string;
   company: string;
+  logo?: string;
   domain?: string;
   employmentType: string;
   workMode: "Remote" | "On-site" | "Hybrid";
@@ -65,6 +66,7 @@ export const experiences: Experience[] = [
   {
     role: "Team Lead & Cloud/DevOps Engineer (AWS)",
     company: "DigiClips Inc.",
+    logo: "/logos/digiclips.ico",
     domain: "digiclips.com",
     employmentType: "Internship",
     workMode: "Remote",
@@ -82,6 +84,7 @@ export const experiences: Experience[] = [
   {
     role: "Software Engineer Intern",
     company: "L&T Technology Services",
+    logo: "/logos/ltts.ico",
     domain: "ltts.com",
     employmentType: "Internship",
     workMode: "On-site",
@@ -98,6 +101,7 @@ export const experiences: Experience[] = [
   {
     role: "Food Security Coordinator",
     company: "Changemaker Central @ ASU",
+    logo: "/logos/asu.ico",
     domain: "asu.edu",
     employmentType: "Part-time",
     workMode: "On-site",
@@ -114,6 +118,7 @@ export const experiences: Experience[] = [
   {
     role: "Undergraduate Teaching Assistant",
     company: "Arizona State University — Fulton Schools of Engineering",
+    logo: "/logos/asu.ico",
     domain: "asu.edu",
     employmentType: "Part-time",
     workMode: "On-site",
@@ -132,6 +137,7 @@ export const experiences: Experience[] = [
 export type Volunteer = {
   role: string;
   org: string;
+  logo?: string;
   domain?: string;
   location: string;
   period: string;
@@ -143,6 +149,7 @@ export const volunteering: Volunteer[] = [
   {
     role: "Zoom Coordinator — Inner Engineering Online",
     org: "Isha Foundation",
+    logo: "/logos/isha.ico",
     domain: "ishafoundation.org",
     location: "Remote",
     period: "April 2026",
@@ -155,6 +162,7 @@ export const volunteering: Volunteer[] = [
   {
     role: "Program Coordinator — Inner Engineering",
     org: "Isha Foundation",
+    logo: "/logos/isha.ico",
     domain: "ishafoundation.org",
     location: "Phoenix Metro Area, AZ",
     period: "March 2026",
@@ -168,6 +176,7 @@ export const volunteering: Volunteer[] = [
   {
     role: "University Outreach Volunteer",
     org: "Save Soil / Conscious Planet",
+    logo: "/logos/savesoil.ico",
     domain: "consciousplanet.org",
     location: "India",
     period: "Jan 2022 — Aug 2022",
@@ -181,6 +190,7 @@ export const volunteering: Volunteer[] = [
 
 export type Education = {
   school: string;
+  logo?: string;
   domain?: string;
   degree: string;
   period: string;
@@ -192,6 +202,7 @@ export type Education = {
 export const education: Education[] = [
   {
     school: "Arizona State University",
+    logo: "/logos/asu.ico",
     domain: "asu.edu",
     degree: "M.S. Computer Science — 4+1 Accelerated Program",
     period: "Aug 2026 — Expected May 2027",
@@ -201,6 +212,7 @@ export const education: Education[] = [
   },
   {
     school: "Arizona State University",
+    logo: "/logos/asu.ico",
     domain: "asu.edu",
     degree: "B.S. Computer Science",
     period: "Aug 2022 — Expected May 2026",
