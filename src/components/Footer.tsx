@@ -60,7 +60,7 @@ export default function Footer() {
 
       <div className="container-section py-10">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-foreground/75 font-mono">
+          <p className="text-xs text-foreground/88 font-mono">
             © {new Date().getFullYear()} {profile.name}. Crafted with{" "}
             <span className="text-accent">wand &amp; code</span> in Tempe, AZ.
           </p>
@@ -118,8 +118,8 @@ function FooterIcon({
       className={[
         "inline-flex h-9 w-9 items-center justify-center rounded-md transition-colors",
         useForeground
-          ? "text-foreground/80 hover:text-foreground hover:bg-foreground/[0.06]"
-          : "text-foreground/80 hover:text-[var(--brand)] hover:bg-[var(--brand)]/10",
+          ? "text-foreground/90 hover:text-foreground hover:bg-foreground/[0.06]"
+          : "text-foreground/90 hover:text-[var(--brand)] hover:bg-[var(--brand)]/10",
       ].join(" ")}
     >
       {children}

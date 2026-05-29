@@ -1,3 +1,5 @@
+@import url('https://fonts.cdnfonts.com/css/harry-potter');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -5,12 +7,12 @@
 @layer base {
   /* Dark theme = "Hogwarts at Night"  */
   :root {
-    --background: 11 13 26;          /* deep midnight blue (Great Hall ceiling) */
-    --surface: 22 22 42;
-    --foreground: 245 230 211;       /* warm parchment */
-    --muted: 200 180 150;
-    --accent: 212 175 55;            /* antique gold */
-    --magic: 124 58 237;             /* magical violet glow */
+    --background: 13 14 28;          /* deep midnight blue (Great Hall ceiling) */
+    --surface: 24 24 46;
+    --foreground: 250 240 222;       /* brighter parchment for body */
+    --muted: 215 198 168;            /* lifted for readable secondary text */
+    --accent: 222 184 73;            /* slightly brighter antique gold */
+    --magic: 156 102 255;            /* magical violet glow */
 
     color-scheme: dark;
   }
@@ -18,10 +20,10 @@
   /* Light theme = "Parchment by Candlelight" */
   :root.light,
   .light {
-    --background: 245 232 208;       /* aged parchment */
-    --surface: 237 224 196;
-    --foreground: 42 24 16;          /* deep ink */
-    --muted: 110 80 50;
+    --background: 242 228 200;       /* aged parchment */
+    --surface: 232 218 188;
+    --foreground: 32 18 10;          /* deeper ink for stronger contrast */
+    --muted: 92 64 38;               /* readable burnt-umber secondary */
     --accent: 124 10 2;              /* Gryffindor burgundy */
     --magic: 124 58 237;
 
@@ -209,4 +211,17 @@
       0 0 18px rgb(var(--accent) / 0.6),
       0 0 36px rgb(var(--accent) / 0.3);
   }
+
+  /* Authentic Harry Potter display face (loaded via CDN @import above).
+     Falls back to Cinzel Decorative / serif if the CDN font is unavailable. */
+  .font-hp {
+    font-family: "Harry Potter", var(--font-cinzel-deco), "Cinzel Decorative",
+      Georgia, serif;
+  }
+}
+
+/* When the custom wand cursor is active, hide the native pointer everywhere. */
+.wand-active,
+.wand-active * {
+  cursor: none !important;
 }

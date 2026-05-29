@@ -1,16 +1,24 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Briefcase, GraduationCap, HeartHandshake, MapPin } from "lucide-react";
+import {
+  Briefcase,
+  GraduationCap,
+  HeartHandshake,
+  MapPin,
+  Trophy,
+} from "lucide-react";
 import SectionHeading from "./SectionHeading";
 import CompanyLogo from "./CompanyLogo";
 import {
   experiences,
   education,
   volunteering,
+  activities,
   type Experience as Exp,
   type Education as Edu,
   type Volunteer,
+  type Activity,
 } from "@/data/content";
 
 const LOGO_SIZE = 56;
@@ -18,7 +26,7 @@ const LINE_LEFT = LOGO_SIZE / 2; // 28px - centers the line on the logo
 
 export default function Experience() {
   return (
-    <section id="experience" className="relative py-24 sm:py-32">
+    <section id="experience" className="relative py-14 sm:py-20">
       <div className="container-section">
         <SectionHeading
           eyebrow="Magical Chronicles"
@@ -109,6 +117,32 @@ export default function Experience() {
             ))}
           </Timeline>
         </Subsection>
+
+        {/* Events & Competitions */}
+        <Subsection
+          icon={<Trophy className="h-4 w-4" />}
+          title="The Triwizard Trials"
+          count={activities.length}
+        >
+          <Timeline>
+            {activities.map((a, i) => (
+              <TimelineItem
+                key={`act-${i}`}
+                index={i}
+                logo={
+                  <CompanyLogo
+                    name={a.org}
+                    fallbackColor={a.fallbackColor}
+                    size={LOGO_SIZE}
+                    className="ring-4 ring-background"
+                  />
+                }
+              >
+                <ActivityCard a={a} />
+              </TimelineItem>
+            ))}
+          </Timeline>
+        </Subsection>
       </div>
     </section>
   );
@@ -136,7 +170,7 @@ function Subsection({
         <h3 className="font-display text-lg font-semibold text-foreground">
           {title}
         </h3>
-        <span className="text-xs font-mono text-foreground/55 ml-1">
+        <span className="text-xs font-mono text-foreground/72 ml-1">
           ({count})
         </span>
       </div>
@@ -196,15 +230,15 @@ function ExperienceCard({ exp }: { exp: Exp }) {
           <div className="mt-0.5 text-[13.5px] text-foreground/90">
             <span className="font-medium">{exp.company}</span>
             <span className="text-foreground/30 mx-1.5">·</span>
-            <span className="text-foreground/70">{exp.employmentType}</span>
+            <span className="text-foreground/84">{exp.employmentType}</span>
           </div>
         </div>
-        <div className="text-xs font-mono text-foreground/60 whitespace-nowrap">
+        <div className="text-xs font-mono text-foreground/76 whitespace-nowrap">
           {exp.period}
         </div>
       </div>
 
-      <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-[12px] text-foreground/65">
+      <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-[12px] text-foreground/80">
         <span className="inline-flex items-center gap-1">
           <MapPin className="h-3 w-3" />
           {exp.location}
@@ -213,7 +247,7 @@ function ExperienceCard({ exp }: { exp: Exp }) {
         <WorkModeBadge mode={exp.workMode} />
       </div>
 
-      <ul className="mt-4 space-y-2 text-[13.5px] text-foreground/85 leading-relaxed">
+      <ul className="mt-4 space-y-2 text-[13.5px] text-foreground/92 leading-relaxed">
         {exp.bullets.map((b, i) => (
           <li key={i} className="flex gap-2.5">
             <span className="text-accent mt-[7px] leading-none text-[8px]">●</span>
@@ -224,14 +258,14 @@ function ExperienceCard({ exp }: { exp: Exp }) {
 
       {exp.skills?.length > 0 && (
         <div className="mt-4 pt-4 border-t border-foreground/[0.06]">
-          <div className="text-[10px] font-mono uppercase tracking-[0.18em] text-foreground/55 mb-2">
+          <div className="text-[10px] font-mono uppercase tracking-[0.18em] text-foreground/72 mb-2">
             Skills
           </div>
           <div className="flex flex-wrap gap-1.5">
             {exp.skills.map((s) => (
               <span
                 key={s}
-                className="rounded-md border border-foreground/[0.08] bg-foreground/[0.02] px-2 py-0.5 text-[11px] font-mono text-foreground/80"
+                className="rounded-md border border-foreground/[0.08] bg-foreground/[0.02] px-2 py-0.5 text-[11px] font-mono text-foreground/90"
               >
                 {s}
               </span>
@@ -255,15 +289,15 @@ function VolunteerCard({ v }: { v: Volunteer }) {
             {v.org}
           </div>
         </div>
-        <div className="text-xs font-mono text-foreground/60 whitespace-nowrap">
+        <div className="text-xs font-mono text-foreground/76 whitespace-nowrap">
           {v.period}
         </div>
       </div>
-      <div className="mt-2 inline-flex items-center gap-1 text-[12px] text-foreground/65">
+      <div className="mt-2 inline-flex items-center gap-1 text-[12px] text-foreground/80">
         <MapPin className="h-3 w-3" />
         {v.location}
       </div>
-      <ul className="mt-4 space-y-2 text-[13.5px] text-foreground/85 leading-relaxed">
+      <ul className="mt-4 space-y-2 text-[13.5px] text-foreground/92 leading-relaxed">
         {v.bullets.map((b, i) => (
           <li key={i} className="flex gap-2.5">
             <span className="text-accent mt-[7px] leading-none text-[8px]">●</span>
@@ -287,11 +321,11 @@ function EducationCard({ edu }: { edu: Edu }) {
             {edu.degree}
           </div>
         </div>
-        <div className="text-xs font-mono text-foreground/60 whitespace-nowrap">
+        <div className="text-xs font-mono text-foreground/76 whitespace-nowrap">
           {edu.period}
         </div>
       </div>
-      <div className="mt-2 inline-flex items-center gap-1 text-[12px] text-foreground/65">
+      <div className="mt-2 inline-flex items-center gap-1 text-[12px] text-foreground/80">
         <MapPin className="h-3 w-3" />
         {edu.location}
       </div>
@@ -307,6 +341,40 @@ function EducationCard({ edu }: { edu: Edu }) {
           ))}
         </div>
       )}
+    </>
+  );
+}
+
+function ActivityCard({ a }: { a: Activity }) {
+  return (
+    <>
+      <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
+        <div className="min-w-0">
+          <h4 className="font-display text-base sm:text-lg font-semibold text-foreground leading-snug">
+            {a.title}
+          </h4>
+          <div className="mt-0.5 text-[13.5px] text-foreground/90">
+            <span className="font-medium">{a.org}</span>
+            <span className="text-foreground/30 mx-1.5">·</span>
+            <span className="text-foreground/76">{a.role}</span>
+          </div>
+        </div>
+        <div className="text-xs font-mono text-foreground/76 whitespace-nowrap">
+          {a.period}
+        </div>
+      </div>
+      <div className="mt-2 inline-flex items-center gap-1 text-[12px] text-foreground/80">
+        <MapPin className="h-3 w-3" />
+        {a.location}
+      </div>
+      <ul className="mt-4 space-y-2 text-[13.5px] text-foreground/92 leading-relaxed">
+        {a.bullets.map((b, i) => (
+          <li key={i} className="flex gap-2.5">
+            <span className="text-accent mt-[7px] leading-none text-[8px]">●</span>
+            <span>{b}</span>
+          </li>
+        ))}
+      </ul>
     </>
   );
 }

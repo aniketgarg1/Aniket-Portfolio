@@ -28,7 +28,7 @@ export default function ThemeToggle({ className = "" }: { className?: string }) 
       title={isDark ? "Lumos" : "Nox"}
       className={[
         "group relative inline-flex items-center gap-2 rounded-md border h-9 px-2.5",
-        "border-foreground/15 text-foreground/80",
+        "border-foreground/15 text-foreground/90",
         "hover:text-accent hover:border-accent/40 transition-colors",
         className,
       ].join(" ")}

@@ -7,7 +7,7 @@ import { about } from "@/data/content";
 
 export default function About() {
   return (
-    <section id="about" className="relative py-24 sm:py-32">
+    <section id="about" className="relative py-14 sm:py-20">
       <div className="container-section">
         <SectionHeading
           eyebrow="The Wizard"
@@ -44,7 +44,7 @@ export default function About() {
                 <Sparkles className="h-3.5 w-3.5" />
                 Currently Brewing
               </div>
-              <div className="relative mt-3 text-sm text-foreground/85 leading-relaxed">
+              <div className="relative mt-3 text-sm text-foreground/92 leading-relaxed">
                 Senior @{" "}
                 <span className="text-foreground font-medium">
                   Arizona State University
@@ -63,7 +63,7 @@ export default function About() {
                   <div className="font-display text-2xl font-semibold text-foreground">
                     {s.value}
                   </div>
-                  <div className="mt-1 text-[10.5px] uppercase tracking-[0.18em] text-foreground/60">
+                  <div className="mt-1 text-[10.5px] uppercase tracking-[0.18em] text-foreground/76">
                     {s.label}
                   </div>
                 </div>

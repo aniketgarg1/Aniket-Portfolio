@@ -55,7 +55,7 @@ export default function Navbar() {
         <nav className="flex items-center justify-between">
           <a
             href="#home"
-            className="font-display text-base font-semibold tracking-tight text-foreground hover:text-foreground/80 transition-colors"
+            className="font-display text-base font-semibold tracking-tight text-foreground hover:text-foreground/90 transition-colors"
           >
             {profile.name}
           </a>
@@ -71,7 +71,7 @@ export default function Navbar() {
                       "relative px-3 py-2 text-sm transition-colors",
                       isActive
                         ? "text-foreground"
-                        : "text-foreground/70 hover:text-foreground"
+                        : "text-foreground/84 hover:text-foreground"
                     )}
                   >
                     {isActive && (
@@ -94,9 +94,9 @@ export default function Navbar() {
               href={profile.resumeUrl}
               target="_blank"
               rel="noreferrer noopener"
-              className="button-ghost !px-4 !py-2 !text-xs"
+              className="button-primary !px-4 !py-2 !text-xs"
             >
-              Unfurl Scroll
+              Resume
             </a>
           </div>
 
@@ -130,7 +130,7 @@ export default function Navbar() {
                     "block rounded-md px-4 py-3 text-sm transition-colors",
                     active === link.href
                       ? "bg-foreground/[0.06] text-foreground"
-                      : "text-foreground/80 hover:text-foreground hover:bg-foreground/[0.04]"
+                      : "text-foreground/90 hover:text-foreground hover:bg-foreground/[0.04]"
                   )}
                 >
                   {link.label}
@@ -141,9 +141,9 @@ export default function Navbar() {
                 target="_blank"
                 rel="noreferrer noopener"
                 onClick={() => setOpen(false)}
-                className="mt-1 block rounded-md px-4 py-3 text-sm font-medium text-center border border-accent/40 text-accent hover:bg-accent/[0.08]"
+                className="mt-1 block rounded-md px-4 py-3 text-sm font-medium text-center bg-accent text-background hover:opacity-90"
               >
-                Unfurl Scroll
+                Resume
               </a>
             </motion.div>
           )}

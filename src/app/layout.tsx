@@ -1,5 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import { Cinzel, EB_Garamond, JetBrains_Mono } from "next/font/google";
+import {
+  Cinzel,
+  Cinzel_Decorative,
+  EB_Garamond,
+  JetBrains_Mono,
+} from "next/font/google";
 import "./globals.css";
 import { profile } from "@/data/content";
 import ThemeProvider from "@/components/ThemeProvider";
@@ -8,6 +13,14 @@ const cinzel = Cinzel({
   subsets: ["latin"],
   variable: "--font-cinzel",
   weight: ["400", "500", "600", "700"],
+  display: "swap",
+});
+
+/** Heavily ornamental display face used for the Harry-Potter-style wordmark. */
+const cinzelDecorative = Cinzel_Decorative({
+  subsets: ["latin"],
+  variable: "--font-cinzel-deco",
+  weight: ["400", "700", "900"],
   display: "swap",
 });
 
@@ -64,7 +77,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${cinzel.variable} ${garamond.variable} ${jetbrains.variable}`}
+      className={`${cinzel.variable} ${cinzelDecorative.variable} ${garamond.variable} ${jetbrains.variable}`}
       suppressHydrationWarning
     >
       <body className="min-h-screen overflow-x-hidden">

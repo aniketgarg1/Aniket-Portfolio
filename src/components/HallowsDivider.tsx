@@ -17,7 +17,7 @@ export default function HallowsDivider({
   return (
     <div
       aria-hidden
-      className={`relative flex items-center justify-center gap-5 py-10 ${className}`}
+      className={`relative flex items-center justify-center gap-5 py-5 ${className}`}
     >
       {/* Left trail */}
       <motion.span
@@ -38,10 +38,14 @@ export default function HallowsDivider({
         viewport={{ once: true, margin: "-80px" }}
         transition={{ duration: 0.55, delay: 0.1 }}
         className="flex items-center gap-3 text-accent"
+        style={{ filter: "drop-shadow(0 0 10px rgba(244,213,108,0.28))" }}
       >
         <HallowsGlyph />
         {label && (
-          <span className="font-display text-[10.5px] tracking-[0.42em] uppercase text-accent/85">
+          <span
+            className="font-display text-[11px] sm:text-[12px] font-semibold tracking-[0.42em] uppercase text-accent"
+            style={{ textShadow: "0 0 12px rgba(244,213,108,0.4)" }}
+          >
             {label}
           </span>
         )}

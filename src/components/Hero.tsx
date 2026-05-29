@@ -9,10 +9,10 @@ import {
   Linkedin,
   Mail,
   Wand2,
-  Sparkles,
+  FileText,
 } from "lucide-react";
 import { profile } from "@/data/content";
-import FloatingCandles from "./FloatingCandles";
+import WizardingNameplate from "./WizardingNameplate";
 
 /* SVG icon: a stag (Harry's Patronus) — used for the Patronus badge */
 function StagIcon({ className }: { className?: string }) {
@@ -54,10 +54,8 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative min-h-[95vh] flex items-center pt-28 pb-20 overflow-hidden"
+      className="relative min-h-[88vh] flex items-center pt-24 pb-14 overflow-hidden"
     >
-      <FloatingCandles count={5} />
-
       <div className="container-section w-full relative z-10">
         {/* Availability / Sorting badges */}
         <motion.div
@@ -82,66 +80,24 @@ export default function Hero() {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.08 }}
-          className="mt-8 font-mono text-sm uppercase tracking-[0.4em] text-accent flex items-center gap-3"
+          className="mt-7 font-mono text-[12px] sm:text-sm uppercase tracking-[0.4em] text-accent flex items-center gap-3"
         >
-          <span className="inline-block h-px w-10 bg-accent/60" />
-          Mischief managed — I&apos;m
+          <span className="inline-block h-px w-10 bg-accent/70" />
+          Mischief managed — presenting
         </motion.p>
 
-        {/* Name + wand-trace underline */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.14 }}
-          className="mt-3 relative inline-block"
-        >
-          <h1
-            className="font-display tracking-tight text-balance gold-text glow-gold"
-            style={{
-              fontSize: "clamp(2.75rem, 7vw, 5.5rem)",
-              lineHeight: 1.05,
-            }}
-          >
-            {profile.name}.
-          </h1>
-          {/* Wand-trace underline that draws itself in */}
-          <motion.span
-            aria-hidden
-            initial={{ scaleX: 0 }}
-            animate={{ scaleX: 1 }}
-            transition={{ duration: 1.1, delay: 0.7, ease: [0.2, 0.8, 0.2, 1] }}
-            className="absolute -bottom-1 left-0 right-6 h-[2px] origin-left rounded-full"
-            style={{
-              background:
-                "linear-gradient(90deg, rgba(244,213,108,0) 0%, rgba(244,213,108,0.4) 8%, #f4d56c 50%, rgba(244,213,108,0.4) 92%, rgba(244,213,108,0) 100%)",
-              boxShadow: "0 0 14px rgba(244,213,108,0.6)",
-            }}
-          />
-          {/* Sparkle on the wand tip */}
-          <motion.span
-            aria-hidden
-            initial={{ opacity: 0, scale: 0 }}
-            animate={{ opacity: [0, 1, 0], scale: [0.6, 1.4, 0.4] }}
-            transition={{ duration: 0.9, delay: 1.7 }}
-            className="absolute -bottom-[3px] left-[calc(100%-1.5rem)] h-2 w-2 -translate-x-1/2 rounded-full"
-            style={{
-              background:
-                "radial-gradient(circle, #fff5c2 0%, #ffd86b 50%, transparent 70%)",
-              boxShadow:
-                "0 0 12px rgba(255,213,108,0.9), 0 0 20px rgba(255,170,60,0.45)",
-            }}
-          />
-        </motion.div>
+        {/* Harry-Potter-style wordmark with lightning-bolt scar */}
+        <WizardingNameplate firstName="Aniket" lastName="Garg" />
 
         {/* Rotating role */}
         <motion.h2
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.22 }}
-          className="mt-4 font-display tracking-tight text-foreground/70 text-balance flex flex-wrap items-baseline gap-x-3"
+          className="mt-3 font-display tracking-tight text-foreground/92 text-balance flex flex-wrap items-baseline gap-x-3"
           style={{ fontSize: "clamp(1.5rem, 4vw, 2.75rem)", lineHeight: 1.15 }}
         >
-          <span>I conjure</span>
+          <span>I build</span>
           <span className="relative inline-block h-[1.05em] overflow-hidden align-baseline">
             <AnimatePresence mode="wait">
               <motion.span
@@ -163,7 +119,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.32 }}
-          className="mt-8 max-w-2xl text-base sm:text-lg text-foreground/90 leading-relaxed"
+          className="mt-5 max-w-2xl text-base sm:text-lg text-foreground/95 leading-relaxed"
         >
           {profile.tagline}
         </motion.p>
@@ -173,21 +129,21 @@ export default function Hero() {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-10 flex flex-wrap items-center gap-3"
+          className="mt-7 flex flex-wrap items-center gap-3"
         >
-          <a href="#projects" className="button-primary group">
-            <Wand2 className="h-4 w-4" />
-            Open the Spellbook
-            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-          </a>
           <a
             href={profile.resumeUrl}
             target="_blank"
             rel="noreferrer noopener"
-            className="button-ghost"
+            className="button-primary group"
           >
-            <Sparkles className="h-4 w-4" />
-            Unfurl Scroll
+            <FileText className="h-4 w-4" />
+            Resume
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+          </a>
+          <a href="#projects" className="button-ghost group">
+            <Wand2 className="h-4 w-4" />
+            Open the Spellbook
           </a>
         </motion.div>
 
@@ -196,7 +152,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.5 }}
-          className="mt-8 flex flex-wrap items-center gap-2.5"
+          className="mt-6 flex flex-wrap items-center gap-2.5"
         >
           <BrandLink
             href={profile.socials.github}
@@ -217,7 +173,7 @@ export default function Hero() {
           </BrandLink>
           <BrandLink
             href={`mailto:${profile.email}`}
-            label="Owl Post"
+            label="Email"
             handle={profile.email}
             brand="#D4AF37"
           >
@@ -229,7 +185,7 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.62 }}
-          className="mt-8 inline-flex items-center gap-2 text-sm text-foreground/75 font-mono"
+          className="mt-6 inline-flex items-center gap-2 text-sm text-foreground/88 font-mono"
         >
           <MapPin className="h-3.5 w-3.5" />
           <span>{profile.location}</span>
@@ -241,7 +197,7 @@ export default function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.4, duration: 0.6 }}
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-[10px] uppercase tracking-[0.32em] text-foreground/55"
+        className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-[10px] uppercase tracking-[0.32em] text-foreground/92"
       >
         <span>Descend</span>
         <span className="block h-8 w-px bg-gradient-to-b from-accent/60 to-transparent" />
@@ -250,28 +206,29 @@ export default function Hero() {
   );
 }
 
-/* ----- Ravenclaw house badge ----- */
+/* ----- Gryffindor house badge ----- */
 function HouseBadge() {
   return (
     <span
       className="inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-mono tracking-wider"
       style={{
-        borderColor: "rgba(146, 109, 39, 0.5)",
+        borderColor: "rgba(211, 166, 37, 0.55)",
         background:
-          "linear-gradient(135deg, rgba(15, 35, 80, 0.5), rgba(60, 30, 0, 0.4))",
-        color: "#cda863",
+          "linear-gradient(135deg, rgba(127, 9, 9, 0.55), rgba(110, 30, 0, 0.4))",
+        color: "#f0c75e",
       }}
-      title="Wit beyond measure is man's greatest treasure."
+      title="Their daring, nerve, and chivalry set Gryffindors apart."
     >
+      {/* Lion crest */}
       <svg
         viewBox="0 0 24 24"
         className="h-3.5 w-3.5"
         fill="currentColor"
         aria-hidden
       >
-        <path d="M12 2C9 6 5 7 3 7c0 6 3.5 12 9 15 5.5-3 9-9 9-15-2 0-6-1-9-5zM12 8c-1 2-2.5 3-4 3 .3 2 1.5 5 4 7 2.5-2 3.7-5 4-7-1.5 0-3-1-4-3z" />
+        <path d="M12 2c-1 1.4-2.6 2-4.2 2 .2 1.3-.2 2.4-1 3.3 1.2.2 2.2.9 2.8 1.9-1.6.3-2.9 1.3-3.6 2.7 1.3-.2 2.5.1 3.5.8-1.2.8-2 2.1-2.2 3.6 1.1-.7 2.4-.9 3.6-.6-.6 1.2-.6 2.6 0 3.9.6-1.3 1.7-2.2 3.1-2.5-.2 1.5.2 3 1.1 4.2.5-1.4.6-2.9.3-4.3 1.4.3 2.5 1.2 3.1 2.5.3-1.5-.1-3-1-4.2 1.2.3 2.3.9 3.1 1.8-.2-1.5-1-2.8-2.2-3.6 1-.7 2.2-1 3.5-.8-.7-1.4-2-2.4-3.6-2.7.6-1 1.6-1.7 2.8-1.9-.8-.9-1.2-2-1-3.3C14.6 4 13 3.4 12 2zm0 7.5a2 2 0 110 4 2 2 0 010-4z" />
       </svg>
-      <span>Sorted into Ravenclaw</span>
+      <span>Sorted into Gryffindor</span>
     </span>
   );
 }
@@ -292,7 +249,7 @@ function PatronusBadge() {
     >
       <StagIcon className="h-3.5 w-3.5 transition-transform duration-500 group-hover:scale-110" />
       <span>
-        Patronus <span className="text-foreground/70">·</span>{" "}
+        Patronus <span className="text-foreground/92">·</span>{" "}
         <span className="text-white/90">Stag</span>
       </span>
       <span
@@ -359,8 +316,8 @@ function BrandLink({
         className={[
           "relative hidden sm:inline transition-colors",
           useForeground
-            ? "text-foreground/85 group-hover:text-background"
-            : "text-foreground/85 group-hover:text-white",
+            ? "text-foreground/92 group-hover:text-background"
+            : "text-foreground/92 group-hover:text-white",
         ].join(" ")}
       >
         {label}
@@ -368,8 +325,8 @@ function BrandLink({
           className={[
             "ml-1.5 text-[11px] font-mono",
             useForeground
-              ? "text-foreground/55 group-hover:text-background/60"
-              : "text-foreground/55 group-hover:text-white/70",
+              ? "text-foreground/92 group-hover:text-background/60"
+              : "text-foreground/92 group-hover:text-white/70",
           ].join(" ")}
         >
           {handle}
@@ -379,8 +336,8 @@ function BrandLink({
         className={[
           "relative sm:hidden text-[12px] font-medium",
           useForeground
-            ? "text-foreground/85 group-hover:text-background"
-            : "text-foreground/85 group-hover:text-white",
+            ? "text-foreground/92 group-hover:text-background"
+            : "text-foreground/92 group-hover:text-white",
         ].join(" ")}
       >
         {label}

@@ -15,7 +15,7 @@ export default function Projects() {
   const rest = projects.filter((p) => !p.highlight);
 
   return (
-    <section id="projects" className="relative py-24 sm:py-32">
+    <section id="projects" className="relative py-14 sm:py-20">
       <div className="container-section">
         <SectionHeading
           eyebrow="The Spellbook"
@@ -95,7 +95,7 @@ function FeaturedProject({
             ✦ Featured Spell
           </div>
           {project.period && (
-            <div className="absolute top-4 right-4 inline-flex items-center gap-1.5 rounded-md border border-foreground/10 bg-background/40 backdrop-blur px-2 py-0.5 font-mono text-[10.5px] text-foreground/80">
+            <div className="absolute top-4 right-4 inline-flex items-center gap-1.5 rounded-md border border-foreground/10 bg-background/40 backdrop-blur px-2 py-0.5 font-mono text-[10.5px] text-foreground/90">
               <Calendar className="h-3 w-3" />
               {project.period}
             </div>
@@ -115,7 +115,7 @@ function FeaturedProject({
           {project.title}
         </h3>
         {project.subtitle && (
-          <div className="mt-1 text-sm text-foreground/70">
+          <div className="mt-1 text-sm text-foreground/84">
             {project.subtitle}
           </div>
         )}
@@ -127,14 +127,14 @@ function FeaturedProject({
             “{project.incantation}”
           </div>
         )}
-        <div className="mt-5 card p-5 sm:p-6 text-[14.5px] text-foreground/85 leading-relaxed">
+        <div className="mt-5 card p-5 sm:p-6 text-[14.5px] text-foreground/92 leading-relaxed">
           {project.description}
         </div>
         <div className="mt-5 flex flex-wrap gap-1.5">
           {project.tags.map((t) => (
             <span
               key={t}
-              className="rounded-md border border-foreground/10 bg-foreground/[0.02] px-2 py-0.5 text-[11px] font-mono text-foreground/80"
+              className="rounded-md border border-foreground/10 bg-foreground/[0.02] px-2 py-0.5 text-[11px] font-mono text-foreground/90"
             >
               {t}
             </span>
@@ -146,7 +146,7 @@ function FeaturedProject({
               href={project.github}
               target="_blank"
               rel="noreferrer noopener"
-              className="inline-flex items-center gap-1.5 text-foreground/80 hover:text-accent transition-colors"
+              className="inline-flex items-center gap-1.5 text-foreground/90 hover:text-accent transition-colors"
             >
               <Github className="h-4 w-4" /> Source
             </a>
@@ -156,7 +156,7 @@ function FeaturedProject({
               href={project.demo}
               target="_blank"
               rel="noreferrer noopener"
-              className="inline-flex items-center gap-1.5 text-foreground/80 hover:text-accent transition-colors"
+              className="inline-flex items-center gap-1.5 text-foreground/90 hover:text-accent transition-colors"
             >
               Live demo <ArrowUpRight className="h-3.5 w-3.5" />
             </a>
@@ -184,7 +184,7 @@ function CompactCard({
     >
       <div className="flex items-start justify-between">
         <FolderGit2 className="h-7 w-7 text-accent/80" strokeWidth={1.4} />
-        <div className="flex items-center gap-3 text-foreground/70">
+        <div className="flex items-center gap-3 text-foreground/84">
           {project.github && (
             <a
               href={project.github}
@@ -220,15 +220,15 @@ function CompactCard({
           )}
         </div>
         {project.subtitle && (
-          <div className="mt-0.5 text-xs text-foreground/65">
+          <div className="mt-0.5 text-xs text-foreground/80">
             {project.subtitle} · {project.period}
           </div>
         )}
         {!project.subtitle && project.period && (
-          <div className="mt-0.5 text-xs text-foreground/65">{project.period}</div>
+          <div className="mt-0.5 text-xs text-foreground/80">{project.period}</div>
         )}
       </div>
-      <p className="mt-2 text-sm text-foreground/75 leading-relaxed flex-1">
+      <p className="mt-2 text-sm text-foreground/88 leading-relaxed flex-1">
         {project.description}
       </p>
 
@@ -236,7 +236,7 @@ function CompactCard({
         {project.tags.map((t) => (
           <span
             key={t}
-            className="rounded-md bg-foreground/[0.03] px-2 py-0.5 text-[11px] font-mono text-foreground/70"
+            className="rounded-md bg-foreground/[0.03] px-2 py-0.5 text-[11px] font-mono text-foreground/84"
           >
             {t}
           </span>

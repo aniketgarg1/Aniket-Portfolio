@@ -1,8 +1,9 @@
 import AnimatedBackground from "@/components/AnimatedBackground";
-import MagicalCursor from "@/components/MagicalCursor";
-import GoldenSnitch from "@/components/GoldenSnitch";
+import WandCursor from "@/components/WandCursor";
 import WandScrollProgress from "@/components/WandScrollProgress";
 import HallowsDivider from "@/components/HallowsDivider";
+import MaraudersMap from "@/components/MaraudersMap";
+import ExpectoPatronum from "@/components/ExpectoPatronum";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
@@ -16,9 +17,10 @@ export default function Home() {
   return (
     <>
       <AnimatedBackground />
-      <MagicalCursor />
+      <WandCursor />
       <WandScrollProgress />
-      <GoldenSnitch />
+      <MaraudersMap />
+      <ExpectoPatronum />
       <Navbar />
       <main className="relative">
         <Hero />

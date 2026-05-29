@@ -20,6 +20,12 @@ const config: Config = {
       fontFamily: {
         sans: ["var(--font-garamond)", "Georgia", "serif"],
         display: ["var(--font-cinzel)", "Georgia", "serif"],
+        wizard: [
+          "var(--font-cinzel-deco)",
+          "var(--font-cinzel)",
+          "Georgia",
+          "serif",
+        ],
         mono: ["var(--font-jetbrains)", "ui-monospace", "monospace"],
       },
       keyframes: {

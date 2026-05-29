@@ -8,14 +8,14 @@ export const profile = {
   shortName: "Aniket",
   role: "AI & Software Engineer",
   roles: [
-    "AI Engineer",
-    "Full-Stack Wizard",
-    "Cloud Sorcerer",
-    "Code Conjurer",
-    "Spellsmith",
+    "AI-powered products",
+    "full-stack systems",
+    "cloud deployments",
+    "multi-agent LLM apps",
+    "real-time voice agents",
   ],
   tagline:
-    "Computer Science apprentice at Arizona State University (4+1 Accelerated B.S. + M.S.). I lead engineering teams, conjure AI-powered products, and ship production systems — from multi-agent LLM apps and real-time voice agents to full-stack cloud deployments on AWS. No wand required.",
+    "Computer Science student at Arizona State University (4+1 Accelerated B.S. + M.S.). I lead engineering teams and ship production systems — from multi-agent LLM apps and real-time voice agents to full-stack cloud deployments on AWS.",
   location: "Tempe, Arizona",
   email: "garganiket27@gmail.com",
   phone: "+1 480 875 7204",
@@ -39,7 +39,7 @@ export const about = {
   paragraphs: [
     "I'm a senior Computer Science apprentice at Arizona State University, enrolled in the 4+1 Accelerated B.S. + M.S. program (B.S. May 2026, M.S. May 2027). I love brewing things at the intersection of AI, full-stack engineering, and cloud infrastructure — taking ideas from a hackathon napkin all the way to production deployments.",
     "Most recently I've been Team Lead & Cloud/DevOps Engineer at DigiClips Inc., coordinating the AWS engineering team and shipping CI/CD pipelines end-to-end. Before that I was a Software Engineer Intern at L&T Technology Services in Bangalore, casting Linux-migration spells for a Fortune 500 client.",
-    "Outside the IDE, I'm a hackathon regular (CalHacks, UCLA Build with Gemini, ASU Prompt Engineering), a long-time volunteer with the Isha Foundation, and self-taught on the guitar and harmonium. I'm bilingual in English and Hindi — and yes, the Sorting Hat would absolutely put me in Ravenclaw.",
+    "Outside the IDE, I'm a hackathon regular (CalHacks, UCLA Build with Gemini, ASU Prompt Engineering), a long-time volunteer with the Isha Foundation, and self-taught on the guitar and harmonium. I'm bilingual in English and Hindi — and yes, the Sorting Hat would absolutely put me in Gryffindor.",
   ],
   stats: [
     { label: "Major GPA", value: "4.0" },
@@ -96,8 +96,9 @@ export const experiences: Experience[] = [
       "Migrated a Fortune 500 client's codebase from Windows to Linux, converting executables into .rpm packages for one-click deployment across Linux servers.",
       "Resolved critical dependency and environment-specific bugs enabling seamless server startup and full remote power state management (on/off) through the parent application.",
       "Developed and deployed production features including remote server power control and Linux-based chip flashing support, improving platform stability and scalability.",
+      "Informally mentored co-interns on resume writing, portfolio building, and job-search strategy in a client-facing corporate setting — directly supporting one peer in landing a role at American Express India.",
     ],
-    skills: ["Linux", "RPM Packaging", "C/C++", "Bash", "Windows", "System Administration"],
+    skills: ["Linux", "RPM Packaging", "C/C++", "Bash", "Windows", "System Administration", "Mentorship"],
   },
   {
     role: "Food Security Coordinator",
@@ -132,6 +133,50 @@ export const experiences: Experience[] = [
       "Facilitated student-centered sessions that built confidence and real-world application skills, fostering inclusive and user-centric engineering practices.",
     ],
     skills: ["HTML", "CSS", "JavaScript", "Git", "GitHub", "Teaching", "Mentorship"],
+  },
+  {
+    role: "Social Media Manager",
+    company: "Samarpanam Yoga",
+    domain: "samarpanam.org",
+    employmentType: "Internship",
+    workMode: "Remote",
+    location: "Remote",
+    period: "May 2022 — Aug 2022",
+    fallbackColor: "linear-gradient(135deg, #7c3aed, #ec4899)",
+    bullets: [
+      "Grew social media presence by 45,000+ followers in two months and generated 4M+ monthly views through strategic content creation and audience engagement.",
+      "Leveraged Instagram algorithm insights — optimal posting schedules, hashtag strategy, and engagement triggers — to maximize organic reach and follower growth.",
+      "Designed graphics in Adobe Photoshop and edited video reels in Adobe Premiere Pro to maintain a polished, consistent brand identity.",
+    ],
+    skills: ["Adobe Photoshop", "Adobe Premiere Pro", "Instagram Strategy", "Content Creation", "Branding"],
+  },
+  {
+    role: "Content Writer (Intern)",
+    company: "Henry Harvin Education",
+    domain: "henryharvin.com",
+    employmentType: "Internship",
+    workMode: "Remote",
+    location: "Remote",
+    period: "Jun 2020 — Jul 2020",
+    fallbackColor: "linear-gradient(135deg, #0ea5e9, #22d3ee)",
+    bullets: [
+      "Authored articles across diverse topics during a 20-day internship, accumulating 3,000+ views.",
+      "Built research, written-communication, and SEO writing skills while shipping content on a tight schedule.",
+    ],
+    skills: ["Content Writing", "SEO", "Research"],
+  },
+  {
+    role: "Video Editor (Intern)",
+    company: "Reel on Social",
+    employmentType: "Internship",
+    workMode: "Remote",
+    location: "Remote",
+    period: "Jun 2020 — Jul 2020",
+    fallbackColor: "linear-gradient(135deg, #f97316, #f43f5e)",
+    bullets: [
+      "Edited video content for a media startup, gaining hands-on experience in broadcast production and digital storytelling using Adobe Premiere Pro.",
+    ],
+    skills: ["Adobe Premiere Pro", "Video Editing", "Storytelling"],
   },
 ];
 
@@ -185,6 +230,32 @@ export const volunteering: Volunteer[] = [
     bullets: [
       "Conducted awareness sessions at universities across India on the global soil crisis — part of a movement reaching 3.91 billion+ people, recognized by the UN, IUCN, and World Economic Forum.",
       "Engaged students and faculty in small and large group settings, facilitating impactful discussions on environmental advocacy and policy solutions.",
+      "Maintained volunteer coordination groups and created promotional content; participated in a session with the Prime Minister of India, who formally acknowledged the movement.",
+    ],
+  },
+];
+
+export type Activity = {
+  title: string;
+  org: string;
+  role: string;
+  location: string;
+  period: string;
+  fallbackColor: string;
+  bullets: string[];
+};
+
+export const activities: Activity[] = [
+  {
+    title: "Harvard Model United Nations India",
+    org: "HMUN India",
+    role: "Delegate — representing Canada",
+    location: "Agenda: Weaponization of Social Media",
+    period: "Aug 2021",
+    fallbackColor: "linear-gradient(135deg, #a51c30, #1e3a8a)",
+    bullets: [
+      "Authored position papers, engaged in moderated caucuses, and co-wrote working papers — sharpening public speaking, persuasion, and advocacy across four days of international debate.",
+      "Placed 5th on the Terraekam platform (\u201cFeed the Unvocal Dogs\u201d animal-welfare challenge) among thousands of global participants.",
     ],
   },
 ];

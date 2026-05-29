@@ -7,7 +7,7 @@ import OwlPost from "./OwlPost";
 
 export default function Contact() {
   return (
-    <section id="contact" className="relative py-24 sm:py-32 overflow-hidden">
+    <section id="contact" className="relative py-14 sm:py-20 overflow-hidden">
       <OwlPost />
       <div className="container-section relative z-10">
         <div className="text-center max-w-2xl mx-auto">
@@ -37,7 +37,7 @@ export default function Contact() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.55, delay: 0.1 }}
-            className="mt-5 text-foreground/85 text-base sm:text-lg leading-relaxed"
+            className="mt-5 text-foreground/92 text-base sm:text-lg leading-relaxed"
           >
             Whether you have a quest, an opportunity, or just want to chat about
             AI and software — my owls are well-rested and I usually reply within

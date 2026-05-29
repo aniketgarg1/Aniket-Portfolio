@@ -38,7 +38,27 @@ import {
   SiFfmpeg,
 } from "react-icons/si";
 import { FaAws, FaJava } from "react-icons/fa6";
-import { ChevronDown, Database, Sparkles, MessageSquareCode } from "lucide-react";
+import {
+  ChevronDown,
+  Database,
+  Sparkles,
+  MessageSquareCode,
+  Users,
+  GraduationCap,
+  Mic,
+  CalendarCheck,
+  HeartHandshake,
+  Languages,
+  Image as ImageIcon,
+  Clapperboard,
+  PenTool,
+  Megaphone,
+  Video,
+  PenLine,
+  FileText,
+  Cloud,
+  Briefcase,
+} from "lucide-react";
 import SectionHeading from "./SectionHeading";
 
 type Tech = { name: string; Icon: IconType; color: string };
@@ -115,6 +135,41 @@ const SKILL_GROUPS: { title: string; eyebrow: string; items: Tech[] }[] = [
       { name: "FFmpeg", Icon: SiFfmpeg, color: "#007808" },
     ],
   },
+  {
+    eyebrow: "Leadership & Communication",
+    title: "Leadership & Communication",
+    items: [
+      { name: "Team Leadership", Icon: Users, color: "#E0B65B" },
+      { name: "Mentoring", Icon: GraduationCap, color: "#8C1D40" },
+      { name: "Public Speaking", Icon: Mic, color: "#3B82F6" },
+      { name: "Event Coordination", Icon: CalendarCheck, color: "#16A34A" },
+      { name: "Volunteer Training", Icon: HeartHandshake, color: "#F97316" },
+      { name: "Bilingual — English / Hindi", Icon: Languages, color: "#9C66FF" },
+    ],
+  },
+  {
+    eyebrow: "Creative & Media",
+    title: "Creative & Media",
+    items: [
+      { name: "Adobe Premiere Pro", Icon: Clapperboard, color: "#9999FF" },
+      { name: "Adobe Photoshop", Icon: ImageIcon, color: "#31A8FF" },
+      { name: "Canva", Icon: PenTool, color: "#00C4CC" },
+      { name: "Social Media Strategy", Icon: Megaphone, color: "#EC4899" },
+      { name: "Video Editing", Icon: Video, color: "#F43F5E" },
+      { name: "SEO Writing", Icon: PenLine, color: "#22C55E" },
+    ],
+  },
+  {
+    eyebrow: "Productivity & Tools",
+    title: "Productivity & Tools",
+    items: [
+      { name: "Microsoft Office", Icon: FileText, color: "#D83B01" },
+      { name: "Google Workspace", Icon: SiGoogle, color: "#4285F4" },
+      { name: "Salesforce", Icon: Cloud, color: "#00A1E0" },
+      { name: "Workday", Icon: Briefcase, color: "#F38B00" },
+      { name: "Zoom", Icon: Video, color: "#2D8CFF" },
+    ],
+  },
 ];
 
 // Number of categories to show before "See more"
@@ -131,7 +186,7 @@ export default function Skills() {
   );
 
   return (
-    <section id="skills" className="relative py-24 sm:py-32">
+    <section id="skills" className="relative py-14 sm:py-20">
       <div className="container-section">
         <SectionHeading
           eyebrow="Spells & Enchantments"
@@ -170,7 +225,7 @@ export default function Skills() {
           <div className="mt-10 flex flex-col items-center gap-2">
             <button
               onClick={() => setExpanded((v) => !v)}
-              className="group inline-flex items-center gap-2 rounded-full border border-foreground/15 bg-foreground/[0.02] px-5 py-2.5 text-sm font-medium text-foreground/85 hover:text-foreground hover:border-foreground/30 hover:bg-foreground/[0.04] transition-all"
+              className="group inline-flex items-center gap-2 rounded-full border border-foreground/15 bg-foreground/[0.02] px-5 py-2.5 text-sm font-medium text-foreground/92 hover:text-foreground hover:border-foreground/30 hover:bg-foreground/[0.04] transition-all"
               aria-expanded={expanded}
             >
               {expanded ? "Conceal grimoire" : `Reveal ${hiddenSkillCount}+ more spells`}
@@ -180,7 +235,7 @@ export default function Skills() {
                 }`}
               />
             </button>
-            <p className="text-[11px] font-mono uppercase tracking-[0.18em] text-foreground/70">
+            <p className="text-[11px] font-mono uppercase tracking-[0.18em] text-foreground/84">
               {expanded
                 ? "The full grimoire is open"
                 : `${hiddenGroups.length} more chapters hidden`}
@@ -210,7 +265,7 @@ function SkillGroup({
         <h3 className="font-display text-base font-semibold text-foreground">
           {group.title}
         </h3>
-        <div className="text-[10.5px] font-mono uppercase tracking-[0.22em] text-foreground/55">
+        <div className="text-[10.5px] font-mono uppercase tracking-[0.22em] text-foreground/72">
           {group.eyebrow}
         </div>
       </div>
