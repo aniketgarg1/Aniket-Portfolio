@@ -20,11 +20,11 @@
   /* Light theme = "Parchment by Candlelight" */
   :root.light,
   .light {
-    --background: 242 228 200;       /* aged parchment */
-    --surface: 232 218 188;
-    --foreground: 32 18 10;          /* deeper ink for stronger contrast */
-    --muted: 92 64 38;               /* readable burnt-umber secondary */
-    --accent: 124 10 2;              /* Gryffindor burgundy */
+    --background: 246 235 213;       /* aged parchment */
+    --surface: 238 224 194;
+    --foreground: 20 11 5;           /* deeper ink for stronger contrast */
+    --muted: 58 37 20;               /* readable burnt-umber secondary */
+    --accent: 112 12 5;              /* Gryffindor burgundy */
     --magic: 124 58 237;
 
     color-scheme: light;
@@ -46,6 +46,10 @@
       radial-gradient(ellipse 60% 40% at 80% 110%, rgb(var(--magic) / 0.06), transparent 60%);
     background-attachment: fixed;
     transition: background-color 0.4s ease, color 0.4s ease;
+  }
+
+  .light body {
+    font-weight: 500;
   }
 
   ::selection {
@@ -224,4 +228,13 @@
 .wand-active,
 .wand-active * {
   cursor: none !important;
+}
+
+.map-open,
+.map-open * {
+  cursor: auto !important;
+}
+
+.map-open .wand-cursor-layer {
+  opacity: 0 !important;
 }

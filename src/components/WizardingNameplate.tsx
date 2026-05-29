@@ -24,7 +24,7 @@ export default function WizardingNameplate({
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.65, delay: 0.14 }}
-      className="relative mt-4 inline-block select-none"
+      className="relative -ml-3 mt-1 inline-block overflow-visible py-5 pl-6 pr-4 select-none sm:-ml-5 sm:py-6 sm:pl-8"
       aria-label={full}
     >
       {/* Candlelight bloom behind the name */}
@@ -43,28 +43,30 @@ export default function WizardingNameplate({
         initial={{ opacity: 0, scale: 0.96 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8, delay: 0.2, ease: [0.2, 0.8, 0.2, 1] }}
-        className="font-hp m-0 block"
+        className="font-hp m-0 flex flex-wrap items-baseline gap-x-[0.18em] overflow-visible"
         style={{
-          fontSize: "clamp(2.75rem, 8.5vw, 6.5rem)",
-          lineHeight: 1.25,
-          paddingTop: "0.16em",
-          paddingBottom: "0.26em",
-          paddingLeft: "0.14em",
-          paddingRight: "0.22em",
-          marginLeft: "-0.14em",
+          fontSize: "clamp(2.7rem, 6.8vw, 5.35rem)",
+          lineHeight: 1.45,
+          paddingTop: "0.44em",
+          paddingBottom: "0.28em",
+          paddingLeft: "0.5em",
+          paddingRight: "0.24em",
+          marginLeft: "-0.48em",
           overflow: "visible",
-          background:
-            "linear-gradient(180deg, #fff4c2 0%, #f4d56c 38%, #d8ab38 66%, #a87d1c 100%)",
-          WebkitBackgroundClip: "text",
-          backgroundClip: "text",
-          color: "transparent",
-          WebkitTextFillColor: "transparent",
+          color: "#f4d56c",
+          WebkitTextFillColor: "#f4d56c",
           filter:
             "drop-shadow(0 2px 1px rgba(0,0,0,0.5)) drop-shadow(0 0 26px rgba(244,213,108,0.35))",
-          letterSpacing: "0.01em",
+          letterSpacing: "0",
         }}
       >
-        {full}
+        <span
+          className="inline-block overflow-visible"
+          style={{ paddingLeft: "0.12em", marginLeft: "-0.12em" }}
+        >
+          {firstName}
+        </span>
+        <span className="inline-block overflow-visible">{lastName}</span>
       </motion.h1>
 
       {/* Subtitle ribbon — readable serif, not the display face */}

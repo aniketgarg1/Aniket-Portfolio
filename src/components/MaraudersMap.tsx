@@ -13,15 +13,17 @@ type Location = {
   flavour: string;
   x: number; // % across the 800x500 canvas
   y: number;
+  pinX?: number; // optional visual offset; route vertex still uses x/y
+  pinY?: number;
   kind: Kind;
 };
 
 const LOCATIONS: Location[] = [
-  { id: "home", hash: "#home", name: "Home", flavour: "The Great Hall", x: 16, y: 32, kind: "hall" },
-  { id: "about", hash: "#about", name: "About", flavour: "Headmaster's Study", x: 35, y: 17, kind: "tower" },
+  { id: "home", hash: "#home", name: "Home", flavour: "The Great Hall", x: 16, y: 32, pinX: 14, kind: "hall" },
+  { id: "about", hash: "#about", name: "About", flavour: "Headmaster's Study", x: 35, y: 17, pinX: 31.5, kind: "tower" },
   { id: "skills", hash: "#skills", name: "Skills", flavour: "The Library", x: 55, y: 27, kind: "library" },
-  { id: "experience", hash: "#experience", name: "Experience", flavour: "Quidditch Pitch", x: 37, y: 56, kind: "pitch" },
-  { id: "projects", hash: "#projects", name: "Projects", flavour: "Room of Requirement", x: 64, y: 60, kind: "tower" },
+  { id: "experience", hash: "#experience", name: "Experience", flavour: "Quidditch Pitch", x: 37, y: 56, pinX: 32.5, kind: "pitch" },
+  { id: "projects", hash: "#projects", name: "Projects", flavour: "Room of Requirement", x: 64, y: 60, pinX: 58.5, kind: "tower" },
   { id: "contact", hash: "#contact", name: "Contact", flavour: "The Owlery", x: 84, y: 35, kind: "owlery" },
 ];
 
@@ -48,6 +50,7 @@ function quadD(t: number, p0: number, c: number, p1: number) {
 
 export default function MaraudersMap() {
   const [open, setOpen] = useState(false);
+  const [closing, setClosing] = useState(false);
   const [active, setActive] = useState("home");
 
   useEffect(() => {
@@ -88,12 +91,25 @@ export default function MaraudersMap() {
     }
   }, [open]);
 
+  const closeMap = (afterClose?: () => void) => {
+    if (closing) return;
+    setClosing(true);
+    window.setTimeout(() => {
+      setOpen(false);
+      setClosing(false);
+      afterClose?.();
+    }, 1150);
+  };
+
   return (
     <>
       {/* Launcher */}
       <button
         type="button"
-        onClick={() => setOpen(true)}
+        onClick={() => {
+          setClosing(false);
+          setOpen(true);
+        }}
         aria-label="Open the Marauder's Map"
         title="Open the Marauder's Map (M)"
         className="group fixed bottom-5 right-5 z-[58] inline-flex items-center gap-2 rounded-full px-4 py-2.5 backdrop-blur-md transition-all hover:-translate-y-0.5"
@@ -126,13 +142,13 @@ export default function MaraudersMap() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-8"
+            className="fixed inset-0 z-[100] flex items-center justify-center p-2 sm:p-5"
           >
             {/* dim + smoke scrim */}
             <button
               type="button"
               aria-label="Close map"
-              onClick={() => setOpen(false)}
+              onClick={() => closeMap()}
               className="absolute inset-0"
               style={{
                 background:
@@ -146,24 +162,25 @@ export default function MaraudersMap() {
               animate={{ scale: 1, opacity: 1, rotateX: 0, y: 0 }}
               exit={{ scale: 0.9, opacity: 0, rotateX: 14, y: 20 }}
               transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              className="relative w-full max-w-5xl"
+              className="relative w-full max-w-5xl max-h-[calc(100vh-1rem)]"
               style={{ perspective: 1400, transformStyle: "preserve-3d" }}
             >
               <Parchment
                 active={active}
+                closing={closing}
+                onClose={() => closeMap()}
                 onPick={(loc) => {
-                  setOpen(false);
-                  window.setTimeout(() => {
+                  closeMap(() => {
                     document
                       .querySelector(loc.hash)
                       ?.scrollIntoView({ behavior: "smooth" });
-                  }, 220);
+                  });
                 }}
               />
 
               <button
                 type="button"
-                onClick={() => setOpen(false)}
+                onClick={() => closeMap()}
                 aria-label="Close map"
                 className="absolute -top-3 -right-3 h-10 w-10 rounded-full bg-stone-950 border border-amber-400/50 text-amber-200 hover:bg-stone-800 hover:scale-105 transition-all flex items-center justify-center shadow-xl"
               >
@@ -181,9 +198,13 @@ export default function MaraudersMap() {
 
 function Parchment({
   active,
+  closing,
+  onClose,
   onPick,
 }: {
   active: string;
+  closing: boolean;
+  onClose: () => void;
   onPick: (loc: Location) => void;
 }) {
   const activeLoc = LOCATIONS.find((l) => l.id === active) ?? LOCATIONS[0];
@@ -272,8 +293,12 @@ function Parchment({
       {/* Floating dust motes */}
       <Motes />
 
+      <motion.div
+        animate={closing ? { opacity: 0, filter: "blur(3px)" } : { opacity: 1, filter: "blur(0px)" }}
+        transition={{ duration: 1.05, ease: "easeInOut" }}
+      >
       {/* Header */}
-      <div className="relative px-6 sm:px-10 pt-6 sm:pt-8 text-center">
+      <div className="relative px-6 sm:px-10 pt-5 sm:pt-7 text-center">
         <motion.div
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
@@ -287,7 +312,7 @@ function Parchment({
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.35, duration: 0.55 }}
-          className="mt-1 font-hp leading-none"
+          className="mt-6 font-hp leading-[1.08]"
           style={{
             fontSize: "clamp(1.9rem, 5vw, 3.4rem)",
             color: "#3a2410",
@@ -300,7 +325,7 @@ function Parchment({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5, duration: 0.5 }}
-          className="mt-1 font-display italic text-[12px] sm:text-sm"
+          className="mt-4 font-display italic text-[12px] sm:text-sm"
           style={{ color: "#4a2c10" }}
         >
           are proud to present a guide to the portfolio of Aniket Garg
@@ -401,6 +426,23 @@ function Parchment({
               onClick={() => onPick(loc)}
             />
           ))}
+
+          <button
+            type="button"
+            onClick={onClose}
+            disabled={closing}
+            className="absolute bottom-3 left-1/2 z-20 inline-flex -translate-x-1/2 items-center justify-center rounded-full border px-6 py-2.5 font-mono text-[11px] font-bold uppercase tracking-[0.24em] transition-all hover:-translate-y-0.5 disabled:pointer-events-none disabled:opacity-80 sm:bottom-4 sm:px-8 sm:py-3 sm:text-xs"
+            style={{
+              borderColor: "rgba(120,18,10,0.55)",
+              color: "#f8e6b0",
+              background:
+                "linear-gradient(135deg, rgba(108,21,10,0.96), rgba(54,19,8,0.96))",
+              boxShadow:
+                "0 12px 26px -14px rgba(40,10,4,0.9), inset 0 0 0 1px rgba(255,224,148,0.22)",
+            }}
+          >
+            Mischief Managed
+          </button>
         </div>
 
         {/* Legend */}
@@ -422,12 +464,55 @@ function Parchment({
       </div>
 
       {/* Incantation footer */}
-      <div
-        className="relative pb-5 text-center font-display italic text-[12px] sm:text-sm"
-        style={{ color: "#4a2c10" }}
-      >
-        &ldquo;I solemnly swear that I am up to no good.&rdquo;
+      <div className="relative pb-4 text-center">
+        <div
+          className="font-display italic text-[12px] sm:text-sm"
+          style={{ color: "#4a2c10" }}
+        >
+          &ldquo;I solemnly swear that I am up to no good.&rdquo;
+        </div>
       </div>
+      </motion.div>
+
+      <AnimatePresence>
+        {closing && (
+          <motion.div
+            aria-hidden
+            className="absolute inset-0 z-[50] pointer-events-none flex items-center justify-center"
+            style={{
+              background:
+                "radial-gradient(ellipse 78% 78% at 50% 45%, rgba(28,16,5,0.08) 0%, rgba(28,16,5,0.64) 62%, rgba(16,9,3,0.94) 100%)",
+            }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1.05, ease: "easeInOut" }}
+          >
+            <motion.div
+              className="absolute left-1/2 top-1/2 rounded-full"
+              style={{
+                width: "42%",
+                aspectRatio: "1",
+                x: "-50%",
+                y: "-50%",
+                background:
+                  "radial-gradient(circle, rgba(31,18,6,0.96) 0%, rgba(31,18,6,0.82) 48%, rgba(31,18,6,0) 70%)",
+              }}
+              initial={{ scale: 0.08, opacity: 0.62 }}
+              animate={{ scale: 4.8, opacity: 1 }}
+              transition={{ duration: 1.08, ease: "easeInOut" }}
+            />
+            <motion.div
+              className="relative font-display italic text-lg sm:text-2xl"
+              style={{ color: "#f3dfab", textShadow: "0 2px 10px rgba(0,0,0,0.65)" }}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: [0, 1, 1, 0], y: 0 }}
+              transition={{ duration: 1.05, times: [0, 0.28, 0.75, 1] }}
+            >
+              Mischief Managed
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* ---- Cinematic "the map reveals itself" opening sequence ---- */}
       {/* Ink develops across the parchment, then clears */}
@@ -496,7 +581,7 @@ function Pin({
       transition={{ delay: 0.7 + index * 0.12, type: "spring", stiffness: 260, damping: 18 }}
       whileHover={{ scale: 1.12 }}
       className="group absolute -translate-x-1/2 -translate-y-1/2 outline-none"
-      style={{ left: `${loc.x}%`, top: `${loc.y}%` }}
+      style={{ left: `${loc.pinX ?? loc.x}%`, top: `${loc.pinY ?? loc.y}%` }}
     >
       <span className="relative flex flex-col items-center">
         <span

@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import {
   ArrowRight,
@@ -57,6 +58,8 @@ export default function Hero() {
       className="relative min-h-[88vh] flex items-center pt-24 pb-14 overflow-hidden"
     >
       <div className="container-section w-full relative z-10">
+        <div className="grid items-center gap-9 lg:grid-cols-[minmax(0,1fr)_minmax(270px,360px)] lg:gap-12">
+          <div className="min-w-0">
         {/* Availability / Sorting badges */}
         <motion.div
           initial={{ opacity: 0, y: 12 }}
@@ -190,6 +193,10 @@ export default function Hero() {
           <MapPin className="h-3.5 w-3.5" />
           <span>{profile.location}</span>
         </motion.div>
+          </div>
+
+          <HeroPortrait />
+        </div>
       </div>
 
       {/* Scroll cue */}
@@ -203,6 +210,33 @@ export default function Hero() {
         <span className="block h-8 w-px bg-gradient-to-b from-accent/60 to-transparent" />
       </motion.div>
     </section>
+  );
+}
+
+function HeroPortrait() {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 18, rotate: 1.5 }}
+      animate={{ opacity: 1, y: 0, rotate: 0 }}
+      transition={{ duration: 0.7, delay: 0.24, ease: [0.2, 0.8, 0.2, 1] }}
+      className="order-first mx-auto w-full max-w-[170px] sm:max-w-[210px] lg:order-none lg:max-w-[300px]"
+    >
+      <div className="relative rounded-lg border border-accent/35 bg-foreground/[0.04] p-2 shadow-[0_22px_70px_-34px_rgb(var(--accent)/0.75)] backdrop-blur-sm [.light_&]:border-foreground/20 [.light_&]:bg-white/25 [.light_&]:shadow-[0_22px_55px_-34px_rgba(47,27,12,0.6)]">
+        <span
+          aria-hidden
+          className="absolute -inset-3 -z-10 rounded-[14px] bg-accent/10 blur-2xl [.light_&]:bg-accent/8"
+        />
+        <Image
+          src="/aniket-garg.jpg"
+          alt="Portrait of Aniket Garg"
+          width={1067}
+          height={1600}
+          priority
+          sizes="(min-width: 1024px) 360px, (min-width: 640px) 270px, 230px"
+          className="aspect-[4/5] w-full rounded-md object-cover object-[50%_22%]"
+        />
+      </div>
+    </motion.div>
   );
 }
 

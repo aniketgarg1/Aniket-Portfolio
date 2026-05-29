@@ -107,7 +107,7 @@ export default function WandCursor() {
       <div
         ref={lumosRef}
         aria-hidden
-        className="pointer-events-none fixed left-0 top-0 z-[55] h-[420px] w-[420px] opacity-100 [.light_&]:opacity-0 transition-opacity duration-500 mix-blend-screen will-change-transform"
+        className="wand-cursor-layer pointer-events-none fixed left-0 top-0 z-[55] h-[420px] w-[420px] opacity-100 [.light_&]:opacity-0 transition-opacity duration-500 mix-blend-screen will-change-transform"
         style={{
           background:
             "radial-gradient(circle, rgba(255,221,140,0.14) 0%, rgba(255,184,82,0.07) 32%, rgba(255,150,50,0.02) 56%, transparent 72%)",
@@ -118,7 +118,7 @@ export default function WandCursor() {
       <div
         ref={wandRef}
         aria-hidden
-        className="pointer-events-none fixed left-0 top-0 z-[120] will-change-transform"
+        className="wand-cursor-layer pointer-events-none fixed left-0 top-0 z-[120] will-change-transform"
       >
         <div
           style={{
@@ -132,7 +132,7 @@ export default function WandCursor() {
       </div>
 
       {/* Spark particles */}
-      <div className="pointer-events-none fixed inset-0 z-[119] overflow-hidden">
+      <div className="wand-cursor-layer pointer-events-none fixed inset-0 z-[119] overflow-hidden">
         {sparks.map((s) => (
           <span
             key={s.id}
