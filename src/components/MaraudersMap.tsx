@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { type CSSProperties, useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Map as MapIcon } from "lucide-react";
 
@@ -15,16 +15,18 @@ type Location = {
   y: number;
   pinX?: number; // optional visual offset; route vertex still uses x/y
   pinY?: number;
+  mobilePinX?: number;
+  mobilePinY?: number;
   kind: Kind;
 };
 
 const LOCATIONS: Location[] = [
-  { id: "home", hash: "#home", name: "Home", flavour: "The Great Hall", x: 16, y: 32, pinX: 14, kind: "hall" },
-  { id: "about", hash: "#about", name: "About", flavour: "Headmaster's Study", x: 35, y: 17, pinX: 31.5, kind: "tower" },
+  { id: "home", hash: "#home", name: "Home", flavour: "The Great Hall", x: 16, y: 32, pinX: 14, mobilePinX: 17, mobilePinY: 43, kind: "hall" },
+  { id: "about", hash: "#about", name: "About", flavour: "Headmaster's Study", x: 35, y: 17, pinX: 31.5, mobilePinX: 37.5, mobilePinY: 34, kind: "tower" },
   { id: "skills", hash: "#skills", name: "Skills", flavour: "The Library", x: 55, y: 27, kind: "library" },
-  { id: "experience", hash: "#experience", name: "Experience", flavour: "Quidditch Pitch", x: 37, y: 56, pinX: 32.5, kind: "pitch" },
-  { id: "projects", hash: "#projects", name: "Projects", flavour: "Room of Requirement", x: 64, y: 60, pinX: 58.5, kind: "tower" },
-  { id: "contact", hash: "#contact", name: "Contact", flavour: "The Owlery", x: 84, y: 35, kind: "owlery" },
+  { id: "experience", hash: "#experience", name: "Experience", flavour: "Quidditch Pitch", x: 37, y: 56, pinX: 32.5, mobilePinX: 38, mobilePinY: 67, kind: "pitch" },
+  { id: "projects", hash: "#projects", name: "Projects", flavour: "Room of Requirement", x: 64, y: 60, pinX: 58.5, mobilePinX: 65, mobilePinY: 72, kind: "tower" },
+  { id: "contact", hash: "#contact", name: "Contact", flavour: "The Owlery", x: 84, y: 35, mobilePinX: 87, mobilePinY: 45, kind: "owlery" },
 ];
 
 const NAV_IDS = LOCATIONS.map((l) => l.id);
@@ -599,12 +601,19 @@ function Pin({
       animate={{ opacity: 1, scale: 1 }}
       transition={{ delay: 0.7 + index * 0.12, type: "spring", stiffness: 260, damping: 18 }}
       whileHover={{ scale: 1.12 }}
-      className="group absolute -translate-x-1/2 -translate-y-1/2 outline-none"
-      style={{ left: `${loc.pinX ?? loc.x}%`, top: `${loc.pinY ?? loc.y}%` }}
+      className="marauder-pin group absolute -translate-x-1/2 -translate-y-1/2 outline-none"
+      style={
+        {
+          left: `${loc.pinX ?? loc.x}%`,
+          top: `${loc.pinY ?? loc.y}%`,
+          "--mobile-pin-x": `${loc.mobilePinX ?? loc.pinX ?? loc.x}%`,
+          "--mobile-pin-y": `${loc.mobilePinY ?? loc.pinY ?? loc.y}%`,
+        } as CSSProperties
+      }
     >
       <span className="relative flex flex-col items-center">
         <span
-          className="relative transition-colors"
+          className="marauder-pin-glyph relative transition-colors"
           style={{ color: isActive ? "#7a1a08" : "#3a2410" }}
         >
           <Tower kind={loc.kind} />
@@ -630,7 +639,7 @@ function Pin({
           )}
         </span>
         <span
-          className="mt-0.5 whitespace-nowrap font-hp leading-none"
+          className="marauder-pin-name mt-0.5 whitespace-nowrap font-hp leading-none"
           style={{
             fontSize: "clamp(1.05rem, 2.6vw, 1.55rem)",
             color: isActive ? "#8a1407" : "#241006",
@@ -641,7 +650,7 @@ function Pin({
           {loc.name}
         </span>
         <span
-          className="-mt-0.5 whitespace-nowrap font-display italic text-[9px] sm:text-[11px] font-medium"
+          className="marauder-pin-flavour -mt-0.5 whitespace-nowrap font-display italic text-[9px] sm:text-[11px] font-medium"
           style={{
             color: "#4a2c10",
             textShadow: "0 1px 0 rgba(255,244,200,0.5)",
@@ -654,6 +663,28 @@ function Pin({
         @keyframes pin-pulse {
           0%, 100% { opacity: 0.7; transform: translate(-50%, -50%) scale(1); }
           50% { opacity: 1; transform: translate(-50%, -50%) scale(1.18); }
+        }
+        @media (max-width: 639px) {
+          .marauder-pin {
+            left: var(--mobile-pin-x) !important;
+            top: var(--mobile-pin-y) !important;
+          }
+          .marauder-pin-glyph {
+            transform: scale(0.72);
+            transform-origin: center bottom;
+            margin-bottom: -0.42rem;
+          }
+          .marauder-pin-name {
+            font-size: clamp(0.98rem, 5vw, 1.24rem) !important;
+          }
+          .marauder-pin-flavour {
+            font-size: clamp(0.48rem, 2.45vw, 0.68rem) !important;
+          }
+          .marauder-pin .h-12,
+          .marauder-pin .h-14 {
+            height: 2.35rem;
+            width: 2.35rem;
+          }
         }
       `}</style>
     </motion.button>
