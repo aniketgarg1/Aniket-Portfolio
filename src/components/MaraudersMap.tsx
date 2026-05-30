@@ -431,7 +431,7 @@ function Parchment({
             type="button"
             onClick={onClose}
             disabled={closing}
-            className="absolute bottom-8 left-1/2 z-20 inline-flex -translate-x-1/2 items-center justify-center rounded-full border px-6 py-2.5 font-mono text-[11px] font-bold uppercase tracking-[0.24em] transition-all hover:-translate-y-0.5 disabled:pointer-events-none disabled:opacity-80 sm:bottom-10 sm:px-8 sm:py-3 sm:text-xs"
+            className="absolute bottom-8 left-1/2 z-20 hidden -translate-x-1/2 items-center justify-center whitespace-nowrap rounded-full border px-6 py-2.5 font-mono text-[11px] font-bold uppercase tracking-[0.24em] transition-all hover:-translate-y-0.5 disabled:pointer-events-none disabled:opacity-80 sm:bottom-10 sm:inline-flex sm:px-8 sm:py-3 sm:text-xs"
             style={{
               borderColor: "rgba(120,18,10,0.55)",
               color: "#f8e6b0",
@@ -445,9 +445,28 @@ function Parchment({
           </button>
         </div>
 
+        <div className="mt-3 flex justify-center sm:hidden">
+          <button
+            type="button"
+            onClick={onClose}
+            disabled={closing}
+            className="inline-flex items-center justify-center whitespace-nowrap rounded-full border px-5 py-2.5 font-mono text-[10px] font-bold uppercase tracking-[0.2em] transition-all disabled:pointer-events-none disabled:opacity-80"
+            style={{
+              borderColor: "rgba(120,18,10,0.55)",
+              color: "#f8e6b0",
+              background:
+                "linear-gradient(135deg, rgba(108,21,10,0.96), rgba(54,19,8,0.96))",
+              boxShadow:
+                "0 10px 20px -14px rgba(40,10,4,0.9), inset 0 0 0 1px rgba(255,224,148,0.22)",
+            }}
+          >
+            Mischief Managed
+          </button>
+        </div>
+
         {/* Legend */}
         <div
-          className="mt-1 flex flex-wrap items-center justify-between gap-x-6 gap-y-2 px-2"
+          className="mt-3 flex flex-wrap items-center justify-between gap-x-6 gap-y-2 px-2 sm:mt-1"
           style={{ color: "#3a2208" }}
         >
           <div className="flex items-center gap-2 font-mono text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.2em]">
