@@ -13,6 +13,8 @@
     --muted: 215 198 168;            /* lifted for readable secondary text */
     --accent: 222 184 73;            /* slightly brighter antique gold */
     --magic: 156 102 255;            /* magical violet glow */
+    --nameplate-color: #f4d56c;
+    --nameplate-glow: drop-shadow(0 2px 1px rgba(0,0,0,0.5)) drop-shadow(0 0 26px rgba(244,213,108,0.35));
 
     color-scheme: dark;
   }
@@ -26,6 +28,8 @@
     --muted: 58 37 20;               /* readable burnt-umber secondary */
     --accent: 112 12 5;              /* Gryffindor burgundy */
     --magic: 124 58 237;
+    --nameplate-color: #5b2f12;
+    --nameplate-glow: drop-shadow(0 1px 0 rgba(255,246,218,0.7)) drop-shadow(0 6px 18px rgba(91,47,18,0.16));
 
     color-scheme: light;
   }
@@ -79,8 +83,14 @@
   }
 
   .card {
-    @apply rounded-2xl border border-foreground/[0.10] bg-foreground/[0.02] backdrop-blur-sm
+    @apply rounded-2xl border border-foreground/[0.12] bg-surface/50 backdrop-blur-sm
            transition-colors duration-300;
+  }
+
+  .light .card {
+    background-color: rgb(var(--surface) / 0.48);
+    border-color: rgb(var(--foreground) / 0.13);
+    box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.18);
   }
 
   .card-hover {

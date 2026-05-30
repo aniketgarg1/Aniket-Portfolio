@@ -53,10 +53,9 @@ export default function WizardingNameplate({
           paddingRight: "0.24em",
           marginLeft: "-0.48em",
           overflow: "visible",
-          color: "#f4d56c",
-          WebkitTextFillColor: "#f4d56c",
-          filter:
-            "drop-shadow(0 2px 1px rgba(0,0,0,0.5)) drop-shadow(0 0 26px rgba(244,213,108,0.35))",
+          color: "var(--nameplate-color)",
+          WebkitTextFillColor: "var(--nameplate-color)",
+          filter: "var(--nameplate-glow)",
           letterSpacing: "0",
         }}
       >

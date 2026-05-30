@@ -13,6 +13,7 @@ import { useEffect, useRef } from "react";
  */
 export default function AnimatedBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const printTrail = Array.from({ length: 18 }, (_, i) => i);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -112,11 +113,85 @@ export default function AnimatedBackground() {
       {/* Parchment grain (only visible in light theme) */}
       <div className="absolute inset-0 bg-grid opacity-0 transition-opacity duration-500 [.light_&]:opacity-100" />
 
+      {/* Animated Marauder footprints (light theme only) */}
+      <div className="absolute inset-0 opacity-0 transition-opacity duration-500 [.light_&]:opacity-100">
+        {printTrail.map((i) => {
+          const column = i % 6;
+          const row = Math.floor(i / 6);
+          const left = column * 18 + 7 + (row % 2) * 8;
+          const top = row * 30 + 13 + (column % 2) * 5;
+          const flip = i % 2 === 1;
+          const delay = i * 0.55;
+
+          return (
+            <span
+              key={i}
+              className="absolute opacity-0"
+              style={{
+                left: `${left}%`,
+                top: `${top}%`,
+                transform: `rotate(${flip ? 14 : -14}deg)`,
+                animation: `light-footprint-fade 8s ease-in-out ${delay}s infinite`,
+              }}
+            >
+              <BackgroundFootprint flip={flip} large={i % 5 === 1} />
+            </span>
+          );
+        })}
+      </div>
+
       {/* Top golden glow */}
       <div className="absolute inset-x-0 top-0 h-[600px] bg-[radial-gradient(ellipse_at_top,rgb(var(--accent)/0.10),transparent_60%)]" />
 
       {/* Bottom magical violet bloom */}
       <div className="absolute -bottom-40 -right-40 h-[600px] w-[600px] rounded-full bg-[radial-gradient(circle,rgb(var(--magic)/0.07),transparent_70%)] blur-2xl" />
+
+      <style jsx>{`
+        @keyframes light-footprint-fade {
+          0%, 100% {
+            opacity: 0;
+            transform: translateY(6px) scale(0.96);
+          }
+          16%, 58% {
+            opacity: 0.34;
+            transform: translateY(0) scale(1);
+          }
+          78% {
+            opacity: 0;
+            transform: translateY(-8px) scale(1.02);
+          }
+        }
+      `}</style>
     </div>
+  );
+}
+
+function BackgroundFootprint({
+  flip,
+  large,
+}: {
+  flip?: boolean;
+  large?: boolean;
+}) {
+  const width = large ? 58 : 22;
+  const height = large ? 74 : 28;
+  const fill = large
+    ? "rgb(99 58 24 / 0.13)"
+    : "rgb(var(--accent) / 0.54)";
+
+  return (
+    <svg
+      width={width}
+      height={height}
+      viewBox="0 0 16 20"
+      fill="none"
+      style={{ transform: flip ? "scaleX(-1)" : undefined }}
+    >
+      <ellipse cx="8" cy="14" rx="4.5" ry="5.2" fill={fill} />
+      <circle cx="5.2" cy="6" r="1.1" fill={fill} />
+      <circle cx="7.4" cy="4.3" r="1.05" fill={fill} />
+      <circle cx="9.8" cy="4.3" r="1.05" fill={fill} />
+      <circle cx="12" cy="6" r="1.0" fill={fill} />
+    </svg>
   );
 }
