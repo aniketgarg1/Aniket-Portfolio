@@ -1,6 +1,6 @@
 "use client";
 
-import { type CSSProperties, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Map as MapIcon } from "lucide-react";
 
@@ -15,18 +15,18 @@ type Location = {
   y: number;
   pinX?: number; // optional visual offset; route vertex still uses x/y
   pinY?: number;
-  mobilePinX?: number;
-  mobilePinY?: number;
+  mobileX?: number; // compact map vertex and pin position
+  mobileY?: number;
   kind: Kind;
 };
 
 const LOCATIONS: Location[] = [
-  { id: "home", hash: "#home", name: "Home", flavour: "The Great Hall", x: 16, y: 32, pinX: 14, mobilePinX: 17, mobilePinY: 43, kind: "hall" },
-  { id: "about", hash: "#about", name: "About", flavour: "Headmaster's Study", x: 35, y: 17, pinX: 31.5, mobilePinX: 37.5, mobilePinY: 34, kind: "tower" },
-  { id: "skills", hash: "#skills", name: "Skills", flavour: "The Library", x: 55, y: 27, kind: "library" },
-  { id: "experience", hash: "#experience", name: "Experience", flavour: "Quidditch Pitch", x: 37, y: 56, pinX: 32.5, mobilePinX: 38, mobilePinY: 67, kind: "pitch" },
-  { id: "projects", hash: "#projects", name: "Projects", flavour: "Room of Requirement", x: 64, y: 60, pinX: 58.5, mobilePinX: 65, mobilePinY: 72, kind: "tower" },
-  { id: "contact", hash: "#contact", name: "Contact", flavour: "The Owlery", x: 84, y: 35, mobilePinX: 87, mobilePinY: 45, kind: "owlery" },
+  { id: "home", hash: "#home", name: "Home", flavour: "The Great Hall", x: 16, y: 32, pinX: 14, mobileX: 22, mobileY: 46, kind: "hall" },
+  { id: "about", hash: "#about", name: "About", flavour: "Headmaster's Study", x: 35, y: 17, pinX: 31.5, mobileX: 41, mobileY: 34, kind: "tower" },
+  { id: "skills", hash: "#skills", name: "Skills", flavour: "The Library", x: 55, y: 27, mobileX: 61, mobileY: 43, kind: "library" },
+  { id: "experience", hash: "#experience", name: "Experience", flavour: "Quidditch Pitch", x: 37, y: 56, pinX: 32.5, mobileX: 40, mobileY: 68, kind: "pitch" },
+  { id: "projects", hash: "#projects", name: "Projects", flavour: "Room of Requirement", x: 64, y: 60, pinX: 58.5, mobileX: 69, mobileY: 68, kind: "tower" },
+  { id: "contact", hash: "#contact", name: "Contact", flavour: "The Owlery", x: 84, y: 35, mobileX: 86, mobileY: 47, kind: "owlery" },
 ];
 
 const NAV_IDS = LOCATIONS.map((l) => l.id);
@@ -48,6 +48,19 @@ function quad(t: number, p0: number, c: number, p1: number) {
 }
 function quadD(t: number, p0: number, c: number, p1: number) {
   return 2 * (1 - t) * (c - p0) + 2 * t * (p1 - c);
+}
+function useMediaQuery(query: string) {
+  const [matches, setMatches] = useState(false);
+
+  useEffect(() => {
+    const media = window.matchMedia(query);
+    const update = () => setMatches(media.matches);
+    update();
+    media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
+  }, [query]);
+
+  return matches;
 }
 
 export default function MaraudersMap() {
@@ -210,15 +223,29 @@ function Parchment({
   onPick: (loc: Location) => void;
 }) {
   const activeLoc = LOCATIONS.find((l) => l.id === active) ?? LOCATIONS[0];
+  const compactMap = useMediaQuery("(max-width: 639px)");
+  const mapLocations = useMemo(
+    () =>
+      compactMap
+        ? LOCATIONS.map((loc) => ({
+            ...loc,
+            x: loc.mobileX ?? loc.x,
+            y: loc.mobileY ?? loc.y,
+            pinX: loc.mobileX ?? loc.x,
+            pinY: loc.mobileY ?? loc.y,
+          }))
+        : LOCATIONS,
+    [compactMap]
+  );
 
   // Precompute corridor segments + footstep placements along the full tour.
   const { segments, footsteps } = useMemo(() => {
     const segs: { d: string }[] = [];
     const steps: { x: number; y: number; angle: number; order: number }[] = [];
     let order = 0;
-    for (let i = 0; i < LOCATIONS.length - 1; i++) {
-      const a = px(LOCATIONS[i]);
-      const b = px(LOCATIONS[i + 1]);
+    for (let i = 0; i < mapLocations.length - 1; i++) {
+      const a = px(mapLocations[i]);
+      const b = px(mapLocations[i + 1]);
       const c = controlFor(a, b, i);
       segs.push({ d: `M ${a.x} ${a.y} Q ${c.x} ${c.y} ${b.x} ${b.y}` });
       const N = 6;
@@ -233,7 +260,7 @@ function Parchment({
       }
     }
     return { segments: segs, footsteps: steps };
-  }, []);
+  }, [mapLocations]);
 
   const totalSteps = footsteps.length;
   const walkDuration = Math.min(7, totalSteps * 0.22);
@@ -419,7 +446,7 @@ function Parchment({
           </svg>
 
           {/* Location pins */}
-          {LOCATIONS.map((loc, i) => (
+          {mapLocations.map((loc, i) => (
             <Pin
               key={loc.id}
               loc={loc}
@@ -602,14 +629,7 @@ function Pin({
       transition={{ delay: 0.7 + index * 0.12, type: "spring", stiffness: 260, damping: 18 }}
       whileHover={{ scale: 1.12 }}
       className="marauder-pin group absolute -translate-x-1/2 -translate-y-1/2 outline-none"
-      style={
-        {
-          left: `${loc.pinX ?? loc.x}%`,
-          top: `${loc.pinY ?? loc.y}%`,
-          "--mobile-pin-x": `${loc.mobilePinX ?? loc.pinX ?? loc.x}%`,
-          "--mobile-pin-y": `${loc.mobilePinY ?? loc.pinY ?? loc.y}%`,
-        } as CSSProperties
-      }
+      style={{ left: `${loc.pinX ?? loc.x}%`, top: `${loc.pinY ?? loc.y}%` }}
     >
       <span className="relative flex flex-col items-center">
         <span
@@ -665,20 +685,16 @@ function Pin({
           50% { opacity: 1; transform: translate(-50%, -50%) scale(1.18); }
         }
         @media (max-width: 639px) {
-          .marauder-pin {
-            left: var(--mobile-pin-x) !important;
-            top: var(--mobile-pin-y) !important;
-          }
           .marauder-pin-glyph {
-            transform: scale(0.72);
+            transform: scale(0.58);
             transform-origin: center bottom;
-            margin-bottom: -0.42rem;
+            margin-bottom: -0.72rem;
           }
           .marauder-pin-name {
-            font-size: clamp(0.98rem, 5vw, 1.24rem) !important;
+            font-size: clamp(0.8rem, 4.1vw, 1.02rem) !important;
           }
           .marauder-pin-flavour {
-            font-size: clamp(0.48rem, 2.45vw, 0.68rem) !important;
+            font-size: clamp(0.42rem, 2.05vw, 0.56rem) !important;
           }
           .marauder-pin .h-12,
           .marauder-pin .h-14 {
