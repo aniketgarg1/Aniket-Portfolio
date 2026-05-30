@@ -21,12 +21,12 @@ type Location = {
 };
 
 const LOCATIONS: Location[] = [
-  { id: "home", hash: "#home", name: "Home", flavour: "The Great Hall", x: 16, y: 32, pinX: 14, mobileX: 22, mobileY: 46, kind: "hall" },
-  { id: "about", hash: "#about", name: "About", flavour: "Headmaster's Study", x: 35, y: 17, pinX: 31.5, mobileX: 41, mobileY: 34, kind: "tower" },
-  { id: "skills", hash: "#skills", name: "Skills", flavour: "The Library", x: 55, y: 27, mobileX: 61, mobileY: 43, kind: "library" },
-  { id: "experience", hash: "#experience", name: "Experience", flavour: "Quidditch Pitch", x: 37, y: 56, pinX: 32.5, mobileX: 40, mobileY: 68, kind: "pitch" },
-  { id: "projects", hash: "#projects", name: "Projects", flavour: "Room of Requirement", x: 64, y: 60, pinX: 58.5, mobileX: 69, mobileY: 68, kind: "tower" },
-  { id: "contact", hash: "#contact", name: "Contact", flavour: "The Owlery", x: 84, y: 35, mobileX: 86, mobileY: 47, kind: "owlery" },
+  { id: "home", hash: "#home", name: "Home", flavour: "The Great Hall", x: 16, y: 32, pinX: 14, mobileX: 17, mobileY: 47, kind: "hall" },
+  { id: "about", hash: "#about", name: "About", flavour: "Headmaster's Study", x: 35, y: 17, pinX: 31.5, mobileX: 42, mobileY: 26, kind: "tower" },
+  { id: "skills", hash: "#skills", name: "Skills", flavour: "The Library", x: 55, y: 27, mobileX: 62, mobileY: 41, kind: "library" },
+  { id: "experience", hash: "#experience", name: "Experience", flavour: "Quidditch Pitch", x: 37, y: 56, pinX: 32.5, mobileX: 36, mobileY: 74, kind: "pitch" },
+  { id: "projects", hash: "#projects", name: "Projects", flavour: "Room of Requirement", x: 64, y: 60, pinX: 58.5, mobileX: 71, mobileY: 72, kind: "tower" },
+  { id: "contact", hash: "#contact", name: "Contact", flavour: "The Owlery", x: 84, y: 35, mobileX: 84, mobileY: 50, kind: "owlery" },
 ];
 
 const NAV_IDS = LOCATIONS.map((l) => l.id);
@@ -98,10 +98,12 @@ export default function MaraudersMap() {
   // Lock body scroll while open
   useEffect(() => {
     if (open) {
+      document.documentElement.classList.add("map-open");
       const prev = document.body.style.overflow;
       document.body.style.overflow = "hidden";
       return () => {
         document.body.style.overflow = prev;
+        document.documentElement.classList.remove("map-open");
       };
     }
   }, [open]);
@@ -197,7 +199,7 @@ export default function MaraudersMap() {
                 type="button"
                 onClick={() => closeMap()}
                 aria-label="Close map"
-                className="absolute -top-3 -right-3 h-10 w-10 rounded-full bg-stone-950 border border-amber-400/50 text-amber-200 hover:bg-stone-800 hover:scale-105 transition-all flex items-center justify-center shadow-xl"
+                className="absolute right-2 top-2 h-9 w-9 rounded-full bg-stone-950 border border-amber-400/50 text-amber-200 hover:bg-stone-800 hover:scale-105 transition-all flex items-center justify-center shadow-xl sm:-right-3 sm:-top-3 sm:h-10 sm:w-10"
               >
                 <X className="h-4 w-4" />
               </button>
@@ -327,12 +329,12 @@ function Parchment({
         transition={{ duration: 1.05, ease: "easeInOut" }}
       >
       {/* Header */}
-      <div className="relative px-6 sm:px-10 pt-5 sm:pt-7 text-center">
+      <div className="relative px-5 pt-5 text-center sm:px-10 sm:pt-7">
         <motion.div
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.25, duration: 0.5 }}
-          className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.34em]"
+          className="mx-auto max-w-[18rem] font-mono text-[8px] uppercase leading-relaxed tracking-[0.24em] sm:max-w-none sm:text-[11px] sm:tracking-[0.34em]"
           style={{ color: "#5a3410" }}
         >
           Messrs. Moony, Wormtail, Padfoot &amp; Prongs
@@ -341,9 +343,11 @@ function Parchment({
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.35, duration: 0.55 }}
-          className="mt-6 font-hp leading-[1.08]"
+          className="mt-4 font-hp leading-[1.08] sm:mt-6"
           style={{
-            fontSize: "clamp(1.9rem, 5vw, 3.4rem)",
+            fontSize: compactMap
+              ? "clamp(1.7rem, 7.8vw, 2.1rem)"
+              : "clamp(1.9rem, 5vw, 3.4rem)",
             color: "#3a2410",
             textShadow: "0 1px 0 rgba(255,240,180,0.45)",
           }}
@@ -354,7 +358,7 @@ function Parchment({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5, duration: 0.5 }}
-          className="mt-4 font-display italic text-[12px] sm:text-sm"
+          className="mx-auto mt-3 max-w-[19rem] font-display italic text-[11px] leading-snug sm:mt-4 sm:max-w-none sm:text-sm"
           style={{ color: "#4a2c10" }}
         >
           are proud to present a guide to the portfolio of Aniket Garg
@@ -362,12 +366,15 @@ function Parchment({
       </div>
 
       {/* Map canvas */}
-      <div className="relative px-4 sm:px-8 pb-5 sm:pb-7 pt-2">
-        <div className="relative w-full" style={{ aspectRatio: "8 / 5" }}>
+      <div className="relative px-3 pb-4 pt-3 sm:px-8 sm:pb-7 sm:pt-2">
+        <div
+          className="relative w-full"
+          style={{ aspectRatio: compactMap ? "1 / 0.78" : "8 / 5" }}
+        >
           <svg
             viewBox={`0 0 ${VB_W} ${VB_H}`}
             className="absolute inset-0 h-full w-full"
-            preserveAspectRatio="xMidYMid meet"
+            preserveAspectRatio={compactMap ? "none" : "xMidYMid meet"}
           >
             {/* double frame — draws itself in like ink */}
             <motion.rect
@@ -495,26 +502,26 @@ function Parchment({
 
         {/* Legend */}
         <div
-          className="mt-3 flex flex-wrap items-center justify-between gap-x-6 gap-y-2 px-2 sm:mt-1"
+          className="mt-3 grid gap-2 px-1 text-center sm:mt-1 sm:flex sm:flex-wrap sm:items-center sm:justify-between sm:gap-x-6 sm:gap-y-2 sm:px-2 sm:text-left"
           style={{ color: "#3a2208" }}
         >
-          <div className="flex items-center gap-2 font-mono text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.2em]">
+          <div className="flex items-center justify-center gap-2 font-mono text-[9px] font-semibold uppercase tracking-[0.16em] sm:justify-start sm:text-[11px] sm:tracking-[0.2em]">
             <span className="relative inline-flex h-3 w-3">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-700/50" />
               <span className="relative h-3 w-3 rounded-full bg-red-800 shadow-[0_0_8px_rgba(150,30,10,0.8)]" />
             </span>
             You are here — {activeLoc.flavour}
           </div>
-          <div className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em]">
-            Tap a landmark to apparate • <kbd>Esc</kbd> to close
+          <div className="font-mono text-[9px] font-semibold uppercase tracking-[0.16em] sm:text-[10px] sm:tracking-[0.2em]">
+            Tap a landmark to apparate<span className="hidden sm:inline"> • <kbd>Esc</kbd> to close</span>
           </div>
         </div>
       </div>
 
       {/* Incantation footer */}
-      <div className="relative pb-4 text-center">
+      <div className="relative pb-4 text-center sm:pb-4">
         <div
-          className="font-display italic text-[12px] sm:text-sm"
+          className="font-display italic text-[11px] sm:text-sm"
           style={{ color: "#4a2c10" }}
         >
           &ldquo;I solemnly swear that I am up to no good.&rdquo;
@@ -628,10 +635,11 @@ function Pin({
       animate={{ opacity: 1, scale: 1 }}
       transition={{ delay: 0.7 + index * 0.12, type: "spring", stiffness: 260, damping: 18 }}
       whileHover={{ scale: 1.12 }}
+      aria-label={`Apparate to ${loc.name}`}
       className="marauder-pin group absolute -translate-x-1/2 -translate-y-1/2 outline-none"
       style={{ left: `${loc.pinX ?? loc.x}%`, top: `${loc.pinY ?? loc.y}%` }}
     >
-      <span className="relative flex flex-col items-center">
+      <span className="marauder-pin-stack relative flex flex-col items-center">
         <span
           className="marauder-pin-glyph relative transition-colors"
           style={{ color: isActive ? "#7a1a08" : "#3a2410" }}
@@ -685,21 +693,42 @@ function Pin({
           50% { opacity: 1; transform: translate(-50%, -50%) scale(1.18); }
         }
         @media (max-width: 639px) {
+          .marauder-pin {
+            min-width: 3.25rem;
+            touch-action: manipulation;
+          }
+          .marauder-pin-stack {
+            filter: drop-shadow(0 1px 0 rgba(255, 242, 194, 0.6));
+          }
           .marauder-pin-glyph {
-            transform: scale(0.58);
-            transform-origin: center bottom;
-            margin-bottom: -0.72rem;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            width: 1.45rem;
+            height: 1.65rem;
+            margin-bottom: 0.1rem;
+            transform: none;
+          }
+          .marauder-pin-glyph > svg {
+            width: 100%;
+            height: 100%;
+            overflow: visible;
           }
           .marauder-pin-name {
-            font-size: clamp(0.8rem, 4.1vw, 1.02rem) !important;
+            font-family: var(--font-cinzel), Georgia, serif;
+            font-size: clamp(0.58rem, 2.65vw, 0.74rem) !important;
+            font-weight: 800;
+            letter-spacing: 0.03em;
+            line-height: 1.05;
+            text-transform: uppercase;
           }
           .marauder-pin-flavour {
-            font-size: clamp(0.42rem, 2.05vw, 0.56rem) !important;
+            display: none;
           }
           .marauder-pin .h-12,
           .marauder-pin .h-14 {
-            height: 2.35rem;
-            width: 2.35rem;
+            height: 2rem;
+            width: 2rem;
           }
         }
       `}</style>
