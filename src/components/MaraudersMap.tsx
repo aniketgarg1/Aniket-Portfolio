@@ -22,11 +22,11 @@ type Location = {
 
 const LOCATIONS: Location[] = [
   { id: "home", hash: "#home", name: "Home", flavour: "The Great Hall", x: 16, y: 32, pinX: 14, mobileX: 17, mobileY: 47, kind: "hall" },
-  { id: "about", hash: "#about", name: "About", flavour: "Headmaster's Study", x: 35, y: 17, pinX: 31.5, mobileX: 42, mobileY: 26, kind: "tower" },
-  { id: "skills", hash: "#skills", name: "Skills", flavour: "The Library", x: 55, y: 27, mobileX: 62, mobileY: 41, kind: "library" },
-  { id: "experience", hash: "#experience", name: "Experience", flavour: "Quidditch Pitch", x: 37, y: 56, pinX: 32.5, mobileX: 36, mobileY: 74, kind: "pitch" },
-  { id: "projects", hash: "#projects", name: "Projects", flavour: "Room of Requirement", x: 64, y: 60, pinX: 58.5, mobileX: 71, mobileY: 72, kind: "tower" },
-  { id: "contact", hash: "#contact", name: "Contact", flavour: "The Owlery", x: 84, y: 35, mobileX: 84, mobileY: 50, kind: "owlery" },
+  { id: "about", hash: "#about", name: "About", flavour: "Headmaster's Study", x: 35, y: 17, pinX: 31.5, mobileX: 38, mobileY: 26, kind: "tower" },
+  { id: "skills", hash: "#skills", name: "Skills", flavour: "The Library", x: 55, y: 27, mobileX: 57, mobileY: 41, kind: "library" },
+  { id: "experience", hash: "#experience", name: "Experience", flavour: "Quidditch Pitch", x: 37, y: 56, pinX: 32.5, mobileX: 31, mobileY: 74, kind: "pitch" },
+  { id: "projects", hash: "#projects", name: "Projects", flavour: "Room of Requirement", x: 64, y: 60, pinX: 58.5, mobileX: 65, mobileY: 72, kind: "tower" },
+  { id: "contact", hash: "#contact", name: "Contact", flavour: "The Owlery", x: 84, y: 35, mobileX: 78, mobileY: 50, kind: "owlery" },
 ];
 
 const NAV_IDS = LOCATIONS.map((l) => l.id);
@@ -715,12 +715,10 @@ function Pin({
             overflow: visible;
           }
           .marauder-pin-name {
-            font-family: var(--font-cinzel), Georgia, serif;
-            font-size: clamp(0.58rem, 2.65vw, 0.74rem) !important;
+            font-size: clamp(0.7rem, 3.35vw, 0.9rem) !important;
             font-weight: 800;
-            letter-spacing: 0.03em;
+            letter-spacing: 0;
             line-height: 1.05;
-            text-transform: uppercase;
           }
           .marauder-pin-flavour {
             display: none;
