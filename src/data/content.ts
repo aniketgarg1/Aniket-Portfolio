@@ -67,7 +67,7 @@ export const experiences: Experience[] = [
   {
     role: "Team Lead & Cloud/DevOps Engineer (AWS)",
     company: "DigiClips Inc.",
-    logo: "/logos/digiclips.ico",
+    logo: "/logos/digiclips-logo.png",
     domain: "digiclips.com",
     employmentType: "Internship",
     workMode: "Remote",
@@ -85,7 +85,7 @@ export const experiences: Experience[] = [
   {
     role: "Software Engineer Intern",
     company: "L&T Technology Services",
-    logo: "/logos/ltts.ico",
+    logo: "/logos/ltts-logo.jpg",
     domain: "ltts.com",
     employmentType: "Internship",
     workMode: "On-site",
@@ -103,7 +103,7 @@ export const experiences: Experience[] = [
   {
     role: "Food Security Coordinator",
     company: "Changemaker Central @ ASU",
-    logo: "/logos/asu.ico",
+    logo: "/logos/changemaker-central-logo.jpg",
     domain: "asu.edu",
     employmentType: "Part-time",
     workMode: "On-site",
@@ -120,7 +120,7 @@ export const experiences: Experience[] = [
   {
     role: "Undergraduate Teaching Assistant",
     company: "Arizona State University — Fulton Schools of Engineering",
-    logo: "/logos/asu.ico",
+    logo: "/logos/asu-logo.png",
     domain: "asu.edu",
     employmentType: "Part-time",
     workMode: "On-site",
@@ -135,8 +135,25 @@ export const experiences: Experience[] = [
     skills: ["HTML", "CSS", "JavaScript", "Git", "GitHub", "Teaching", "Mentorship"],
   },
   {
+    role: "Website Designer",
+    company: "Dr. Akash Garg Clinic",
+    logo: "/logos/dr-akash-garg-logo.jpg",
+    employmentType: "Internship",
+    workMode: "On-site",
+    location: "Noida, Uttar Pradesh, India",
+    period: "May 2023 — Aug 2023",
+    fallbackColor: "linear-gradient(135deg, #2563eb, #14b8a6)",
+    bullets: [
+      "Designed and optimized a healthcare registration form, prescription template, and website registration process for Dr. Akash Garg, enhancing patient onboarding for 18,000+ patients annually.",
+      "Implemented user-friendly features to streamline the patient registration process, improving overall usability and efficiency.",
+      "Conducted regular user testing and feedback sessions to ensure the website design met the needs of both patients and healthcare professionals.",
+    ],
+    skills: ["Website Design", "UX Design", "Healthcare Forms", "User Testing", "Patient Onboarding"],
+  },
+  {
     role: "Social Media Manager",
     company: "Samarpanam Yoga",
+    logo: "/logos/samarpanam-logo.jpg",
     domain: "samarpanam.org",
     employmentType: "Internship",
     workMode: "Remote",
@@ -153,6 +170,7 @@ export const experiences: Experience[] = [
   {
     role: "Content Writer (Intern)",
     company: "Henry Harvin Education",
+    logo: "/logos/henry-harvin-logo.jpg",
     domain: "henryharvin.com",
     employmentType: "Internship",
     workMode: "Remote",
@@ -168,6 +186,7 @@ export const experiences: Experience[] = [
   {
     role: "Video Editor (Intern)",
     company: "Reel on Social",
+    logo: "/logos/reel-on-social-logo.jpg",
     employmentType: "Internship",
     workMode: "Remote",
     location: "Remote",
@@ -195,7 +214,7 @@ export const volunteering: Volunteer[] = [
   {
     role: "Zoom Coordinator — Inner Engineering Online",
     org: "Isha Foundation",
-    logo: "/logos/isha.ico",
+    logo: "/logos/isha-logo.png",
     domain: "ishafoundation.org",
     location: "Remote",
     period: "April 2026",
@@ -208,7 +227,7 @@ export const volunteering: Volunteer[] = [
   {
     role: "Program Coordinator — Inner Engineering",
     org: "Isha Foundation",
-    logo: "/logos/isha.ico",
+    logo: "/logos/isha-logo.png",
     domain: "ishafoundation.org",
     location: "Phoenix Metro Area, AZ",
     period: "March 2026",
@@ -222,7 +241,7 @@ export const volunteering: Volunteer[] = [
   {
     role: "University Outreach Volunteer",
     org: "Save Soil / Conscious Planet",
-    logo: "/logos/savesoil.ico",
+    logo: "/logos/savesoil-logo.png",
     domain: "consciousplanet.org",
     location: "India",
     period: "Jan 2022 — Aug 2022",
@@ -274,7 +293,7 @@ export type Education = {
 export const education: Education[] = [
   {
     school: "Arizona State University",
-    logo: "/logos/asu.ico",
+    logo: "/logos/asu-logo.png",
     domain: "asu.edu",
     degree: "M.S. Computer Science — 4+1 Accelerated Program",
     period: "Aug 2026 — Expected May 2027",
@@ -284,7 +303,7 @@ export const education: Education[] = [
   },
   {
     school: "Arizona State University",
-    logo: "/logos/asu.ico",
+    logo: "/logos/asu-logo.png",
     domain: "asu.edu",
     degree: "B.S. Computer Science",
     period: "Aug 2022 — Expected May 2026",
@@ -312,6 +331,8 @@ export type Project = {
   period: string;
   description: string;
   tags: string[];
+  image?: string;
+  imageAlt?: string;
   github?: string;
   demo?: string;
   highlight?: boolean;
@@ -328,7 +349,9 @@ export const projects: Project[] = [
     description:
       "AI-powered event marketing generator that turns a single event brief into a launch-ready promo kit — campaign messaging, storyboards, posters, promo videos, AI voiceovers, and music stitched via FFmpeg. Built a multimodal orchestration workflow on Gemini, Veo, and Lyria, delivering a polished end-to-end demo under hackathon timelines.",
     tags: ["Next.js", "React", "TypeScript", "Gemini", "Veo", "Lyria", "FFmpeg"],
-    github: "https://github.com/aniketgarg1",
+    image: "/projects/launchloop.svg",
+    imageAlt: "LaunchLoop promo kit generator visual",
+    github: "https://github.com/aniketgarg1/LaunchLoop-UCLA-Build-with-Gemini",
     highlight: true,
     spellSchool: "Conjuration",
     incantation: "Geminio — conjure a launch kit from a single brief.",
@@ -351,7 +374,10 @@ export const projects: Project[] = [
     description:
       "Real-time voice agent for sales calls using Vapi, Deepgram, and Claude/OpenAI that detects customer emotion and delivers live coaching. Implemented speaker diarization, debounced LLM analysis, and one-click call summaries to keep latency low while keeping reps informed.",
     tags: ["Vapi", "Deepgram", "Claude", "OpenAI", "Python", "Real-time"],
+    image: "/projects/emotion-talk.png",
+    imageAlt: "EmotionTalk project logo",
     github: "https://github.com/aniketgarg1",
+    demo: "https://devpost.com/software/emotionttalk",
     highlight: true,
     spellSchool: "Legilimency",
     incantation: "Legilimens — read the room, in real time.",
@@ -363,7 +389,9 @@ export const projects: Project[] = [
     description:
       "Modular multi-agent Discord bot for ASU students. Used LangChain RAG with Qdrant for retrieval and a Selenium-based scraping pipeline that continuously updates the knowledge base with real-time campus data — achieving 75% higher response accuracy and 10s lower latency through document reranking.",
     tags: ["LangChain", "Qdrant", "Selenium", "Discord", "RAG", "Python"],
-    github: "https://github.com/aniketgarg1",
+    image: "/projects/sparky-ai.png",
+    imageAlt: "SparkyAI project logo and tagline",
+    github: "https://github.com/ashworks1706/SparkyAI",
     spellSchool: "Divination",
   },
   {

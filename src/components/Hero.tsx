@@ -144,7 +144,7 @@ export default function Hero() {
             Resume
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
           </a>
-          <a href="#projects" className="button-ghost group">
+          <a href="#experience" className="button-ghost group">
             <Wand2 className="h-4 w-4" />
             Open the Spellbook
           </a>

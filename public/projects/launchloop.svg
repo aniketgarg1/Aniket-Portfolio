@@ -1,0 +1,38 @@
+<svg width="1200" height="750" viewBox="0 0 1200 750" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="750" rx="36" fill="#111827"/>
+  <rect x="32" y="32" width="1136" height="686" rx="28" fill="url(#bg)" stroke="rgba(255,255,255,0.14)" stroke-width="2"/>
+  <circle cx="248" cy="210" r="170" fill="#F59E0B" opacity="0.16"/>
+  <circle cx="965" cy="540" r="210" fill="#38BDF8" opacity="0.14"/>
+  <path d="M210 524C306 413 383 394 489 467C618 556 737 407 858 278C919 213 982 187 1048 198" stroke="#FBBF24" stroke-width="16" stroke-linecap="round"/>
+  <path d="M210 524C306 413 383 394 489 467C618 556 737 407 858 278C919 213 982 187 1048 198" stroke="#22D3EE" stroke-width="4" stroke-linecap="round" stroke-dasharray="18 18"/>
+  <rect x="148" y="154" width="250" height="330" rx="24" fill="rgba(15,23,42,0.92)" stroke="rgba(255,255,255,0.18)" stroke-width="2"/>
+  <rect x="178" y="196" width="190" height="116" rx="18" fill="url(#poster)"/>
+  <rect x="178" y="338" width="144" height="16" rx="8" fill="rgba(255,255,255,0.78)"/>
+  <rect x="178" y="372" width="190" height="12" rx="6" fill="rgba(255,255,255,0.35)"/>
+  <rect x="178" y="398" width="116" height="12" rx="6" fill="rgba(255,255,255,0.35)"/>
+  <rect x="486" y="118" width="228" height="406" rx="28" fill="rgba(15,23,42,0.9)" stroke="rgba(255,255,255,0.18)" stroke-width="2"/>
+  <rect x="516" y="154" width="168" height="298" rx="22" fill="url(#story)"/>
+  <circle cx="600" cy="488" r="14" fill="rgba(255,255,255,0.72)"/>
+  <rect x="802" y="242" width="270" height="170" rx="24" fill="rgba(15,23,42,0.9)" stroke="rgba(255,255,255,0.18)" stroke-width="2"/>
+  <path d="M914 292L986 327L914 362V292Z" fill="#F8FAFC"/>
+  <rect x="834" y="454" width="238" height="94" rx="22" fill="rgba(15,23,42,0.9)" stroke="rgba(255,255,255,0.18)" stroke-width="2"/>
+  <path d="M862 502H884M898 502H920M934 502H990M1004 502H1044" stroke="#67E8F9" stroke-width="10" stroke-linecap="round"/>
+  <text x="148" y="610" fill="#F8FAFC" font-family="Inter, Arial, sans-serif" font-size="72" font-weight="800" letter-spacing="-2">LaunchLoop</text>
+  <text x="154" y="660" fill="#FDE68A" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="600" letter-spacing="3">PROMO KIT GENERATOR</text>
+  <defs>
+    <linearGradient id="bg" x1="32" y1="32" x2="1168" y2="718" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1E1B4B"/>
+      <stop offset="0.5" stop-color="#312E81"/>
+      <stop offset="1" stop-color="#0F766E"/>
+    </linearGradient>
+    <linearGradient id="poster" x1="178" y1="196" x2="368" y2="312" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F97316"/>
+      <stop offset="1" stop-color="#EC4899"/>
+    </linearGradient>
+    <linearGradient id="story" x1="516" y1="154" x2="684" y2="452" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#22D3EE"/>
+      <stop offset="0.55" stop-color="#8B5CF6"/>
+      <stop offset="1" stop-color="#F59E0B"/>
+    </linearGradient>
+  </defs>
+</svg>

@@ -85,12 +85,25 @@ function FeaturedProject({
         <div className="group relative aspect-[16/10] rounded-2xl overflow-hidden border border-foreground/[0.08] bg-foreground/[0.02]">
           <div className="absolute inset-0 bg-grid opacity-40" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgb(var(--accent)/0.10),transparent_60%)]" />
-          <div className="absolute inset-0 flex items-center justify-center">
-            <FolderGit2
-              className="h-16 w-16 text-foreground/15"
-              strokeWidth={1.2}
-            />
-          </div>
+          {project.image ? (
+            <>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={project.image}
+                alt={project.imageAlt ?? `${project.title} project visual`}
+                loading="lazy"
+                className="absolute inset-0 h-full w-full object-contain p-6 sm:p-8 transition-transform duration-500 group-hover:scale-[1.02]"
+              />
+              <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-background/70 to-transparent" />
+            </>
+          ) : (
+            <div className="absolute inset-0 flex items-center justify-center">
+              <FolderGit2
+                className="h-16 w-16 text-foreground/15"
+                strokeWidth={1.2}
+              />
+            </div>
+          )}
           <div className="absolute top-4 left-4 font-mono text-[11px] uppercase tracking-[0.22em] text-accent">
             ✦ Featured Spell
           </div>
@@ -182,6 +195,17 @@ function CompactCard({
       transition={{ duration: 0.4, delay: index * 0.04 }}
       className="card card-hover group flex flex-col p-6 h-full"
     >
+      {project.image && (
+        <div className="-mx-1 mb-5 flex aspect-[16/9] items-center justify-center overflow-hidden rounded-md border border-foreground/[0.08] bg-foreground/[0.025]">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={project.image}
+            alt={project.imageAlt ?? `${project.title} project visual`}
+            loading="lazy"
+            className="h-full w-full object-contain p-4 transition-transform duration-500 group-hover:scale-[1.02]"
+          />
+        </div>
+      )}
       <div className="flex items-start justify-between">
         <FolderGit2 className="h-7 w-7 text-accent/80" strokeWidth={1.4} />
         <div className="flex items-center gap-3 text-foreground/84">

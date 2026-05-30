@@ -162,7 +162,7 @@ export default function MaraudersMap() {
               animate={{ scale: 1, opacity: 1, rotateX: 0, y: 0 }}
               exit={{ scale: 0.9, opacity: 0, rotateX: 14, y: 20 }}
               transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              className="relative w-full max-w-5xl max-h-[calc(100vh-1rem)]"
+              className="relative w-full max-w-4xl max-h-[calc(100vh-1rem)]"
               style={{ perspective: 1400, transformStyle: "preserve-3d" }}
             >
               <Parchment
@@ -431,7 +431,7 @@ function Parchment({
             type="button"
             onClick={onClose}
             disabled={closing}
-            className="absolute bottom-3 left-1/2 z-20 inline-flex -translate-x-1/2 items-center justify-center rounded-full border px-6 py-2.5 font-mono text-[11px] font-bold uppercase tracking-[0.24em] transition-all hover:-translate-y-0.5 disabled:pointer-events-none disabled:opacity-80 sm:bottom-4 sm:px-8 sm:py-3 sm:text-xs"
+            className="absolute bottom-8 left-1/2 z-20 inline-flex -translate-x-1/2 items-center justify-center rounded-full border px-6 py-2.5 font-mono text-[11px] font-bold uppercase tracking-[0.24em] transition-all hover:-translate-y-0.5 disabled:pointer-events-none disabled:opacity-80 sm:bottom-10 sm:px-8 sm:py-3 sm:text-xs"
             style={{
               borderColor: "rgba(120,18,10,0.55)",
               color: "#f8e6b0",
