@@ -9,19 +9,22 @@ import { DIARY_GREETING, type DiaryMessage } from "@/lib/diary";
  * Tom Riddle's Diary — a cinematic, movie-accurate enchanted diary.
  *
  *  • Pressing the launcher OPENS THE BOOK (leather cover swings away).
- *  • You write a question; the ink lingers ~3s, then SINKS INTO THE PAGE
- *    (absorbed, the way the film shows Harry's words vanish).
- *  • The page TURNS to a fresh leaf and the diary's reply BLEEDS OUT in ink,
- *    streamed from /api/diary.
+ *  • You write a question; the page TURNS, the ink lingers ~3s, then SINKS
+ *    INTO THE PAGE (absorbed, the way the film shows Harry's words vanish).
+ *  • The diary's reply then BLEEDS OUT slowly, written one stroke at a time.
+ *  • Closing the diary SWINGS THE COVER SHUT — the book closes.
  */
 
 /* Choreography (ms) */
 const OPEN_MS = 950;
+const CLOSE_MS = 720;
 const PAGE_TURN_MS = 720;
 const QUESTION_LIFE_MS = 3000; // how long your words stay before sinking in
 const ABSORB_MS = 950;
+const INK_TICK_MS = 16; // typewriter cadence
+const INK_STEP = 2; // characters revealed per tick
 
-type Phase = "closed" | "open";
+type Phase = "closed" | "open" | "closing";
 
 export default function RiddleDiary() {
   const [open, setOpen] = useState(false);
@@ -39,11 +42,20 @@ export default function RiddleDiary() {
 
   const convoRef = useRef<DiaryMessage[]>([]); // full history for the model
   const timers = useRef<number[]>([]);
+  const inkTimer = useRef<number | null>(null);
+  const bufferRef = useRef(""); // full reply text received so far
+  const shownRef = useRef(0); // characters revealed so far
+  const doneRef = useRef(false); // stream finished?
   const inputRef = useRef<HTMLTextAreaElement>(null);
+  const pageRef = useRef<HTMLDivElement>(null);
 
   const clearTimers = () => {
     timers.current.forEach((t) => window.clearTimeout(t));
     timers.current = [];
+    if (inkTimer.current !== null) {
+      window.clearInterval(inkTimer.current);
+      inkTimer.current = null;
+    }
   };
   const later = (fn: () => void, ms: number) => {
     const id = window.setTimeout(fn, ms);
@@ -62,7 +74,7 @@ export default function RiddleDiary() {
     };
   }, []);
 
-  /* Open / close lifecycle */
+  /* Open the book */
   const openDiary = () => {
     setShowHint(false);
     try {
@@ -70,21 +82,33 @@ export default function RiddleDiary() {
     } catch {
       /* ignore */
     }
+    clearTimers();
+    setReply(DIARY_GREETING);
+    setQuestion(null);
+    setBusy(false);
+    setForming(false);
+    convoRef.current = [];
     setOpen(true);
     setPhase("closed");
-    // Let the cover swing open, then reveal the pages + focus the quill.
     later(() => setPhase("open"), OPEN_MS);
     later(() => inputRef.current?.focus(), OPEN_MS + 250);
   };
 
+  /* Close the book — swing the cover shut, then unmount */
   const closeDiary = useCallback(() => {
+    setPhase((p) => {
+      if (p === "closing") return p;
+      return "closing";
+    });
     clearTimers();
-    setOpen(false);
-    setPhase("closed");
-    setTurning(false);
-    setForming(false);
-    setBusy(false);
-    setQuestion(null);
+    later(() => {
+      setOpen(false);
+      setPhase("closed");
+      setTurning(false);
+      setForming(false);
+      setBusy(false);
+      setQuestion(null);
+    }, CLOSE_MS);
   }, []);
 
   useEffect(() => {
@@ -98,6 +122,31 @@ export default function RiddleDiary() {
 
   useEffect(() => () => clearTimers(), []);
 
+  // Follow the ink as it flows down the page.
+  useEffect(() => {
+    const el = pageRef.current;
+    if (el) el.scrollTop = el.scrollHeight;
+  }, [reply]);
+
+  /* The reply writes itself out slowly, like ink flowing from a quill. */
+  const startInk = useCallback(() => {
+    setForming(bufferRef.current.length === 0 && !doneRef.current);
+    if (inkTimer.current !== null) window.clearInterval(inkTimer.current);
+    inkTimer.current = window.setInterval(() => {
+      const buf = bufferRef.current;
+      if (shownRef.current < buf.length) {
+        shownRef.current = Math.min(buf.length, shownRef.current + INK_STEP);
+        setReply(buf.slice(0, shownRef.current));
+        setForming(false);
+      } else if (doneRef.current) {
+        if (inkTimer.current !== null) window.clearInterval(inkTimer.current);
+        inkTimer.current = null;
+        setBusy(false);
+        setForming(false);
+      }
+    }, INK_TICK_MS);
+  }, []);
+
   /* The enchanted exchange */
   const send = useCallback(async () => {
     const text = input.trim();
@@ -109,6 +158,11 @@ export default function RiddleDiary() {
     const history = [...convoRef.current];
     convoRef.current.push({ role: "user", content: text });
 
+    // Reset the ink machinery for a fresh reply.
+    bufferRef.current = "";
+    shownRef.current = 0;
+    doneRef.current = false;
+
     // 1) Turn the page to a fresh leaf, clearing the prior reply.
     setTurning(true);
     setReply("");
@@ -118,15 +172,8 @@ export default function RiddleDiary() {
       setQuestion(text);
     }, PAGE_TURN_MS);
 
-    // Begin fetching immediately; buffer until the words have sunk in.
-    let buffer = "";
-    let streamDone = false;
-    let revealed = false;
-    const flush = () => {
-      if (revealed) setReply(buffer);
-    };
-
-    const startStreaming = async () => {
+    // Begin fetching immediately; the text buffers while the page turns + words sink in.
+    (async () => {
       try {
         const res = await fetch("/api/diary", {
           method: "POST",
@@ -140,39 +187,27 @@ export default function RiddleDiary() {
         while (true) {
           const { value, done } = await reader.read();
           if (done) break;
-          buffer += decoder.decode(value, { stream: true });
-          flush();
+          bufferRef.current += decoder.decode(value, { stream: true });
         }
       } catch {
-        buffer =
+        bufferRef.current =
           "The ink has run dry for a moment. Try writing to me again shortly.";
       } finally {
-        streamDone = true;
-        flush();
-        convoRef.current.push({ role: "assistant", content: buffer });
-        if (revealed) {
-          setForming(false);
-          setBusy(false);
-        }
+        doneRef.current = true;
+        convoRef.current.push({
+          role: "assistant",
+          content: bufferRef.current,
+        });
       }
-    };
-    startStreaming();
+    })();
 
     // 3) After the words have lived ~3s, they sink into the page.
     const sinkAt = PAGE_TURN_MS + QUESTION_LIFE_MS;
     later(() => setQuestion(null), sinkAt); // exit anim = "absorb"
 
-    // 4) Once absorbed, the diary's reply bleeds out.
-    later(() => {
-      revealed = true;
-      setForming(buffer === "" && !streamDone);
-      setReply(buffer);
-      if (streamDone) {
-        setForming(false);
-        setBusy(false);
-      }
-    }, sinkAt + ABSORB_MS);
-  }, [input, busy]);
+    // 4) Once absorbed, the diary's reply bleeds out, slowly.
+    later(() => startInk(), sinkAt + ABSORB_MS);
+  }, [input, busy, startInk]);
 
   const onKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter" && !e.shiftKey) {
@@ -180,6 +215,8 @@ export default function RiddleDiary() {
       send();
     }
   };
+
+  const coverVisible = phase === "closed" || phase === "closing";
 
   return (
     <>
@@ -250,7 +287,7 @@ export default function RiddleDiary() {
               }}
             />
 
-            {/* Book stage with perspective for the opening cover */}
+            {/* Book stage with perspective for the opening/closing cover */}
             <div
               className="relative w-full max-w-lg"
               style={{ perspective: 1800 }}
@@ -264,7 +301,7 @@ export default function RiddleDiary() {
                   scale: phase === "open" ? 1 : 0.94,
                   y: phase === "open" ? 0 : 20,
                 }}
-                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
                 className="relative flex h-[80vh] max-h-[640px] w-full flex-col overflow-hidden rounded-[14px]"
                 style={{
                   background:
@@ -324,31 +361,25 @@ export default function RiddleDiary() {
 
                 {/* The page surface */}
                 <div className="relative flex-1 overflow-hidden px-7 py-6">
-                  {/* The diary's reply — bleeds out in ink */}
-                  <AnimatePresence mode="wait">
-                    {reply && !question && (
-                      <motion.div
-                        key={reply.slice(0, 24) + reply.length}
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.5 }}
-                        className="h-full overflow-y-auto diary-scroll"
+                  {/* The diary's reply — written slowly in ink */}
+                  {reply && !question && (
+                    <div
+                      ref={pageRef}
+                      className="h-full overflow-y-auto diary-scroll"
+                    >
+                      <p
+                        className="whitespace-pre-wrap font-hand text-[1.85rem] leading-snug ink-bleed"
+                        style={{ color: "#2a1a0c" }}
                       >
-                        <p
-                          className="whitespace-pre-wrap font-hand text-[1.85rem] leading-snug ink-bleed"
-                          style={{ color: "#2a1a0c" }}
-                        >
-                          {reply}
-                          {busy && (
-                            <span className="ml-0.5 inline-block animate-pulse">
-                              ▍
-                            </span>
-                          )}
-                        </p>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+                        {reply}
+                        {busy && (
+                          <span className="ml-0.5 inline-block animate-pulse">
+                            ▍
+                          </span>
+                        )}
+                      </p>
+                    </div>
+                  )}
 
                   {/* Your words — appear, linger, then SINK INTO the page */}
                   <AnimatePresence>
@@ -479,9 +510,9 @@ export default function RiddleDiary() {
                 </div>
               </motion.div>
 
-              {/* The leather COVER that swings open on launch */}
+              {/* The leather COVER — swings open on launch, swings shut on close */}
               <AnimatePresence>
-                {phase === "closed" && (
+                {coverVisible && (
                   <motion.div
                     key="cover"
                     aria-hidden
@@ -494,10 +525,17 @@ export default function RiddleDiary() {
                       boxShadow:
                         "0 30px 80px -20px rgba(0,0,0,0.8), inset 0 0 0 2px rgba(120,80,30,0.25)",
                     }}
-                    initial={{ rotateY: 0 }}
-                    animate={{ rotateY: 0 }}
+                    initial={
+                      phase === "closing"
+                        ? { rotateY: -158, opacity: 0 }
+                        : { rotateY: 0, opacity: 1 }
+                    }
+                    animate={{ rotateY: 0, opacity: 1 }}
                     exit={{ rotateY: -158, opacity: 0 }}
-                    transition={{ duration: OPEN_MS / 1000, ease: [0.6, 0, 0.2, 1] }}
+                    transition={{
+                      duration: (phase === "closing" ? CLOSE_MS : OPEN_MS) / 1000,
+                      ease: [0.6, 0, 0.2, 1],
+                    }}
                   >
                     {/* embossed monogram + a thin diary-puncture detail */}
                     <div className="flex h-full flex-col items-center justify-center gap-3">

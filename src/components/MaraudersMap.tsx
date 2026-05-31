@@ -863,16 +863,16 @@ function Footprint({
   return (
     <g transform={`scale(${sx}, 1)`}>
       <ellipse cx="2.5" cy="0" rx="2.4" ry="3.1" fill="#6b1a0a" opacity="0">
-        <animate attributeName="opacity" values="0;0.85;0.85;0" dur={`${duration}s`} begin={`${-delay}s`} repeatCount="indefinite" />
+        <animate attributeName="opacity" values="0;0.82;0.82;0;0" keyTimes="0;0.07;0.22;0.38;1" dur={`${duration}s`} begin={`${-delay}s`} repeatCount="indefinite" />
       </ellipse>
       <circle cx="0.6" cy="-3.6" r="0.6" fill="#6b1a0a">
-        <animate attributeName="opacity" values="0;0.85;0.85;0" dur={`${duration}s`} begin={`${-delay}s`} repeatCount="indefinite" />
+        <animate attributeName="opacity" values="0;0.82;0.82;0;0" keyTimes="0;0.07;0.22;0.38;1" dur={`${duration}s`} begin={`${-delay}s`} repeatCount="indefinite" />
       </circle>
       <circle cx="2.2" cy="-4.2" r="0.6" fill="#6b1a0a">
-        <animate attributeName="opacity" values="0;0.85;0.85;0" dur={`${duration}s`} begin={`${-delay}s`} repeatCount="indefinite" />
+        <animate attributeName="opacity" values="0;0.82;0.82;0;0" keyTimes="0;0.07;0.22;0.38;1" dur={`${duration}s`} begin={`${-delay}s`} repeatCount="indefinite" />
       </circle>
       <circle cx="3.9" cy="-3.6" r="0.6" fill="#6b1a0a">
-        <animate attributeName="opacity" values="0;0.85;0.85;0" dur={`${duration}s`} begin={`${-delay}s`} repeatCount="indefinite" />
+        <animate attributeName="opacity" values="0;0.82;0.82;0;0" keyTimes="0;0.07;0.22;0.38;1" dur={`${duration}s`} begin={`${-delay}s`} repeatCount="indefinite" />
       </circle>
     </g>
   );
