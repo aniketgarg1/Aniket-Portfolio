@@ -325,8 +325,12 @@ function Parchment({
       <Motes />
 
       <motion.div
-        animate={closing ? { opacity: 0, filter: "blur(3px)" } : { opacity: 1, filter: "blur(0px)" }}
-        transition={{ duration: 1.05, ease: "easeInOut" }}
+        animate={
+          closing
+            ? { opacity: 0, filter: "blur(1.5px)" }
+            : { opacity: 1, filter: "blur(0px)" }
+        }
+        transition={{ duration: 0.95, ease: "easeInOut" }}
       >
       {/* Header */}
       <div className="relative px-5 pt-5 text-center sm:px-10 sm:pt-7">
@@ -529,41 +533,73 @@ function Parchment({
       </div>
       </motion.div>
 
+      {/* ---- "Mischief Managed" — the ink drains away to blank parchment ---- */}
       <AnimatePresence>
         {closing && (
           <motion.div
             aria-hidden
-            className="absolute inset-0 z-[50] pointer-events-none flex items-center justify-center"
-            style={{
-              background:
-                "radial-gradient(ellipse 78% 78% at 50% 45%, rgba(28,16,5,0.08) 0%, rgba(28,16,5,0.64) 62%, rgba(16,9,3,0.94) 100%)",
-            }}
+            className="absolute inset-0 z-[50] pointer-events-none flex items-center justify-center overflow-hidden"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 1.05, ease: "easeInOut" }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.4, ease: "easeInOut" }}
           >
+            {/* Warm parchment clearing — keeps the page LIGHT, not black, as the ink lifts */}
             <motion.div
-              className="absolute left-1/2 top-1/2 rounded-full"
+              className="absolute inset-0"
               style={{
-                width: "42%",
-                aspectRatio: "1",
-                x: "-50%",
-                y: "-50%",
                 background:
-                  "radial-gradient(circle, rgba(31,18,6,0.96) 0%, rgba(31,18,6,0.82) 48%, rgba(31,18,6,0) 70%)",
+                  "radial-gradient(ellipse 75% 75% at 50% 45%, rgba(243,224,176,0) 30%, rgba(236,214,160,0.5) 70%, rgba(220,196,135,0.85) 100%)",
               }}
-              initial={{ scale: 0.08, opacity: 0.62 }}
-              animate={{ scale: 4.8, opacity: 1 }}
-              transition={{ duration: 1.08, ease: "easeInOut" }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.9, ease: "easeInOut" }}
             />
+
+            {/* Golden wand-tip wipe — sweeps across and lifts the ink off the page */}
             <motion.div
-              className="relative font-display italic text-lg sm:text-2xl"
-              style={{ color: "#f3dfab", textShadow: "0 2px 10px rgba(0,0,0,0.65)" }}
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: [0, 1, 1, 0], y: 0 }}
-              transition={{ duration: 1.05, times: [0, 0.28, 0.75, 1] }}
+              className="absolute inset-y-0 w-1/2"
+              style={{
+                background:
+                  "linear-gradient(100deg, transparent 20%, rgba(255,231,158,0.7) 48%, rgba(255,246,214,0.92) 52%, rgba(255,231,158,0.7) 56%, transparent 82%)",
+                filter: "blur(1px)",
+              }}
+              initial={{ left: "-60%" }}
+              animate={{ left: "120%" }}
+              transition={{ duration: 1.0, ease: "easeInOut" }}
+            />
+
+            {/* Faint receding-ink wisps trailing the wipe */}
+            <motion.div
+              className="absolute inset-0"
+              style={{
+                background:
+                  "repeating-linear-gradient(105deg, transparent 0 26px, rgba(90,58,20,0.05) 26px 28px)",
+              }}
+              initial={{ opacity: 0.5, x: 0 }}
+              animate={{ opacity: 0, x: 40 }}
+              transition={{ duration: 1.0, ease: "easeOut" }}
+            />
+
+            {/* The incantation, written in gold ink then lifting away */}
+            <motion.div
+              className="relative font-hp"
+              style={{
+                fontSize: "clamp(1.6rem, 5vw, 2.8rem)",
+                color: "#7a4a12",
+                textShadow:
+                  "0 1px 0 rgba(255,244,200,0.7), 0 0 18px rgba(214,168,74,0.45)",
+              }}
+              initial={{ opacity: 0, scale: 0.96, filter: "blur(3px)" }}
+              animate={{
+                opacity: [0, 1, 1, 0],
+                scale: [0.96, 1, 1, 1.04],
+                filter: ["blur(3px)", "blur(0px)", "blur(0px)", "blur(4px)"],
+                y: [6, 0, 0, -10],
+              }}
+              transition={{ duration: 1.1, times: [0, 0.32, 0.7, 1], ease: "easeInOut" }}
             >
-              Mischief Managed
+              Mischief Managed.
             </motion.div>
           </motion.div>
         )}

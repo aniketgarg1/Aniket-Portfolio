@@ -4,6 +4,7 @@ import {
   Cinzel_Decorative,
   EB_Garamond,
   JetBrains_Mono,
+  Caveat,
 } from "next/font/google";
 import "./globals.css";
 import { profile } from "@/data/content";
@@ -34,6 +35,14 @@ const garamond = EB_Garamond({
 const jetbrains = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-jetbrains",
+  display: "swap",
+});
+
+/** Handwriting face for the enchanted diary's "ink". */
+const caveat = Caveat({
+  subsets: ["latin"],
+  variable: "--font-hand",
+  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
@@ -77,7 +86,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${cinzel.variable} ${cinzelDecorative.variable} ${garamond.variable} ${jetbrains.variable}`}
+      className={`${cinzel.variable} ${cinzelDecorative.variable} ${garamond.variable} ${jetbrains.variable} ${caveat.variable}`}
       suppressHydrationWarning
     >
       <body className="min-h-screen overflow-x-hidden">

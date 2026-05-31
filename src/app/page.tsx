@@ -4,6 +4,7 @@ import WandScrollProgress from "@/components/WandScrollProgress";
 import HallowsDivider from "@/components/HallowsDivider";
 import MaraudersMap from "@/components/MaraudersMap";
 import ExpectoPatronum from "@/components/ExpectoPatronum";
+import RiddleDiary from "@/components/RiddleDiary";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
@@ -21,6 +22,7 @@ export default function Home() {
       <WandScrollProgress />
       <MaraudersMap />
       <ExpectoPatronum />
+      <RiddleDiary />
       <Navbar />
       <main className="relative">
         <Hero />

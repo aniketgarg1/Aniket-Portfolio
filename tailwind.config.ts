@@ -27,6 +27,7 @@ const config: Config = {
           "serif",
         ],
         mono: ["var(--font-jetbrains)", "ui-monospace", "monospace"],
+        hand: ["var(--font-hand)", "Segoe Script", "cursive"],
       },
       keyframes: {
         "fade-up": {
