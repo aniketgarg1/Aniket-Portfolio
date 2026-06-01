@@ -17,7 +17,7 @@ import { DIARY_GREETING, type DiaryMessage } from "@/lib/diary";
 
 /* Choreography (ms) */
 const OPEN_MS = 950;
-const CLOSE_MS = 1150;
+const CLOSE_MS = 1450;
 const PAGE_TURN_MS = 900;
 const QUESTION_LIFE_MS = 3000; // how long your words stay before sinking in
 const ABSORB_MS = 950;
@@ -97,9 +97,9 @@ export default function RiddleDiary() {
     convoRef.current = [];
     setOpen(true);
     setPhase("closed");
-    later(() => setPhase("open"), 80);
+    later(() => setPhase("open"), 120);
     later(() => setPageFlutter(null), OPEN_MS + 480);
-    later(() => setInkDrop("welcome"), OPEN_MS + 70);
+    later(() => setInkDrop("welcome"), OPEN_MS + 120);
     later(() => {
       setReply(DIARY_GREETING);
       setInkNonce((n) => n + 1);
@@ -110,12 +110,10 @@ export default function RiddleDiary() {
 
   /* Close the book — swing the cover shut, then unmount */
   const closeDiary = useCallback(() => {
-    setPhase((p) => {
-      if (p === "closing") return p;
-      return "closing";
-    });
+    if (phase === "closing") return;
     setPageFlutter("closing");
     clearTimers();
+    later(() => setPhase("closing"), 320);
     later(() => {
       setOpen(false);
       setPhase("closed");
@@ -127,7 +125,7 @@ export default function RiddleDiary() {
       setBusy(false);
       setQuestion(null);
     }, CLOSE_MS);
-  }, []);
+  }, [phase]);
 
   useEffect(() => {
     if (!open) return;
@@ -386,63 +384,38 @@ export default function RiddleDiary() {
 
                 {/* The page surface */}
                 <div className="relative flex-1 overflow-hidden px-7 py-6">
-                  {/* The diary's reply — written slowly in ink */}
-                  {reply && !question && (
-                    <div
-                      ref={pageRef}
-                      className="h-full overflow-y-auto diary-scroll"
-                    >
-                      <p
-                        key={`reply-${inkNonce}`}
-                        className="whitespace-pre-wrap font-hand text-[1.9rem] leading-snug diary-ink-sheet"
-                        style={{ color: "#2a1a0c" }}
+                  <div
+                    ref={pageRef}
+                    className="h-full overflow-y-auto pb-28 diary-scroll"
+                  >
+                    {/* The diary's reply — written slowly in ink */}
+                    {reply && !question && (
+                      <div className="shrink-0">
+                        <p
+                          key={`reply-${inkNonce}`}
+                          className="whitespace-pre-wrap font-hand text-[1.9rem] leading-snug diary-ink-sheet"
+                          style={{ color: "#2a1a0c" }}
+                        >
+                          {reply}
+                        </p>
+                      </div>
+                    )}
+
+                    {/* "the ink is forming…" */}
+                    {forming && !question && (
+                      <div
+                        className="flex items-center gap-2 font-hand text-2xl"
+                        style={{ color: "rgba(42,26,12,0.6)" }}
                       >
-                        {reply}
-                      </p>
-                    </div>
-                  )}
+                        <Feather className="h-4 w-4 animate-[float-slow_2s_ease-in-out_infinite]" />
+                        <span>the ink is forming…</span>
+                      </div>
+                    )}
+                  </div>
 
                   <AnimatePresence>
                     {inkDrop && (
-                      <motion.div
-                        key={`ink-drop-${inkDrop}`}
-                        aria-hidden
-                        className="pointer-events-none absolute inset-0 z-30 flex items-center justify-center"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.25 }}
-                      >
-                        <motion.div
-                          className="relative h-24 w-24"
-                          initial={{ scale: 0.65, y: -28 }}
-                          animate={{ scale: 1, y: 0 }}
-                          exit={{ scale: 1.28, opacity: 0 }}
-                          transition={{ duration: 0.48, ease: [0.16, 1, 0.3, 1] }}
-                        >
-                          <motion.span
-                            className="absolute left-1/2 top-1/2 h-6 w-6 -translate-x-1/2 -translate-y-1/2 rounded-full"
-                            style={{
-                              background:
-                                "radial-gradient(circle, rgba(41,24,10,0.95), rgba(24,12,4,0.98))",
-                              boxShadow:
-                                "0 0 18px rgba(38,18,8,0.38), inset 0 0 6px rgba(0,0,0,0.45)",
-                            }}
-                            animate={{ scale: [0.4, 1, 0.72], borderRadius: ["50%", "45% 55% 52% 48%", "50%"] }}
-                            transition={{ duration: 0.55, ease: "easeOut" }}
-                          />
-                          <motion.span
-                            className="absolute left-1/2 top-1/2 h-24 w-24 -translate-x-1/2 -translate-y-1/2 rounded-full"
-                            style={{
-                              background:
-                                "radial-gradient(circle, rgba(36,19,7,0.22) 0%, rgba(36,19,7,0.12) 34%, transparent 67%)",
-                            }}
-                            initial={{ scale: 0.18, opacity: 0.85 }}
-                            animate={{ scale: 2.2, opacity: 0 }}
-                            transition={{ duration: 0.9, ease: "easeOut" }}
-                          />
-                        </motion.div>
-                      </motion.div>
+                      <QuillInkDrop key={`ink-drop-${inkDrop}`} />
                     )}
                   </AnimatePresence>
 
@@ -530,17 +503,6 @@ export default function RiddleDiary() {
                     )}
                   </AnimatePresence>
 
-                  {/* "the ink is forming…" */}
-                  {forming && !question && (
-                    <div
-                      className="flex items-center gap-2 font-hand text-2xl"
-                      style={{ color: "rgba(42,26,12,0.6)" }}
-                    >
-                      <Feather className="h-4 w-4 animate-[float-slow_2s_ease-in-out_infinite]" />
-                      <span>the ink is forming…</span>
-                    </div>
-                  )}
-
                   {/* Page-turn leaf */}
                   <AnimatePresence>
                     {turning && (
@@ -572,18 +534,19 @@ export default function RiddleDiary() {
                       </motion.div>
                     )}
                   </AnimatePresence>
-                </div>
 
-                {/* Quill / input */}
-                <div
-                  className="relative px-4 py-3"
-                  style={{ borderTop: "1px solid rgba(90,60,25,0.25)" }}
-                >
-                  <div
-                    className="flex items-end gap-2 rounded-xl px-3 py-2"
+                  <motion.div
+                    key="diary-input"
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.28 }}
+                    className="absolute bottom-6 left-7 right-7 z-30 flex items-end gap-2 rounded-xl px-3 py-2"
                     style={{
-                      background: "rgba(255,250,235,0.55)",
+                      background: "rgba(255,250,235,0.82)",
                       border: "1px solid rgba(90,60,25,0.3)",
+                      boxShadow:
+                        "0 -10px 26px rgba(224,198,142,0.28), inset 0 0 18px rgba(255,255,255,0.18)",
+                      backdropFilter: "blur(2px)",
                     }}
                   >
                     <textarea
@@ -592,13 +555,14 @@ export default function RiddleDiary() {
                       value={input}
                       onChange={(e) => setInput(e.target.value)}
                       onKeyDown={onKeyDown}
+                      disabled={busy || question !== null || turning || goldenLight || inkDrop !== null}
                       placeholder="Write your question to the diary…"
-                      className="max-h-24 flex-1 resize-none bg-transparent font-hand text-xl outline-none placeholder:opacity-50"
+                      className="max-h-24 flex-1 resize-none bg-transparent font-hand text-xl outline-none placeholder:opacity-50 disabled:cursor-not-allowed disabled:opacity-55"
                       style={{ color: "#1c3a6e" }}
                     />
                     <button
                       onClick={send}
-                      disabled={busy || !input.trim()}
+                      disabled={busy || question !== null || turning || goldenLight || inkDrop !== null || !input.trim()}
                       aria-label="Write in the diary"
                       className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg transition-all disabled:opacity-40"
                       style={{
@@ -608,13 +572,16 @@ export default function RiddleDiary() {
                     >
                       <Feather className="h-4 w-4" />
                     </button>
-                  </div>
+                  </motion.div>
                 </div>
               </motion.div>
 
               <AnimatePresence>
-                {pageFlutter && (
-                  <PageFlipLeaves key={pageFlutter} mode={pageFlutter} />
+                {pageFlutter === "opening" && (
+                  <OpeningBookFlip key="opening-book-flip" />
+                )}
+                {pageFlutter === "closing" && (
+                  <PageFlipLeaves key="closing-page-flip" mode="closing" />
                 )}
               </AnimatePresence>
 
@@ -624,14 +591,14 @@ export default function RiddleDiary() {
                   <motion.div
                     key="cover"
                     aria-hidden
-                    className="absolute inset-0 z-30 origin-left rounded-[14px]"
+                    className={`absolute inset-0 origin-left rounded-[14px] ${phase === "closing" ? "z-50" : "z-30"}`}
                     style={{
                       transformStyle: "preserve-3d",
                       background:
-                        "linear-gradient(135deg, #20140a 0%, #2c1c0e 45%, #160d06 100%)",
-                      border: "1px solid rgba(0,0,0,0.6)",
+                        "linear-gradient(135deg, #132947 0%, #0d1c34 48%, #071225 100%)",
+                      border: "1px solid rgba(3,10,22,0.72)",
                       boxShadow:
-                        "0 30px 80px -20px rgba(0,0,0,0.8), inset 0 0 0 2px rgba(120,80,30,0.25)",
+                        "0 30px 80px -20px rgba(0,0,0,0.82), inset 0 0 0 2px rgba(132,171,210,0.18)",
                     }}
                     initial={
                       phase === "closing"
@@ -682,6 +649,147 @@ export default function RiddleDiary() {
   );
 }
 
+function QuillInkDrop() {
+  return (
+    <motion.div
+      aria-hidden
+      className="pointer-events-none absolute inset-0 z-30"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.22 }}
+    >
+      <motion.div
+        className="absolute left-1/2 top-[42%] flex h-28 w-28 -translate-x-1/2 -translate-y-1/2 items-center justify-center"
+        initial={{ x: 72, y: -98, rotate: -34, scale: 0.92 }}
+        animate={{
+          x: [72, 22, 0, 0],
+          y: [-98, -28, -8, -8],
+          rotate: [-34, -18, -8, -11],
+          scale: [0.92, 1, 1, 0.98],
+        }}
+        exit={{ y: -36, rotate: -24, opacity: 0 }}
+        transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+      >
+        <Feather
+          className="h-16 w-16"
+          style={{
+            color: "#3a210d",
+            filter: "drop-shadow(0 3px 3px rgba(45, 26, 10, 0.28))",
+          }}
+        />
+        <motion.span
+          className="absolute bottom-7 left-9 h-2.5 w-2.5 rounded-full"
+          style={{
+            background:
+              "radial-gradient(circle, rgba(28,13,5,0.98), rgba(57,28,10,0.94))",
+            boxShadow: "0 0 8px rgba(38,18,8,0.35)",
+          }}
+          initial={{ opacity: 0, y: -10, scale: 0.2 }}
+          animate={{ opacity: [0, 1, 1, 0], y: [-10, 6, 20, 22], scale: [0.2, 0.72, 1, 0.9] }}
+          transition={{ delay: 0.46, duration: 0.5, ease: "easeIn" }}
+        />
+      </motion.div>
+      <motion.span
+        className="absolute left-1/2 top-[48%] h-7 w-7 -translate-x-1/2 -translate-y-1/2 rounded-full"
+        style={{
+          background:
+            "radial-gradient(circle, rgba(35,17,7,0.58) 0%, rgba(35,17,7,0.23) 38%, transparent 72%)",
+        }}
+        initial={{ scale: 0.08, opacity: 0 }}
+        animate={{ scale: [0.08, 1.1, 3.2], opacity: [0, 0.82, 0] }}
+        transition={{ delay: 0.78, duration: 0.8, ease: "easeOut" }}
+      />
+    </motion.div>
+  );
+}
+
+function OpeningBookFlip() {
+  const leaves = Array.from({ length: 12 }, (_, i) => i);
+
+  return (
+    <motion.div
+      aria-hidden
+      className="pointer-events-none absolute inset-0 z-40 overflow-hidden rounded-[14px]"
+      initial={{ opacity: 1 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.22 }}
+      style={{ perspective: 1800 }}
+    >
+      <motion.div
+        className="absolute inset-0 z-20 origin-left rounded-[14px]"
+        style={{
+          transformStyle: "preserve-3d",
+          background:
+            "linear-gradient(135deg, #132947 0%, #0d1c34 48%, #071225 100%)",
+          border: "1px solid rgba(3,10,22,0.72)",
+          boxShadow:
+            "0 24px 60px -18px rgba(0,0,0,0.8), inset 0 0 0 2px rgba(132,171,210,0.18)",
+        }}
+        initial={{ rotateY: 0, x: 0, opacity: 1 }}
+        animate={{ rotateY: -166, x: -10, opacity: [1, 1, 0.78] }}
+        transition={{ duration: 1.02, ease: [0.62, 0, 0.2, 1] }}
+      >
+        <div className="flex h-full flex-col items-center justify-center gap-3">
+          <div
+            className="font-hp text-4xl"
+            style={{
+              color: "#caa24a",
+              textShadow: "0 1px 2px rgba(0,0,0,0.7)",
+            }}
+          >
+            T. M. Riddle
+          </div>
+          <div
+            className="font-mono text-[10px] uppercase tracking-[0.4em]"
+            style={{ color: "rgba(202,162,74,0.65)" }}
+          >
+            a diary · vauxhall road
+          </div>
+        </div>
+      </motion.div>
+
+      {leaves.map((i) => {
+        const delay = 0.32 + i * 0.045;
+        return (
+          <motion.div
+            key={i}
+            className="absolute inset-y-0 left-0 w-full origin-left rounded-r-[14px]"
+            style={{
+              transformStyle: "preserve-3d",
+              background:
+                "linear-gradient(100deg, #f2e7ca 0%, #ead9ad 58%, #d3b974 100%)",
+              boxShadow:
+                "inset -28px 0 36px rgba(96,62,22,0.16), 16px 0 28px rgba(45,28,10,0.18)",
+              borderRight: "1px solid rgba(92,59,24,0.22)",
+            }}
+            initial={{ rotateY: 0, x: 0, opacity: 0.94 }}
+            animate={{
+              rotateY: -172,
+              x: -10,
+              opacity: [0.9, 1, 0.75],
+            }}
+            transition={{
+              delay,
+              duration: 0.52,
+              ease: [0.62, 0, 0.2, 1],
+            }}
+          >
+            <div
+              className="absolute inset-y-0 right-0 w-16"
+              style={{
+                background:
+                  "linear-gradient(270deg, rgba(65,40,15,0.28), transparent)",
+              }}
+            />
+          </motion.div>
+        );
+      })}
+    </motion.div>
+  );
+}
+
 function PageFlipLeaves({ mode }: { mode: Exclude<PageFlutter, null> }) {
   const leaves = Array.from({ length: 12 }, (_, i) => i);
   const closing = mode === "closing";
@@ -689,7 +797,7 @@ function PageFlipLeaves({ mode }: { mode: Exclude<PageFlutter, null> }) {
   return (
     <motion.div
       aria-hidden
-      className="pointer-events-none absolute inset-0 z-20 overflow-hidden rounded-[14px]"
+      className="pointer-events-none absolute inset-0 z-40 overflow-hidden rounded-[14px]"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}

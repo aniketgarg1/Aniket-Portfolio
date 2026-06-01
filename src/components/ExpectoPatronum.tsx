@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 /**
@@ -12,6 +12,18 @@ import { motion, AnimatePresence } from "framer-motion";
 export default function ExpectoPatronum() {
   const [active, setActive] = useState(false);
   const [showHint, setShowHint] = useState(false);
+
+  const castPatronus = useCallback(() => {
+    if (active) return;
+    setActive(true);
+    setShowHint(false);
+    try {
+      window.localStorage.setItem("patronus-cast", "1");
+    } catch {
+      /* ignore */
+    }
+    window.setTimeout(() => setActive(false), 5200);
+  }, [active]);
 
   useEffect(() => {
     // Show the hint after the page settles, hide it after a few seconds,
@@ -42,21 +54,20 @@ export default function ExpectoPatronum() {
       buffer = (buffer + e.key.toLowerCase()).slice(-SPELL.length);
       if (buffer === SPELL) {
         buffer = "";
-        if (active) return;
-        setActive(true);
-        setShowHint(false);
-        try {
-          window.localStorage.setItem("patronus-cast", "1");
-        } catch {
-          /* ignore */
-        }
-        window.setTimeout(() => setActive(false), 5200);
+        castPatronus();
       }
     };
 
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [active]);
+  }, [castPatronus]);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const onCast = () => castPatronus();
+    window.addEventListener("cast-patronus", onCast);
+    return () => window.removeEventListener("cast-patronus", onCast);
+  }, [castPatronus]);
 
   return (
     <>

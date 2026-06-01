@@ -269,8 +269,15 @@ function HouseBadge() {
 
 /* ----- Patronus badge — silver glow + stag ----- */
 function PatronusBadge() {
+  const castPatronus = () => {
+    window.dispatchEvent(new Event("cast-patronus"));
+  };
+
   return (
-    <span
+    <button
+      type="button"
+      onClick={castPatronus}
+      aria-label="Cast Expecto Patronum"
       className="group inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-mono tracking-wider transition-all"
       style={{
         borderColor: "rgba(190, 210, 230, 0.35)",
@@ -290,7 +297,7 @@ function PatronusBadge() {
         aria-hidden
         className="ml-0.5 h-1.5 w-1.5 rounded-full bg-white/80 shadow-[0_0_8px_rgba(255,255,255,0.85)]"
       />
-    </span>
+    </button>
   );
 }
 

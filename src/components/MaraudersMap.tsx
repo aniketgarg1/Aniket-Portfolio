@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Map as MapIcon } from "lucide-react";
 
@@ -68,6 +68,16 @@ export default function MaraudersMap() {
   const [closing, setClosing] = useState(false);
   const [active, setActive] = useState("home");
 
+  const closeMap = useCallback((afterClose?: () => void) => {
+    if (closing) return;
+    setClosing(true);
+    window.setTimeout(() => {
+      setOpen(false);
+      setClosing(false);
+      afterClose?.();
+    }, 1150);
+  }, [closing]);
+
   useEffect(() => {
     const targets = NAV_IDS.map((id) => document.getElementById(id)).filter(
       Boolean
@@ -88,12 +98,16 @@ export default function MaraudersMap() {
       if (tag === "INPUT" || tag === "TEXTAREA") return;
       if (e.key.toLowerCase() === "m" && !e.metaKey && !e.ctrlKey && !e.altKey) {
         e.preventDefault();
-        setOpen((v) => !v);
-      } else if (e.key === "Escape") setOpen(false);
+        if (open) closeMap();
+        else setOpen(true);
+      } else if (e.key === "Escape" && open) {
+        e.preventDefault();
+        closeMap();
+      }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, []);
+  }, [closeMap, open]);
 
   // Lock body scroll while open
   useEffect(() => {
@@ -107,16 +121,6 @@ export default function MaraudersMap() {
       };
     }
   }, [open]);
-
-  const closeMap = (afterClose?: () => void) => {
-    if (closing) return;
-    setClosing(true);
-    window.setTimeout(() => {
-      setOpen(false);
-      setClosing(false);
-      afterClose?.();
-    }, 1150);
-  };
 
   return (
     <>
@@ -715,30 +719,82 @@ function Pin({
           )}
         </span>
         <span
-          className="marauder-pin-name mt-0.5 whitespace-nowrap font-hp leading-none"
+          className="marauder-pin-banner relative mt-0.5 flex min-w-[4.8rem] flex-col items-center px-3 py-1.5"
           style={{
-            fontSize: "clamp(1.05rem, 2.6vw, 1.55rem)",
             color: isActive ? "#8a1407" : "#241006",
-            textShadow:
-              "0 1px 0 rgba(255,244,200,0.7), 0 0 1px rgba(255,244,200,0.7)",
           }}
         >
-          {loc.name}
-        </span>
-        <span
-          className="marauder-pin-flavour -mt-0.5 whitespace-nowrap font-display italic text-[9px] sm:text-[11px] font-medium"
-          style={{
-            color: "#4a2c10",
-            textShadow: "0 1px 0 rgba(255,244,200,0.5)",
-          }}
-        >
-          {loc.flavour}
+          <span
+            aria-hidden
+            className="marauder-banner-paper absolute inset-0 -z-10"
+          />
+          <span
+            aria-hidden
+            className="marauder-banner-tail marauder-banner-tail-left absolute -left-3 top-1/2 -z-10"
+          />
+          <span
+            aria-hidden
+            className="marauder-banner-tail marauder-banner-tail-right absolute -right-3 top-1/2 -z-10"
+          />
+          <span
+            className="marauder-pin-name whitespace-nowrap font-hp leading-none"
+            style={{
+              fontSize: "clamp(0.95rem, 2.25vw, 1.38rem)",
+              textShadow:
+                "0 1px 0 rgba(255,244,200,0.78), 0 0 1px rgba(255,244,200,0.7)",
+            }}
+          >
+            {loc.name}
+          </span>
+          <span
+            className="marauder-pin-flavour -mt-0.5 whitespace-nowrap font-display italic text-[8px] sm:text-[10px] font-medium"
+            style={{
+              color: "#4a2c10",
+              textShadow: "0 1px 0 rgba(255,244,200,0.5)",
+            }}
+          >
+            {loc.flavour}
+          </span>
         </span>
       </motion.span>
       <style jsx global>{`
         @keyframes pin-pulse {
           0%, 100% { opacity: 0.7; transform: translate(-50%, -50%) scale(1); }
           50% { opacity: 1; transform: translate(-50%, -50%) scale(1.18); }
+        }
+        .marauder-pin-banner {
+          isolation: isolate;
+          filter: drop-shadow(0 1px 1px rgba(63, 35, 10, 0.22));
+        }
+        .marauder-banner-paper {
+          border: 1px solid rgba(82, 48, 16, 0.32);
+          border-radius: 43% 57% 48% 52% / 34% 42% 58% 66%;
+          background:
+            radial-gradient(circle at 18% 20%, rgba(255, 245, 190, 0.34), transparent 34%),
+            linear-gradient(105deg, rgba(132, 78, 27, 0.32), transparent 18%),
+            linear-gradient(180deg, rgba(239, 210, 137, 0.82), rgba(186, 126, 48, 0.24));
+          box-shadow:
+            inset 0 0 10px rgba(92, 52, 16, 0.18),
+            inset 0 -5px 8px rgba(82, 44, 14, 0.12);
+          transform: rotate(-1.2deg) skewX(-2deg);
+        }
+        .marauder-banner-tail {
+          width: 1.35rem;
+          height: 1.15rem;
+          border: 1px solid rgba(82, 48, 16, 0.3);
+          background:
+            linear-gradient(150deg, rgba(112, 62, 18, 0.36), rgba(219, 181, 102, 0.64));
+          transform: translateY(-50%) rotate(-8deg);
+          box-shadow: inset 0 0 8px rgba(65, 35, 10, 0.18);
+        }
+        .marauder-banner-tail-left {
+          border-radius: 70% 25% 55% 40%;
+          clip-path: polygon(0 48%, 28% 0, 100% 16%, 82% 86%, 24% 100%);
+        }
+        .marauder-banner-tail-right {
+          border-radius: 25% 70% 40% 55%;
+          clip-path: polygon(0 16%, 72% 0, 100% 48%, 76% 100%, 18% 86%);
+          transform: translateY(-50%) rotate(8deg);
         }
         @media (max-width: 639px) {
           .marauder-pin {
@@ -747,6 +803,10 @@ function Pin({
           }
           .marauder-pin-stack {
             filter: drop-shadow(0 1px 0 rgba(255, 242, 194, 0.6));
+          }
+          .marauder-pin-banner {
+            min-width: 3.9rem;
+            padding: 0.25rem 0.55rem 0.35rem;
           }
           .marauder-pin-glyph {
             display: flex;
@@ -763,7 +823,7 @@ function Pin({
             overflow: visible;
           }
           .marauder-pin-name {
-            font-size: clamp(0.7rem, 3.35vw, 0.9rem) !important;
+            font-size: clamp(0.64rem, 3.05vw, 0.82rem) !important;
             font-weight: 800;
             letter-spacing: 0;
             line-height: 1.05;
