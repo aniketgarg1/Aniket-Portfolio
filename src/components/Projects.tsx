@@ -140,7 +140,7 @@ function FeaturedProject({
             “{project.incantation}”
           </div>
         )}
-        <div className="mt-5 card p-5 sm:p-6 text-[14.5px] text-foreground/92 leading-relaxed">
+        <div className="mt-5 card p-5 sm:p-6 text-[15px] text-foreground/96 leading-relaxed">
           {project.description}
         </div>
         <div className="mt-5 flex flex-wrap gap-1.5">
@@ -252,7 +252,7 @@ function CompactCard({
           <div className="mt-0.5 text-xs text-foreground/80">{project.period}</div>
         )}
       </div>
-      <p className="mt-2 text-sm text-foreground/88 leading-relaxed flex-1">
+      <p className="mt-2 text-[14.5px] text-foreground/95 leading-relaxed flex-1">
         {project.description}
       </p>
 

@@ -675,7 +675,19 @@ function Pin({
       className="marauder-pin group absolute -translate-x-1/2 -translate-y-1/2 outline-none"
       style={{ left: `${loc.pinX ?? loc.x}%`, top: `${loc.pinY ?? loc.y}%` }}
     >
-      <span className="marauder-pin-stack relative flex flex-col items-center">
+      <motion.span
+        className="marauder-pin-stack relative flex flex-col items-center"
+        animate={{
+          y: [0, -4, 0, 3, 0],
+          rotate: [0, index % 2 === 0 ? -0.8 : 0.8, 0],
+        }}
+        transition={{
+          delay: 1.2 + index * 0.22,
+          duration: 4.8 + (index % 3) * 0.45,
+          ease: "easeInOut",
+          repeat: Infinity,
+        }}
+      >
         <span
           className="marauder-pin-glyph relative transition-colors"
           style={{ color: isActive ? "#7a1a08" : "#3a2410" }}
@@ -722,7 +734,7 @@ function Pin({
         >
           {loc.flavour}
         </span>
-      </span>
+      </motion.span>
       <style jsx global>{`
         @keyframes pin-pulse {
           0%, 100% { opacity: 0.7; transform: translate(-50%, -50%) scale(1); }

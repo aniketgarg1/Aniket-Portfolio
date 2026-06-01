@@ -249,20 +249,29 @@
   opacity: 0 !important;
 }
 
-/* Ink bleeding into parchment as the diary writes. */
-@keyframes ink-in {
+/* Ink bleeding into parchment as a whole page, without soft/blurry lettering. */
+.diary-ink-sheet {
+  opacity: 0;
+  text-shadow: 0 0 0.4px rgba(42, 26, 12, 0.35);
+  animation: diary-sheet-reveal 2.2s ease-out forwards;
+}
+
+@keyframes diary-sheet-reveal {
   0% {
     opacity: 0;
-    filter: blur(2.5px);
+    filter: saturate(0.6);
+    clip-path: inset(0 0 100% 0);
+  }
+  32% {
+    opacity: 0.38;
+    filter: saturate(0.8);
+    clip-path: inset(0 0 58% 0);
   }
   100% {
     opacity: 1;
-    filter: blur(0);
+    filter: saturate(1);
+    clip-path: inset(0 0 0 0);
   }
-}
-.ink-bleed {
-  animation: ink-in 0.7s ease-out both;
-  text-shadow: 0 0 1px rgba(42, 26, 12, 0.35);
 }
 
 /* Diary parchment scrollbar — subtle, sepia-toned. */

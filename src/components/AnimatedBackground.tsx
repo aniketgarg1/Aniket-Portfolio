@@ -13,7 +13,20 @@ import { useEffect, useRef } from "react";
  */
 export default function AnimatedBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const printTrail = Array.from({ length: 18 }, (_, i) => i);
+  const printTrail = [
+    { left: 5, top: 18, flip: false, large: true, delay: 0 },
+    { left: 9, top: 33, flip: true, delay: 0.55 },
+    { left: 4, top: 50, flip: false, delay: 1.1 },
+    { left: 12, top: 69, flip: true, large: true, delay: 1.65 },
+    { left: 94, top: 16, flip: true, large: true, delay: 2.2 },
+    { left: 89, top: 31, flip: false, delay: 2.75 },
+    { left: 96, top: 48, flip: true, delay: 3.3 },
+    { left: 88, top: 67, flip: false, large: true, delay: 3.85 },
+    { left: 24, top: 91, flip: false, delay: 4.4 },
+    { left: 39, top: 94, flip: true, delay: 4.95 },
+    { left: 62, top: 92, flip: false, delay: 5.5 },
+    { left: 77, top: 95, flip: true, delay: 6.05 },
+  ];
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -115,26 +128,19 @@ export default function AnimatedBackground() {
 
       {/* Animated Marauder footprints (light theme only) */}
       <div className="absolute inset-0 opacity-0 transition-opacity duration-500 [.light_&]:opacity-100">
-        {printTrail.map((i) => {
-          const column = i % 6;
-          const row = Math.floor(i / 6);
-          const left = column * 18 + 7 + (row % 2) * 8;
-          const top = row * 30 + 13 + (column % 2) * 5;
-          const flip = i % 2 === 1;
-          const delay = i * 0.55;
-
+        {printTrail.map((step, i) => {
           return (
             <span
               key={i}
               className="absolute opacity-0"
               style={{
-                left: `${left}%`,
-                top: `${top}%`,
-                transform: `rotate(${flip ? 14 : -14}deg)`,
-                animation: `light-footprint-fade 8s ease-in-out ${delay}s infinite`,
+                left: `${step.left}%`,
+                top: `${step.top}%`,
+                transform: `rotate(${step.flip ? 14 : -14}deg)`,
+                animation: `light-footprint-fade 9s ease-in-out ${step.delay}s infinite`,
               }}
             >
-              <BackgroundFootprint flip={flip} large={i % 5 === 1} />
+              <BackgroundFootprint flip={step.flip} large={step.large} />
             </span>
           );
         })}
@@ -153,7 +159,7 @@ export default function AnimatedBackground() {
             transform: translateY(6px) scale(0.96);
           }
           16%, 58% {
-            opacity: 0.34;
+            opacity: 0.28;
             transform: translateY(0) scale(1);
           }
           78% {
@@ -176,8 +182,8 @@ function BackgroundFootprint({
   const width = large ? 58 : 22;
   const height = large ? 74 : 28;
   const fill = large
-    ? "rgb(99 58 24 / 0.13)"
-    : "rgb(var(--accent) / 0.54)";
+    ? "rgb(99 58 24 / 0.18)"
+    : "rgb(112 12 5 / 0.48)";
 
   return (
     <svg

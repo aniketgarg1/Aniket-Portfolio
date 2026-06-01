@@ -224,21 +224,21 @@ function ExperienceCard({ exp }: { exp: Exp }) {
     <>
       <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
         <div className="min-w-0">
-          <h4 className="font-display text-lg sm:text-xl font-semibold text-foreground leading-snug">
+          <h4 className="font-display text-xl sm:text-2xl font-semibold text-foreground leading-snug">
             {exp.role}
           </h4>
-          <div className="mt-1 text-[14.5px] text-foreground/95">
+          <div className="mt-1 text-[15px] text-foreground/98">
             <span className="font-medium">{exp.company}</span>
             <span className="text-foreground/30 mx-1.5">·</span>
-            <span className="text-foreground/90">{exp.employmentType}</span>
+            <span className="text-foreground/94">{exp.employmentType}</span>
           </div>
         </div>
-        <div className="text-[12.5px] font-mono text-foreground/86 whitespace-nowrap">
+        <div className="text-[13px] font-mono text-foreground/90 whitespace-nowrap">
           {exp.period}
         </div>
       </div>
 
-      <div className="mt-2.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-[13px] text-foreground/88">
+      <div className="mt-2.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-[13.5px] text-foreground/92">
         <span className="inline-flex items-center gap-1">
           <MapPin className="h-3 w-3" />
           {exp.location}
@@ -247,7 +247,7 @@ function ExperienceCard({ exp }: { exp: Exp }) {
         <WorkModeBadge mode={exp.workMode} />
       </div>
 
-      <ul className="mt-4 space-y-2.5 text-[14.5px] text-foreground/96 leading-relaxed">
+      <ul className="mt-4 space-y-2.5 text-[15.5px] text-foreground/98 leading-relaxed">
         {exp.bullets.map((b, i) => (
           <li key={i} className="flex gap-2.5">
             <span className="text-accent mt-[7px] leading-none text-[8px]">●</span>
@@ -265,7 +265,7 @@ function ExperienceCard({ exp }: { exp: Exp }) {
             {exp.skills.map((s) => (
               <span
                 key={s}
-                className="rounded-md border border-foreground/[0.10] bg-foreground/[0.03] px-2 py-0.5 text-[11.5px] font-mono text-foreground/94"
+                className="rounded-md border border-foreground/[0.10] bg-foreground/[0.03] px-2 py-0.5 text-[12px] font-mono text-foreground/96"
               >
                 {s}
               </span>
@@ -282,22 +282,22 @@ function VolunteerCard({ v }: { v: Volunteer }) {
     <>
       <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
         <div className="min-w-0">
-          <h4 className="font-display text-lg sm:text-xl font-semibold text-foreground leading-snug">
+          <h4 className="font-display text-xl sm:text-2xl font-semibold text-foreground leading-snug">
             {v.role}
           </h4>
-          <div className="mt-1 text-[14.5px] text-foreground/95 font-medium">
+          <div className="mt-1 text-[15px] text-foreground/98 font-medium">
             {v.org}
           </div>
         </div>
-        <div className="text-[12.5px] font-mono text-foreground/86 whitespace-nowrap">
+        <div className="text-[13px] font-mono text-foreground/90 whitespace-nowrap">
           {v.period}
         </div>
       </div>
-      <div className="mt-2.5 inline-flex items-center gap-1 text-[13px] text-foreground/88">
+      <div className="mt-2.5 inline-flex items-center gap-1 text-[13.5px] text-foreground/92">
         <MapPin className="h-3 w-3" />
         {v.location}
       </div>
-      <ul className="mt-4 space-y-2.5 text-[14.5px] text-foreground/96 leading-relaxed">
+      <ul className="mt-4 space-y-2.5 text-[15.5px] text-foreground/98 leading-relaxed">
         {v.bullets.map((b, i) => (
           <li key={i} className="flex gap-2.5">
             <span className="text-accent mt-[7px] leading-none text-[8px]">●</span>
@@ -314,18 +314,18 @@ function EducationCard({ edu }: { edu: Edu }) {
     <>
       <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
         <div className="min-w-0">
-          <h4 className="font-display text-lg sm:text-xl font-semibold text-foreground leading-snug">
+          <h4 className="font-display text-xl sm:text-2xl font-semibold text-foreground leading-snug">
             {edu.school}
           </h4>
-          <div className="mt-1 text-[14.5px] text-foreground/95">
+          <div className="mt-1 text-[15px] text-foreground/98">
             {edu.degree}
           </div>
         </div>
-        <div className="text-[12.5px] font-mono text-foreground/86 whitespace-nowrap">
+        <div className="text-[13px] font-mono text-foreground/90 whitespace-nowrap">
           {edu.period}
         </div>
       </div>
-      <div className="mt-2.5 inline-flex items-center gap-1 text-[13px] text-foreground/88">
+      <div className="mt-2.5 inline-flex items-center gap-1 text-[13.5px] text-foreground/92">
         <MapPin className="h-3 w-3" />
         {edu.location}
       </div>
@@ -350,24 +350,24 @@ function ActivityCard({ a }: { a: Activity }) {
     <>
       <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
         <div className="min-w-0">
-          <h4 className="font-display text-lg sm:text-xl font-semibold text-foreground leading-snug">
+          <h4 className="font-display text-xl sm:text-2xl font-semibold text-foreground leading-snug">
             {a.title}
           </h4>
-          <div className="mt-1 text-[14.5px] text-foreground/95">
+          <div className="mt-1 text-[15px] text-foreground/98">
             <span className="font-medium">{a.org}</span>
             <span className="text-foreground/30 mx-1.5">·</span>
-            <span className="text-foreground/86">{a.role}</span>
+            <span className="text-foreground/92">{a.role}</span>
           </div>
         </div>
-        <div className="text-[12.5px] font-mono text-foreground/86 whitespace-nowrap">
+        <div className="text-[13px] font-mono text-foreground/90 whitespace-nowrap">
           {a.period}
         </div>
       </div>
-      <div className="mt-2.5 inline-flex items-center gap-1 text-[13px] text-foreground/88">
+      <div className="mt-2.5 inline-flex items-center gap-1 text-[13.5px] text-foreground/92">
         <MapPin className="h-3 w-3" />
         {a.location}
       </div>
-      <ul className="mt-4 space-y-2.5 text-[14.5px] text-foreground/96 leading-relaxed">
+      <ul className="mt-4 space-y-2.5 text-[15.5px] text-foreground/98 leading-relaxed">
         {a.bullets.map((b, i) => (
           <li key={i} className="flex gap-2.5">
             <span className="text-accent mt-[7px] leading-none text-[8px]">●</span>

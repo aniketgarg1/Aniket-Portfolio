@@ -20,7 +20,7 @@ export default function About() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.55 }}
-            className="lg:col-span-8 space-y-5 text-[15.5px] sm:text-base text-foreground/90 leading-[1.8]"
+            className="lg:col-span-8 space-y-5 text-[15.5px] sm:text-base text-foreground/96 leading-[1.8]"
           >
             {about.paragraphs.map((p, i) => (
               <p key={i}>{p}</p>
@@ -44,7 +44,7 @@ export default function About() {
                 <Sparkles className="h-3.5 w-3.5" />
                 Currently Brewing
               </div>
-              <div className="relative mt-3 text-sm text-foreground/92 leading-relaxed">
+              <div className="relative mt-3 text-sm text-foreground/96 leading-relaxed">
                 Senior @{" "}
                 <span className="text-foreground font-medium">
                   Arizona State University
