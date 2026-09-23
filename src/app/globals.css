@@ -249,6 +249,18 @@
   opacity: 0 !important;
 }
 
+@media (pointer: coarse), (hover: none), (max-width: 639px) {
+  .wand-active,
+  .wand-active * {
+    cursor: auto !important;
+  }
+
+  .wand-cursor-layer {
+    display: none !important;
+    opacity: 0 !important;
+  }
+}
+
 /* Ink bleeding into parchment as a whole page, without soft/blurry lettering. */
 .diary-ink-sheet {
   opacity: 0;

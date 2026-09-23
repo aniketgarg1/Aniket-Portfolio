@@ -45,12 +45,11 @@ export default function About() {
                 Currently Brewing
               </div>
               <div className="relative mt-3 text-sm text-foreground/96 leading-relaxed">
-                Senior @{" "}
+                M.S. Computer Science student @{" "}
                 <span className="text-foreground font-medium">
                   Arizona State University
                 </span>{" "}
-                in the 4+1 Accelerated B.S. + M.S. CS program, working remotely
-                as Team Lead & Cloud/DevOps Engineer at DigiClips Inc.
+                in the 4+1 Accelerated program, graduating in May 2027.
               </div>
             </div>
 

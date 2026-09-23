@@ -21,13 +21,15 @@ type Location = {
 };
 
 const LOCATIONS: Location[] = [
-  { id: "home", hash: "#home", name: "Home", flavour: "The Great Hall", x: 16, y: 32, pinX: 14, mobileX: 17, mobileY: 47, kind: "hall" },
-  { id: "about", hash: "#about", name: "About", flavour: "Headmaster's Study", x: 35, y: 17, pinX: 31.5, mobileX: 38, mobileY: 26, kind: "tower" },
-  { id: "skills", hash: "#skills", name: "Skills", flavour: "The Library", x: 55, y: 27, mobileX: 57, mobileY: 41, kind: "library" },
-  { id: "experience", hash: "#experience", name: "Experience", flavour: "Quidditch Pitch", x: 37, y: 56, pinX: 32.5, mobileX: 31, mobileY: 74, kind: "pitch" },
-  { id: "projects", hash: "#projects", name: "Projects", flavour: "Room of Requirement", x: 64, y: 60, pinX: 58.5, mobileX: 65, mobileY: 72, kind: "tower" },
-  { id: "contact", hash: "#contact", name: "Contact", flavour: "The Owlery", x: 84, y: 35, mobileX: 78, mobileY: 50, kind: "owlery" },
+  { id: "home", hash: "#home", name: "Home", flavour: "The Great Hall", x: 16, y: 32, pinX: 14, mobileX: 18, mobileY: 39, kind: "hall" },
+  { id: "about", hash: "#about", name: "About", flavour: "Headmaster's Study", x: 35, y: 17, pinX: 31.5, mobileX: 38, mobileY: 25, kind: "tower" },
+  { id: "skills", hash: "#skills", name: "Skills", flavour: "The Library", x: 55, y: 27, mobileX: 56, mobileY: 38, kind: "library" },
+  { id: "experience", hash: "#experience", name: "Experience", flavour: "Quidditch Pitch", x: 37, y: 56, pinX: 32.5, mobileX: 29, mobileY: 62, kind: "pitch" },
+  { id: "projects", hash: "#projects", name: "Projects", flavour: "Room of Requirement", x: 64, y: 60, pinX: 58.5, mobileX: 53, mobileY: 65, kind: "tower" },
+  { id: "contact", hash: "#contact", name: "Contact", flavour: "The Owlery", x: 84, y: 35, mobileX: 68, mobileY: 49, kind: "owlery" },
 ];
+
+const MOBILE_ROUTE_IDS = ["home", "about", "skills", "experience", "projects", "contact"];
 
 const NAV_IDS = LOCATIONS.map((l) => l.id);
 const VB_W = 800;
@@ -243,18 +245,37 @@ function Parchment({
         : LOCATIONS,
     [compactMap]
   );
+  const routeLocations = useMemo(
+    () =>
+      compactMap
+        ? MOBILE_ROUTE_IDS
+            .map((id) => mapLocations.find((loc) => loc.id === id))
+            .map((loc) =>
+              loc
+                ? {
+                    ...loc,
+                    y: Math.max(12, loc.y - 3),
+                  }
+                : loc
+            )
+            .filter(Boolean) as Location[]
+        : mapLocations,
+    [compactMap, mapLocations]
+  );
 
   // Precompute corridor segments + footstep placements along the full tour.
   const { segments, footsteps } = useMemo(() => {
     const segs: { d: string }[] = [];
     const steps: { x: number; y: number; angle: number; order: number }[] = [];
     let order = 0;
-    for (let i = 0; i < mapLocations.length - 1; i++) {
-      const a = px(mapLocations[i]);
-      const b = px(mapLocations[i + 1]);
-      const c = controlFor(a, b, i);
-      segs.push({ d: `M ${a.x} ${a.y} Q ${c.x} ${c.y} ${b.x} ${b.y}` });
-      const N = 6;
+    for (let i = 0; i < routeLocations.length - 1; i++) {
+      const a = px(routeLocations[i]);
+      const b = px(routeLocations[i + 1]);
+      const c = compactMap
+        ? { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 }
+        : controlFor(a, b, i);
+      segs.push({ d: compactMap ? `M ${a.x} ${a.y} L ${b.x} ${b.y}` : `M ${a.x} ${a.y} Q ${c.x} ${c.y} ${b.x} ${b.y}` });
+      const N = compactMap ? 3 : 6;
       for (let s = 1; s <= N; s++) {
         const t = s / (N + 1);
         const x = quad(t, a.x, c.x, b.x);
@@ -266,10 +287,10 @@ function Parchment({
       }
     }
     return { segments: segs, footsteps: steps };
-  }, [mapLocations]);
+  }, [compactMap, routeLocations]);
 
   const totalSteps = footsteps.length;
-  const walkDuration = Math.min(7, totalSteps * 0.22);
+  const walkDuration = totalSteps ? Math.min(7, totalSteps * 0.22) : 0;
 
   return (
     <div
@@ -377,7 +398,7 @@ function Parchment({
       <div className="relative px-3 pb-4 pt-3 sm:px-8 sm:pb-7 sm:pt-2">
         <div
           className="relative w-full"
-          style={{ aspectRatio: compactMap ? "1 / 0.78" : "8 / 5" }}
+          style={{ aspectRatio: compactMap ? "1 / 1.12" : "8 / 5" }}
         >
           <svg
             viewBox={`0 0 ${VB_W} ${VB_H}`}
@@ -426,9 +447,11 @@ function Parchment({
                 d={s.d}
                 fill="none"
                 stroke="#5a3a14"
-                strokeWidth="1.6"
-                strokeDasharray="7 5"
-                opacity="0.6"
+                strokeWidth={compactMap ? "2" : "1.6"}
+                strokeDasharray={compactMap ? "none" : "7 5"}
+                strokeLinecap={compactMap ? "round" : "butt"}
+                strokeLinejoin={compactMap ? "round" : "miter"}
+                opacity={compactMap ? "0.6" : "0.6"}
                 initial={{ pathLength: 0 }}
                 animate={{ pathLength: 1 }}
                 transition={{ delay: 0.6 + i * 0.18, duration: 0.7, ease: "easeInOut" }}
@@ -450,7 +473,11 @@ function Parchment({
 
             {/* continuously walking footsteps */}
             {footsteps.map((f) => (
-              <g key={f.order} transform={`translate(${f.x} ${f.y}) rotate(${f.angle})`}>
+              <g
+                key={f.order}
+                opacity={compactMap ? 0.55 : 1}
+                transform={`translate(${f.x} ${f.y}) rotate(${f.angle}) scale(${compactMap ? 0.86 : 1})`}
+              >
                 <Footprint
                   left={f.order % 2 === 0}
                   delay={(f.order / totalSteps) * walkDuration}
@@ -798,24 +825,33 @@ function Pin({
         }
         @media (max-width: 639px) {
           .marauder-pin {
-            min-width: 3.25rem;
+            min-width: 4.7rem;
             touch-action: manipulation;
           }
           .marauder-pin-stack {
             filter: drop-shadow(0 1px 0 rgba(255, 242, 194, 0.6));
           }
+          .marauder-pin-stack::before {
+            content: "";
+            position: absolute;
+            top: -0.34rem;
+            left: 50%;
+            width: 0.42rem;
+            height: 0.42rem;
+            border-radius: 9999px;
+            background: #6f1408;
+            box-shadow:
+              0 0 0 2px rgba(239, 210, 137, 0.72),
+              0 0 8px rgba(111, 20, 8, 0.55);
+            transform: translateX(-50%);
+            z-index: 2;
+          }
           .marauder-pin-banner {
-            min-width: 3.9rem;
-            padding: 0.25rem 0.55rem 0.35rem;
+            min-width: 4.95rem;
+            padding: 0.36rem 0.62rem 0.42rem;
           }
           .marauder-pin-glyph {
-            display: flex;
-            align-items: flex-end;
-            justify-content: center;
-            width: 1.45rem;
-            height: 1.65rem;
-            margin-bottom: 0.1rem;
-            transform: none;
+            display: none;
           }
           .marauder-pin-glyph > svg {
             width: 100%;
@@ -823,18 +859,46 @@ function Pin({
             overflow: visible;
           }
           .marauder-pin-name {
-            font-size: clamp(0.64rem, 3.05vw, 0.82rem) !important;
+            font-size: clamp(0.92rem, 4.45vw, 1.14rem) !important;
             font-weight: 800;
             letter-spacing: 0;
             line-height: 1.05;
           }
           .marauder-pin-flavour {
-            display: none;
+            display: block;
+            max-width: 5.95rem;
+            white-space: normal !important;
+            font-size: clamp(0.43rem, 2vw, 0.55rem) !important;
+            line-height: 1.02;
+            opacity: 0.9;
           }
           .marauder-pin .h-12,
           .marauder-pin .h-14 {
-            height: 2rem;
-            width: 2rem;
+            height: 1.8rem;
+            width: 1.8rem;
+          }
+          .marauder-banner-paper {
+            display: block;
+            background:
+              radial-gradient(circle at 18% 20%, rgba(255, 245, 190, 0.38), transparent 34%),
+              linear-gradient(105deg, rgba(132, 78, 27, 0.24), transparent 18%),
+              linear-gradient(180deg, rgba(239, 210, 137, 0.88), rgba(186, 126, 48, 0.2));
+            box-shadow:
+              0 2px 7px rgba(70, 42, 12, 0.12),
+              inset 0 0 9px rgba(92, 52, 16, 0.14),
+              inset 0 -4px 7px rgba(82, 44, 14, 0.1);
+          }
+          .marauder-banner-tail {
+            display: block;
+            width: 1.05rem;
+            height: 0.95rem;
+            opacity: 0.72;
+          }
+          .marauder-banner-tail-left {
+            left: -0.55rem;
+          }
+          .marauder-banner-tail-right {
+            right: -0.55rem;
           }
         }
       `}</style>

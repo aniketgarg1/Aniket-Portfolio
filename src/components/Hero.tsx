@@ -72,7 +72,7 @@ export default function Hero() {
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60" />
               <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent" />
             </span>
-            Available for Summer 2026 internships
+            Open to software engineering opportunities
           </span>
           <HouseBadge />
           <PatronusBadge />
@@ -244,12 +244,14 @@ function HeroPortrait() {
 function HouseBadge() {
   return (
     <span
-      className="inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-mono tracking-wider"
+      className="inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-mono font-semibold tracking-wider"
       style={{
-        borderColor: "rgba(211, 166, 37, 0.55)",
+        borderColor: "rgba(211, 166, 37, 0.78)",
         background:
-          "linear-gradient(135deg, rgba(127, 9, 9, 0.55), rgba(110, 30, 0, 0.4))",
-        color: "#f0c75e",
+          "linear-gradient(135deg, rgba(127, 9, 9, 0.92), rgba(92, 24, 4, 0.9))",
+        color: "#ffe28a",
+        boxShadow:
+          "0 8px 20px -14px rgba(80,18,8,0.65), inset 0 0 0 1px rgba(255,224,148,0.18)",
       }}
       title="Their daring, nerve, and chivalry set Gryffindors apart."
     >
@@ -278,24 +280,25 @@ function PatronusBadge() {
       type="button"
       onClick={castPatronus}
       aria-label="Cast Expecto Patronum"
-      className="group inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-mono tracking-wider transition-all"
+      className="group inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-mono font-semibold tracking-wider transition-all"
       style={{
-        borderColor: "rgba(190, 210, 230, 0.35)",
+        borderColor: "rgba(104, 127, 150, 0.62)",
         background:
-          "linear-gradient(135deg, rgba(80, 110, 160, 0.18), rgba(20, 30, 60, 0.35))",
-        color: "#c8d8ee",
-        boxShadow: "0 0 18px rgba(170, 200, 240, 0.10)",
+          "linear-gradient(135deg, rgba(242, 248, 255, 0.92), rgba(168, 188, 210, 0.86))",
+        color: "#17345f",
+        boxShadow:
+          "0 8px 20px -14px rgba(20,45,80,0.48), inset 0 0 0 1px rgba(255,255,255,0.42)",
       }}
       title="Expecto Patronum"
     >
       <StagIcon className="h-3.5 w-3.5 transition-transform duration-500 group-hover:scale-110" />
       <span>
-        Patronus <span className="text-foreground/92">·</span>{" "}
-        <span className="text-white/90">Stag</span>
+        Patronus <span className="text-[#17345f]/80">·</span>{" "}
+        <span className="text-[#0e2748]">Stag</span>
       </span>
       <span
         aria-hidden
-        className="ml-0.5 h-1.5 w-1.5 rounded-full bg-white/80 shadow-[0_0_8px_rgba(255,255,255,0.85)]"
+        className="ml-0.5 h-1.5 w-1.5 rounded-full bg-[#f8fcff] shadow-[0_0_8px_rgba(40,85,140,0.65)]"
       />
     </button>
   );

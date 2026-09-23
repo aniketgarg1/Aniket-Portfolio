@@ -15,7 +15,7 @@ export const profile = {
     "real-time voice agents",
   ],
   tagline:
-    "Computer Science student at Arizona State University (4+1 Accelerated B.S. + M.S.). I lead engineering teams and ship production systems — from multi-agent LLM apps and real-time voice agents to full-stack cloud deployments on AWS.",
+    "M.S. Computer Science student at Arizona State University, continuing through the 4+1 Accelerated program after completing my B.S. in May 2026. I build production systems — from endpoint security tools and multi-agent LLM apps to full-stack cloud deployments on AWS.",
   location: "Tempe, Arizona",
   email: "garganiket27@gmail.com",
   phone: "+1 480 875 7204",
@@ -37,8 +37,8 @@ export const navLinks = [
 
 export const about = {
   paragraphs: [
-    "I'm a senior Computer Science apprentice at Arizona State University, enrolled in the 4+1 Accelerated B.S. + M.S. program (B.S. May 2026, M.S. May 2027). I love brewing things at the intersection of AI, full-stack engineering, and cloud infrastructure — taking ideas from a hackathon napkin all the way to production deployments.",
-    "Most recently I've been Team Lead & Cloud/DevOps Engineer at DigiClips Inc., coordinating the AWS engineering team and shipping CI/CD pipelines end-to-end. Before that I was a Software Engineer Intern at L&T Technology Services in Bangalore, casting Linux-migration spells for a Fortune 500 client.",
+    "I'm an M.S. Computer Science student at Arizona State University in the 4+1 Accelerated program, after completing my B.S. in May 2026 (M.S. expected May 2027). I love brewing things at the intersection of AI, full-stack engineering, cloud infrastructure, and systems security — taking ideas from a hackathon napkin all the way to production deployments.",
+    "Most recently I was a Software Engineer Intern with India's Ministry of Electronics and Information Technology, where I built HIDSentry, a modular Windows endpoint security tool. Previously, I migrated a Fortune 500 client's software from Windows to Linux at L&T Technology Services and delivered DigiClips' AWS deployment and CI/CD pipeline as an ASU capstone project.",
     "Outside the IDE, I'm a hackathon regular (CalHacks, UCLA Build with Gemini, ASU Prompt Engineering), a long-time volunteer with the Isha Foundation, and self-taught on the guitar and harmonium. I'm bilingual in English and Hindi — and yes, the Sorting Hat would absolutely put me in Gryffindor.",
   ],
   stats: [
@@ -65,22 +65,18 @@ export type Experience = {
 
 export const experiences: Experience[] = [
   {
-    role: "Team Lead & Cloud/DevOps Engineer (AWS)",
-    company: "DigiClips Inc.",
-    logo: "/logos/digiclips-logo.png",
-    domain: "digiclips.com",
+    role: "Software Engineer Intern",
+    company: "Ministry of Electronics and Information Technology",
     employmentType: "Internship",
-    workMode: "Remote",
-    location: "Lafayette, CO",
-    period: "Aug 2025 — Present",
-    fallbackColor: "linear-gradient(135deg, #0ea5e9, #6366f1)",
+    workMode: "On-site",
+    location: "New Delhi, India",
+    period: "Jun 2026 — Aug 2026",
+    fallbackColor: "linear-gradient(135deg, #ff9933, #138808)",
     bullets: [
-      "Lead the AWS engineering team — assign roles, set delivery timelines, and coordinate across multiple internal teams to ensure milestones are met on schedule.",
-      "Migrated production from a manual ZIP workflow to a Git-controlled CI/CD pipeline (Bash), automating code sync, build, service restart, and health checks end-to-end.",
-      "Deployed and managed a full-stack Angular + Node.js/Express app on AWS Lightsail; configured Apache reverse proxy and HTTPS routing for secure frontend-backend communication.",
-      "Debugged critical SSL misconfiguration, API routing failures, and VPN-based DB connectivity issues; managed backend services with PM2 ensuring production stability.",
+      "Built HIDSentry, a modular Windows endpoint tool with 2,600+ lines of PowerShell across five zero-dependency modules, inventorying USB/HID devices through WMI and the Plug-and-Play property store, comparing them with an approved baseline, and scoring anomalies with explainable JSON-configured rules.",
+      "Designed a fixture-replay harness that tests hardware-dependent logic with no hardware attached, covering six scenarios and 40+ assertions across device lifecycle, identity persistence after port changes, and scoring correctness.",
     ],
-    skills: ["AWS Lightsail", "Bash", "CI/CD", "Apache", "PM2", "Node.js", "Linux", "Team Leadership"],
+    skills: ["PowerShell", "Windows", "WMI/CIM", "Plug and Play", "Endpoint Security", "Test Automation"],
   },
   {
     role: "Software Engineer Intern",
@@ -306,7 +302,7 @@ export const education: Education[] = [
     logo: "/logos/asu-logo.png",
     domain: "asu.edu",
     degree: "B.S. Computer Science",
-    period: "Aug 2022 — Expected May 2026",
+    period: "Aug 2022 — May 2026",
     location: "Tempe, AZ",
     details: ["Major GPA: 4.0 / 4.0"],
     fallbackColor: "linear-gradient(135deg, #8c1d40, #ffc627)",
@@ -342,6 +338,19 @@ export type Project = {
 };
 
 export const projects: Project[] = [
+  {
+    title: "DigiClips Cloud Deployment & CI/CD Pipeline",
+    subtitle: "ASU Capstone with DigiClips Inc.",
+    period: "Aug 2025 — May 2026",
+    description:
+      "Migrated DigiClips' production deployment from a manual ZIP-based workflow to a Git-controlled system and built a Bash CI/CD pipeline automating code sync, builds, service restarts, and health checks. Deployed the Angular + Node.js/Express application on AWS Lightsail, configured Apache reverse proxy and HTTPS routing, and resolved SSL, API routing, and VPN-based database connectivity issues.",
+    tags: ["Angular", "Node.js", "Express", "AWS Lightsail", "Bash", "CI/CD", "Apache", "HTTPS"],
+    image: "/logos/digiclips-logo.png",
+    imageAlt: "DigiClips logo",
+    highlight: true,
+    spellSchool: "Transfiguration",
+    incantation: "Portus Automata — turn every release into a reliable passage.",
+  },
   {
     title: "LaunchLoop",
     subtitle: "UCLA Build with Gemini Hackathon",
