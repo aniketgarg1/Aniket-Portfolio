@@ -332,6 +332,7 @@ export type Project = {
   github?: string;
   demo?: string;
   devpost?: string;
+  recent?: boolean;
   highlight?: boolean;
   spellSchool?: SpellSchool;
   /** A short, fun "incantation" tagline shown under the title on featured cards */
@@ -349,6 +350,7 @@ export const projects: Project[] = [
     github: "https://lnkd.in/eNui6e_H",
     demo: "https://lnkd.in/e2YA-sX7",
     devpost: "https://devpost.com/software/cropscout",
+    recent: true,
     spellSchool: "Transfiguration",
   },
   {
@@ -361,6 +363,7 @@ export const projects: Project[] = [
     github: "https://github.com/akashjainn/dispel",
     demo: "https://hocuspocus.tech",
     devpost: "https://devpost.com/software/hocuspocus",
+    recent: true,
     spellSchool: "Legilimency",
   },
   {

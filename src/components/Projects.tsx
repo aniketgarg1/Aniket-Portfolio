@@ -11,8 +11,9 @@ import {
 } from "@/data/content";
 
 export default function Projects() {
+  const recent = projects.filter((p) => p.recent);
   const featured = projects.filter((p) => p.highlight);
-  const rest = projects.filter((p) => !p.highlight);
+  const rest = projects.filter((p) => !p.recent && !p.highlight);
 
   return (
     <section id="projects" className="relative py-14 sm:py-20">
@@ -23,8 +24,21 @@ export default function Projects() {
           description="Hackathon wins, side quests, and full-stack systems — each one brewed from idea to deployment, often well past midnight."
         />
 
+        {recent.length > 0 && (
+          <div className="mt-14">
+            <h3 className="font-display text-xl font-semibold text-foreground">
+              Latest projects
+            </h3>
+            <div className="mt-6 grid sm:grid-cols-2 gap-4">
+              {recent.map((p, i) => (
+                <CompactCard key={p.title} project={p} index={i} />
+              ))}
+            </div>
+          </div>
+        )}
+
         {/* Featured */}
-        <div className="mt-14 space-y-20 sm:space-y-24">
+        <div className="mt-20 space-y-20 sm:space-y-24">
           {featured.map((p, i) => (
             <FeaturedProject key={p.title} project={p} index={i} />
           ))}
