@@ -331,6 +331,7 @@ export type Project = {
   imageAlt?: string;
   github?: string;
   demo?: string;
+  devpost?: string;
   highlight?: boolean;
   spellSchool?: SpellSchool;
   /** A short, fun "incantation" tagline shown under the title on featured cards */
@@ -338,6 +339,30 @@ export type Project = {
 };
 
 export const projects: Project[] = [
+  {
+    title: "CropSCOUT",
+    subtitle: "HackHarvard 2026 · ASUS Sustainability: Save the Earth winner",
+    period: "Oct 2026",
+    description:
+      "Physical-AI precision-spraying concept for greenhouse tomatoes. Our team designed a tracked rover and spray hardware in SolidWorks, then brought the CAD design into a MuJoCo greenhouse digital twin. A phone-camera browser app runs tomato-leaf disease screening on-device, estimates targeted spraying for affected plants, and shows mission-control and IoT telemetry. In our browser tests, live screening matched photo-mode results on 22 of 22 images. Built with Asadbek Ruziev, Sam Kholmuminov, and Farzona Izatullaeva.",
+    tags: ["SolidWorks", "MuJoCo", "YOLO", "ONNX", "Browser AI", "Robotics", "IoT"],
+    github: "https://lnkd.in/eNui6e_H",
+    demo: "https://lnkd.in/e2YA-sX7",
+    devpost: "https://devpost.com/software/cropscout",
+    spellSchool: "Transfiguration",
+  },
+  {
+    title: "HocusPocus",
+    subtitle: "HackGT 13 · NSA HEARSAY challenge",
+    period: "Sep 2026",
+    description:
+      "macOS prototype that, with permission, captures call audio and checks up to three four-second windows for likely synthetic speech. Built with Electron, Swift, FastAPI on Vultr, and a fine-tuned XLS-R 300M model. After removing forensic models that learned microphone and dataset shortcuts and diversifying training data, our NSA challenge minDCF fell from 0.258 to 0.1027 (60%); on 6,567 unseen-speaker In-the-Wild clips it reached 0.50% equal-error rate. Its verdict is a prompt to verify, not proof. Built with Akash Jain, David Popescu, and Israel Jauregui.",
+    tags: ["Electron", "Swift", "FastAPI", "Vultr", "XLS-R", "Speech AI", "macOS"],
+    github: "https://github.com/akashjainn/dispel",
+    demo: "https://hocuspocus.tech",
+    devpost: "https://devpost.com/software/hocuspocus",
+    spellSchool: "Legilimency",
+  },
   {
     title: "DigiClips Cloud Deployment & CI/CD Pipeline",
     subtitle: "ASU Capstone with DigiClips Inc.",

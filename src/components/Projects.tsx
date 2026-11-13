@@ -34,7 +34,7 @@ export default function Projects() {
         {rest.length > 0 && (
           <div className="mt-20">
             <h3 className="font-display text-xl font-semibold text-foreground">
-              From the lesser-known chapters
+              More from the spellbook
             </h3>
             <div className="mt-6 grid sm:grid-cols-2 gap-4">
               {rest.map((p, i) => (
@@ -174,6 +174,16 @@ function FeaturedProject({
               Live demo <ArrowUpRight className="h-3.5 w-3.5" />
             </a>
           )}
+          {project.devpost && (
+            <a
+              href={project.devpost}
+              target="_blank"
+              rel="noreferrer noopener"
+              className="inline-flex items-center gap-1.5 text-foreground/90 hover:text-accent transition-colors"
+            >
+              Devpost <ArrowUpRight className="h-3.5 w-3.5" />
+            </a>
+          )}
         </div>
       </div>
     </motion.article>
@@ -226,6 +236,17 @@ function CompactCard({
               target="_blank"
               rel="noreferrer noopener"
               aria-label="Live demo"
+              className="hover:text-foreground transition-colors"
+            >
+              <ArrowUpRight className="h-4 w-4" />
+            </a>
+          )}
+          {project.devpost && (
+            <a
+              href={project.devpost}
+              target="_blank"
+              rel="noreferrer noopener"
+              aria-label={`${project.title} on Devpost`}
               className="hover:text-foreground transition-colors"
             >
               <ArrowUpRight className="h-4 w-4" />
